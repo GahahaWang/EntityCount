@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "entitycount",
+  "version": "${version}",
+  "name": "EntityCount",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/entitycount/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.gahaha.entitycount.client.EntityCountClient"
+    ],
+    "modmenu" : [
+      "com.gahaha.entitycount.client.config.CallConfig"
+    ]
+  },
+
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
