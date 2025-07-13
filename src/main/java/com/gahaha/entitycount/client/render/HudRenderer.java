@@ -34,29 +34,31 @@ public class HudRenderer implements HudLayerRegistrationCallback {
         renderDefault(context, EntityListFilter.getProcessedList(entityCountMap));
     }
     public static void renderDefault(DrawContext context, List<Map.Entry<String, Integer>> entryList) {
-        int tmpx = (int)(ConfigManager.x / ConfigManager.scale);
-        int tmpy = (int)(ConfigManager.y / ConfigManager.scale);
+        float scale = ConfigManager.getScale()/10;
+        int tmpx = (int)(ConfigManager.getX()*MinecraftClient.getInstance().getWindow().getScaledWidth() / scale);
+        int tmpy = (int)(ConfigManager.getY()*MinecraftClient.getInstance().getWindow().getScaledHeight() / scale);
 
 
         // 取得 MatrixStack 並進行縮放
         context.getMatrices().push();
-        context.getMatrices().scale(ConfigManager.scale, ConfigManager.scale, 1.0F);
+        context.getMatrices().scale(scale, scale, 1.0F);
 
 
-        context.fill(tmpx- 3, tmpy - 3 ,tmpx + 70, tmpy + (11*entryList.size()), ConfigManager.backgroundColor);
+        context.fill(tmpx, tmpy ,tmpx + 70, tmpy + (11*entryList.size()), ConfigManager.getBackgroundColor());
 
         for (Map.Entry<String, Integer> entry : entryList) {
             String displayText = entry.getKey() + ": " + entry.getValue();
             context.drawText(
                     MinecraftClient.getInstance().textRenderer,
                     Text.literal(displayText),
-                    tmpx,
-                    tmpy,
-                    ConfigManager.textColor,
+                    tmpx + 3,
+                    tmpy + 3,
+                    ConfigManager.getTextColor(),
                     false
             );
             tmpy += (int)(11); // 每列向下移動一點
         }
+        int a = ConfigManager.Default.textColor;
         context.getMatrices().pop();
     }
 }
