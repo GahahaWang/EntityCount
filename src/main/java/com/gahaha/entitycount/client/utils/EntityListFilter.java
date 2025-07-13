@@ -12,14 +12,13 @@ public class EntityListFilter {
         List<Map.Entry<String, Integer>> sortedList = sourceMap.entrySet().stream()
                 .sorted((a, b) -> b.getValue().compareTo(a.getValue()))
                 // threshold >= 0 時，僅保留 value >= threshold
-                .filter(e -> ConfigManager.threshold < 0 || e.getValue() >= ConfigManager.threshold)
+                .filter(e -> ConfigManager.getThreshold() < 0 || e.getValue() >= ConfigManager.getThreshold())
                 .toList();
 
         // 若有設定 maxListLength
-        if (ConfigManager.maxListLength > 0 && sortedList.size() > ConfigManager.maxListLength) {
-            return new ArrayList<>(sortedList.subList(0, ConfigManager.maxListLength));
+        if (ConfigManager.getMaxListLength() > 0 && sortedList.size() > ConfigManager.getMaxListLength()) {
+            return new ArrayList<>(sortedList.subList(0, ConfigManager.getMaxListLength()));
         }
-
         return new ArrayList<>(sortedList);
     }
 }

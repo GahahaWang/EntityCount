@@ -9,6 +9,6 @@ public class MainSwitch {
         if (client.player == null || client.world == null) return false;
         if (client.getDebugHud().shouldShowDebugHud()) return false;
         if (client.isPaused()) return false;
-        return ConfigManager.showEntitiesCount;
+        return ConfigManager.getShowEntitiesCount();
     }
 }
