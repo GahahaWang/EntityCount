@@ -1,5 +1,6 @@
 package com.gahaha.entitycount.client.event;
 
+import com.gahaha.entitycount.client.config.ConfigManager;
 import com.gahaha.entitycount.client.utils.MainSwitch;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -28,11 +29,20 @@ public class CountEntityEvent implements ClientTickEvents.EndTick{
         if (!MainSwitch.canComputeAndRender()) return;
         updateEntityCount(client);
     }
+    
     private void updateEntityCount(MinecraftClient client) {
         if (client.player == null || client.world == null) return;
         Iterable<Entity> entities = client.world.getEntities();
         Map<String, Integer> countMap = new HashMap<>();
+        
+        String mode = ConfigManager.getMode();
+        
         for (Entity entity : entities) {
+            // 根據模式過濾實體
+            if ("Living".equals(mode) && !(entity.isLiving())) {
+                continue; // 跳過非生物實體
+            }
+            
             String className = Text.translatable(entity.getType().getTranslationKey()).getString();
             countMap.put(className, countMap.getOrDefault(className, 0) + 1);
         }

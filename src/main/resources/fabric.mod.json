@@ -3,8 +3,8 @@
   "id": "entitycount",
   "version": "${version}",
   "name": "EntityCount",
-  "description": "",
-  "authors": [],
+  "description": "Count entities in your loaded chunks",
+  "authors": ["Gahaha"],
   "contact": {},
   "license": "MIT",
   "icon": "assets/entitycount/icon.png",
@@ -21,6 +21,6 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
-    "minecraft": "${minecraft_version}"
+    "minecraft": ">=${minecraft_version}"
   }
 }

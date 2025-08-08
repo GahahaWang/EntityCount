@@ -19,6 +19,7 @@ public class ConfigManager {
     private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().create();
     private static final JsonObject configJson = new JsonObject();
     private static boolean showEntitiesCount = true;
+    private static String mode = "All";
     private static float scale = 10.0F;
     private static int textColor = -1;
     private static int backgroundColor = 1065386112;
@@ -29,6 +30,7 @@ public class ConfigManager {
 
     public static final class Default {
         public static final boolean showEntitiesCount = true;
+        public static final String mode = "All";
         public static final float scale = 10.0F;
         public static final int textColor = -1;
         public static final int backgroundColor = 1065386112;
@@ -45,6 +47,16 @@ public class ConfigManager {
     public static void setShowEntitiesCount(boolean showEntitiesCount) {
         ConfigManager.showEntitiesCount = showEntitiesCount;
         configJson.addProperty("showEntitiesCount", showEntitiesCount);
+        writeJson();
+    }
+
+    public static String getMode() {
+        return mode;
+    }
+
+    public static void setMode(String mode) {
+        ConfigManager.mode = mode;
+        configJson.addProperty("mode", mode);
         writeJson();
     }
 
@@ -124,6 +136,7 @@ public class ConfigManager {
 
     public static void reset() {
         setShowEntitiesCount(true);
+        setMode("All");
         setScale(10.0F);
         setTextColor(-1);
         setBackgroundColor(1065386112);
@@ -149,6 +162,10 @@ public class ConfigManager {
                 JsonObject loadedJson = (JsonObject)GSON.fromJson(Files.newBufferedReader(CONFIG_FILE, StandardCharsets.UTF_8), JsonObject.class);
                 if (loadedJson.has("showEntitiesCount")) {
                     setShowEntitiesCount(loadedJson.get("showEntitiesCount").getAsBoolean());
+                }
+
+                if (loadedJson.has("mode")) {
+                    setMode(loadedJson.get("mode").getAsString());
                 }
 
                 if (loadedJson.has("scale")) {
