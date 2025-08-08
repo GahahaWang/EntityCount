@@ -10,6 +10,8 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
@@ -19,7 +21,8 @@ public class ConfigManager {
     private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().create();
     private static final JsonObject configJson = new JsonObject();
     private static boolean showEntitiesCount = true;
-    private static String mode = "All";
+    private static String entityType = "All";
+    private static String listMode = "Blacklist";
     private static float scale = 10.0F;
     private static int textColor = -1;
     private static int backgroundColor = 1065386112;
@@ -27,10 +30,13 @@ public class ConfigManager {
     private static float y = 0.01F;
     private static int maxListLength = -1;
     private static int threshold = -1;
+    private static List<String> whiteList = List.of();
+    private static List<String> blackList = List.of();
 
     public static final class Default {
         public static final boolean showEntitiesCount = true;
-        public static final String mode = "All";
+        public static final String entityType = "All";
+        public static final String listMode = "Blacklist";
         public static final float scale = 10.0F;
         public static final int textColor = -1;
         public static final int backgroundColor = 1065386112;
@@ -38,6 +44,8 @@ public class ConfigManager {
         public static final float y = 0.01F;
         public static final int maxListLength = -1;
         public static final int threshold = -1;
+        public static final List<String> whiteList = List.of();
+        public static final List<String> blackList = List.of();
     }
 
     public static boolean getShowEntitiesCount() {
@@ -50,13 +58,43 @@ public class ConfigManager {
         writeJson();
     }
 
-    public static String getMode() {
-        return mode;
+    public static String getEntityType() {
+        return entityType;
     }
 
-    public static void setMode(String mode) {
-        ConfigManager.mode = mode;
-        configJson.addProperty("mode", mode);
+    public static void setEntityType(String entityType) {
+        ConfigManager.entityType = entityType;
+        configJson.addProperty("entityType", entityType);
+        writeJson();
+    }
+
+    public static String getListMode() {
+        return listMode;
+    }
+
+    public static void setListMode(String listMode) {
+        ConfigManager.listMode = listMode;
+        configJson.addProperty("listMode", listMode);
+        writeJson();
+    }
+
+    public static List<String> getWhiteList() {
+        return whiteList;
+    }
+
+    public static void setWhiteList(List<String> whiteList) {
+        ConfigManager.whiteList = whiteList;
+        configJson.add("whiteList", GSON.toJsonTree(whiteList));
+        writeJson();
+    }
+
+    public static List<String> getBlackList() {
+        return blackList;
+    }
+
+    public static void setBlackList(List<String> blackList) {
+        ConfigManager.blackList = blackList;
+        configJson.add("blackList", GSON.toJsonTree(blackList));
         writeJson();
     }
 
@@ -136,7 +174,10 @@ public class ConfigManager {
 
     public static void reset() {
         setShowEntitiesCount(true);
-        setMode("All");
+        setEntityType("All");
+        setListMode("Blacklist");
+        setWhiteList(List.of());
+        setBlackList(List.of());
         setScale(10.0F);
         setTextColor(-1);
         setBackgroundColor(1065386112);
@@ -164,8 +205,20 @@ public class ConfigManager {
                     setShowEntitiesCount(loadedJson.get("showEntitiesCount").getAsBoolean());
                 }
 
-                if (loadedJson.has("mode")) {
-                    setMode(loadedJson.get("mode").getAsString());
+                if (loadedJson.has("entityType")) {
+                    setEntityType(loadedJson.get("entityType").getAsString());
+                }
+
+                if (loadedJson.has("listMode")) {
+                    setListMode(loadedJson.get("listMode").getAsString());
+                }
+
+                if (loadedJson.has("whiteList")) {
+                    setWhiteList(GSON.fromJson(loadedJson.get("whiteList"), List.class));
+                }
+
+                if (loadedJson.has("blackList")) {
+                    setBlackList(GSON.fromJson(loadedJson.get("blackList"), List.class));
                 }
 
                 if (loadedJson.has("scale")) {
