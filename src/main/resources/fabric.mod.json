@@ -6,7 +6,7 @@
   "description": "Count entities in your loaded chunks",
   "authors": ["Gahaha"],
   "contact": {},
-  "license": "MIT",
+  "license": "All Right Reserved",
   "icon": "assets/entitycount/icon.png",
   "environment": "client",
   "entrypoints": {

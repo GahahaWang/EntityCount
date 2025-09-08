@@ -31,7 +31,7 @@ public class EntityCountConfigScreen extends Screen {
         ga.setDimensionsAndPosition(40, 20, 70, this.height-80);
         this.addDrawableChild(ga);
         //進階設置
-        this.addDrawableChild(ButtonWidget.builder(Text.literal("進階設置"), (b) -> {
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("entitycount.advance"), (b) -> {
             assert this.client != null;
             this.client.setScreen(new ClothConfigIntergration().getModConfigScreenFactory().create(this));
         }).dimensions(10, this.height - 80, 60, 20).build());
@@ -55,7 +55,7 @@ public class EntityCountConfigScreen extends Screen {
         */
 
         // 重設全部
-        this.addDrawableChild(ButtonWidget.builder(Text.literal("重設設定"), (b) -> {
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("entitycount.reset"), (b) -> {
             ConfigManager.reset();
         }).dimensions(this.width / 2 - 100, this.height - 50, 80, 20).build());
 
