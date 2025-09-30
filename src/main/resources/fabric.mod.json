@@ -23,6 +23,7 @@
         "fabricloader": "*",
         "fabric": "*",
         "minecraft": "~${minecraft_version}",
-        "modmenu": "*"
+        "modmenu": "*",
+        "cloth-config": "*"
     }
 }
