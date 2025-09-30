@@ -42,43 +42,11 @@ public class EntityCountConfigScreen extends Screen {
             b.setMessage(ScreenTexts.onOrOff(ConfigManager.getShowEntitiesCount()));
         }).dimensions(10, this.height - 50, 40, 20).build());
 
-        // 縮放
-        /*
-        TextFieldWidget scale = new TextFieldWidget(this.textRenderer, 60, this.height - 50, 20, 20, Text.literal("大小"));
-        scale.setMaxLength(3);
-        scale.setSuggestion("0.1 - 5.0");
-        scale.setText(String.format("%.1f", (ConfigManager.scale)));
-        scale.setChangedListener(s -> {
-            ConfigManager.scale = ParseScale.parseScaleString(s);
-        });
-        this.addDrawableChild(scale);
-        */
-
         // 重設全部
         this.addDrawableChild(ButtonWidget.builder(Text.translatable("entitycount.reset"), (b) -> {
             ConfigManager.reset();
         }).dimensions(this.width / 2 - 100, this.height - 50, 80, 20).build());
 
-        /*
-        // 文字顏色輸入框 (預期格式: #AARRGGBB)
-        TextFieldWidget textColor = new TextFieldWidget(this.textRenderer, this.width / 2 - 10, this.height - 50, 80, 20, Text.literal("文字顏色"));
-        textColor.setMaxLength(9);
-        textColor.setSuggestion("文字顏色 #%08X");
-        textColor.setText(String.format("#%08X", (ConfigManager.getTextColor())));
-        textColor.setChangedListener(s -> {
-            ConfigManager.setTextColor(ParseColor.parseColorARGBString(s));
-        });
-        this.addDrawableChild(textColor);
-
-        // 背景色輸入框 (預期格式: #AARRGGBB)
-        TextFieldWidget backgroundColor = new TextFieldWidget(this.textRenderer, this.width / 2 + 80, this.height - 50, 80, 20, Text.literal("BackgroundColor"));
-        backgroundColor.setMaxLength(9);
-        backgroundColor.setText(String.format("#%08X", ConfigManager.getBackgroundColor()));
-        backgroundColor.setChangedListener(s -> {
-            ConfigManager.setBackgroundColor(ParseColor.parseColorARGBString(s));
-        });
-        this.addDrawableChild(backgroundColor);
-        */
         // 返回按鈕
         this.addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, (b) -> {
             this.close();
@@ -90,10 +58,7 @@ public class EntityCountConfigScreen extends Screen {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         // 背景顯示遊戲畫面，可省略super.render()預設背景
         // 簡易繪製代表 EntityCount 顯示框
-        //context.drawBorder(ConfigManager.x, ConfigManager.y, 100, 50, ConfigManager.textColor);
         super.render(context, mouseX, mouseY, delta);
-        //context.fill(this.width / 2 - 10, this.height - 70,this.width / 2 + 10 , this.height - 50, ConfigManager.getTextColor());
-        //context.fill(this.width / 2 + 80, this.height - 70, this.width / 2 + 100, this.height - 50, ConfigManager.getBackgroundColor());
         HudRenderer.renderDefault(context, defaultMap.entrySet().stream().toList());
     }
 
