@@ -7,9 +7,7 @@ import com.gahaha.entitycount.client.utils.EntityListFilter;
 import com.gahaha.entitycount.client.utils.MainSwitch;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendering.v1.HudLayerRegistrationCallback;
-import net.fabricmc.fabric.api.client.rendering.v1.IdentifiedLayer;
-import net.fabricmc.fabric.api.client.rendering.v1.LayeredDrawerWrapper;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderTickCounter;
@@ -21,15 +19,11 @@ import java.util.List;
 import java.util.Map;
 
 @Environment(EnvType.CLIENT)
-public class HudRenderer implements HudLayerRegistrationCallback {
-    private static final Identifier entityCountLayer = Identifier.of("entitycount", "entitycount-layer");
+public class HudRenderer implements HudRenderCallback {
+    //private static final Identifier entityCountLayer = Identifier.of("entitycount", "entitycount-layer");
 
     @Override
-    public void register(LayeredDrawerWrapper layeredDrawerWrapper) {
-        layeredDrawerWrapper.attachLayerAfter(IdentifiedLayer.SCOREBOARD, entityCountLayer, HudRenderer::render);
-
-    }
-    public static void render (DrawContext context, @Nullable RenderTickCounter tickCounter) {
+    public void onHudRender (DrawContext context, RenderTickCounter tickCounter) {
         if (!MainSwitch.canComputeAndRender()) return;
         renderDefault(context, EntityListFilter.getProcessedList(entityCountMap));
     }
