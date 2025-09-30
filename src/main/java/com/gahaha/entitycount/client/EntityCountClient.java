@@ -12,6 +12,5 @@ public class EntityCountClient implements ClientModInitializer {
     public void onInitializeClient() {
         ClientTickEvents.END_CLIENT_TICK.register(new CountEntityEvent());
         HudLayerRegistrationCallback.EVENT.register(new HudRenderer());
-        //ClientTickEvents.END_CLIENT_TICK.register(new ScaleChangeEvent());
     }
 }
