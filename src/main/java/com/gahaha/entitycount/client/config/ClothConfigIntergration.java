@@ -8,8 +8,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.text.Text;
 
-import java.util.List;
-
 @Environment(EnvType.CLIENT)
 public class ClothConfigIntergration implements ModMenuApi{
     @Override
@@ -60,7 +58,7 @@ public class ClothConfigIntergration implements ModMenuApi{
                             .build()
                     )
                     .addEntry(builder.entryBuilder()
-                            .startFloatField(Text.translatable("entitycount.config.text_scale"), (int)(ConfigManager.getScale()))
+                            .startFloatField(Text.translatable("entitycount.config.text_scale"), (ConfigManager.getScale()))
                             .setDefaultValue(ConfigManager.Default.scale)
                             .setSaveConsumer(ConfigManager::setScale)
                             .setTooltip(Text.translatable("entitycount.config.text_scale.tooltip"))
