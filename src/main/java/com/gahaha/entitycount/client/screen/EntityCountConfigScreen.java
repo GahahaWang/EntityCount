@@ -6,6 +6,7 @@ import com.gahaha.entitycount.client.render.HudRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -63,39 +64,39 @@ public class EntityCountConfigScreen extends Screen {
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (isInsideBox((int)mouseX, (int)mouseY, defaultMap.size())) {
+    public boolean mouseClicked(Click click, boolean doubled) {
+        if (isInsideBox((int)click.x(), (int)click.y(), defaultMap.size())) {
             // 開始拖曳
             this.dragging = true;
             return true;
-        } else if (isInsideCorner((int)mouseX, (int)mouseY)) {
+        } else if (isInsideCorner((int)click.x(), (int)click.y())) {
             // 開始縮放
             this.resizing = true;
             return true;
         }
-        return super.mouseClicked(mouseX, mouseY, button);
+        return super.mouseClicked(click, doubled);
     }
 
     @Override
-    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+    public boolean mouseReleased(Click click) {
         this.dragging = false;
         this.resizing = false;
-        return super.mouseReleased(mouseX, mouseY, button);
+        return super.mouseReleased(click);
     }
 
     @Override
-    public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
+    public boolean mouseDragged(Click click, double offsetX, double offsetY) {
         if (this.dragging) {
-            ConfigManager.setX(ConfigManager.getX() + (float) (deltaX)/MinecraftClient.getInstance().getWindow().getScaledWidth());
-            ConfigManager.setY(ConfigManager.getY() + (float) (deltaY)/MinecraftClient.getInstance().getWindow().getScaledHeight());
+            ConfigManager.setX(ConfigManager.getX() + (float) (offsetX)/MinecraftClient.getInstance().getWindow().getScaledWidth());
+            ConfigManager.setY(ConfigManager.getY() + (float) (offsetY)/MinecraftClient.getInstance().getWindow().getScaledHeight());
             return true;
         } else if (this.resizing) {
             // 調整縮放倍數的簡易示範
-            ConfigManager.setScale(ConfigManager.getScale() + (float) deltaX * 0.1f);
+            ConfigManager.setScale(ConfigManager.getScale() + (float) offsetX * 0.1f);
             if (ConfigManager.getScale() < 1.0f) ConfigManager.setScale(10.0f);
             return true;
         }
-        return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
+        return super.mouseDragged(click, offsetX, offsetY);
     }
 
     private boolean isInsideBox(int mx, int my, int mapSize) {

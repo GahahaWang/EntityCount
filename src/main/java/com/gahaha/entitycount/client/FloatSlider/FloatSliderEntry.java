@@ -17,12 +17,14 @@ import me.shedaniel.clothconfig2.gui.entries.TooltipListEntry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.SliderWidget;
+import net.minecraft.client.input.KeyInput;
 import net.minecraft.client.util.Window;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
@@ -160,12 +162,12 @@ public class FloatSliderEntry extends TooltipListEntry<Float> {
             FloatSliderEntry.this.value.set((float)((double)FloatSliderEntry.this.minimum + (double)Math.abs(FloatSliderEntry.this.maximum - FloatSliderEntry.this.minimum) * this.value));
         }
 
-        public boolean keyPressed(int int_1, int int_2, int int_3) {
-            return !FloatSliderEntry.this.isEditable() ? false : super.keyPressed(int_1, int_2, int_3);
+        public boolean keyPressed(KeyInput input) {
+            return FloatSliderEntry.this.isEditable() && super.keyPressed(input);
         }
 
-        public boolean mouseDragged(double double_1, double double_2, int int_1, double double_3, double double_4) {
-            return !FloatSliderEntry.this.isEditable() ? false : super.mouseDragged(double_1, double_2, int_1, double_3, double_4);
+        public boolean mouseDragged(Click click, double offsetX, double offsetY) {
+            return FloatSliderEntry.this.isEditable() && super.mouseDragged(click, offsetX, offsetY);
         }
 
         public double getProgress() {
