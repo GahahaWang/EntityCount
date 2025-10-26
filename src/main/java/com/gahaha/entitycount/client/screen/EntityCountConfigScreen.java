@@ -38,9 +38,9 @@ public class EntityCountConfigScreen extends Screen {
         }).dimensions(10, this.height - 80, 60, 20).build());
 
         // 開關按鈕
-        this.addDrawableChild(ButtonWidget.builder(ScreenTexts.onOrOff(ConfigManager.getShowEntitiesCount()), (b) -> {
-            ConfigManager.setShowEntitiesCount(!ConfigManager.getShowEntitiesCount());
-            b.setMessage(ScreenTexts.onOrOff(ConfigManager.getShowEntitiesCount()));
+        this.addDrawableChild(ButtonWidget.builder(ScreenTexts.onOrOff(ConfigManager.isShowEntitiesCount()), (b) -> {
+            ConfigManager.setShowEntitiesCount(!ConfigManager.isShowEntitiesCount());
+            b.setMessage(ScreenTexts.onOrOff(ConfigManager.isShowEntitiesCount()));
         }).dimensions(10, this.height - 50, 40, 20).build());
 
         // 重設全部
