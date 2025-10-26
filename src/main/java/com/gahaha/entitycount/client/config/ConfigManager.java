@@ -7,30 +7,45 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import lombok.Getter;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Environment(EnvType.CLIENT)
 public class ConfigManager {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConfigManager.class);
     private static final Path CONFIG_FILE = Paths.get("config", "entitycount.json");
     private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().create();
     private static final JsonObject configJson = new JsonObject();
+    @Getter
     private static boolean showEntitiesCount = true;
+    @Getter
     private static String entityType = "All";
+    @Getter
     private static String listMode = "Blacklist";
+    @Getter
     private static float scale = 10.0F;
+    @Getter
     private static int textColor = -1;
+    @Getter
     private static int backgroundColor = 1065386112;
+    @Getter
     private static float x = 0.01F;
+    @Getter
     private static float y = 0.01F;
+    @Getter
     private static int maxListLength = -1;
+    @Getter
     private static int threshold = -1;
+    @Getter
     private static List<String> whiteList = List.of();
+    @Getter
     private static List<String> blackList = List.of();
 
     public static final class Default {
@@ -48,18 +63,10 @@ public class ConfigManager {
         public static final List<String> blackList = List.of();
     }
 
-    public static boolean getShowEntitiesCount() {
-        return showEntitiesCount;
-    }
-
     public static void setShowEntitiesCount(boolean showEntitiesCount) {
         ConfigManager.showEntitiesCount = showEntitiesCount;
         configJson.addProperty("showEntitiesCount", showEntitiesCount);
         writeJson();
-    }
-
-    public static String getEntityType() {
-        return entityType;
     }
 
     public static void setEntityType(String entityType) {
@@ -68,18 +75,10 @@ public class ConfigManager {
         writeJson();
     }
 
-    public static String getListMode() {
-        return listMode;
-    }
-
     public static void setListMode(String listMode) {
         ConfigManager.listMode = listMode;
         configJson.addProperty("listMode", listMode);
         writeJson();
-    }
-
-    public static List<String> getWhiteList() {
-        return whiteList;
     }
 
     public static void setWhiteList(List<String> whiteList) {
@@ -88,18 +87,10 @@ public class ConfigManager {
         writeJson();
     }
 
-    public static List<String> getBlackList() {
-        return blackList;
-    }
-
     public static void setBlackList(List<String> blackList) {
         ConfigManager.blackList = blackList;
         configJson.add("blackList", GSON.toJsonTree(blackList));
         writeJson();
-    }
-
-    public static float getScale() {
-        return scale;
     }
 
     public static void setScale(float scale) {
@@ -108,28 +99,16 @@ public class ConfigManager {
         writeJson();
     }
 
-    public static int getTextColor() {
-        return textColor;
-    }
-
     public static void setTextColor(int textColor) {
         ConfigManager.textColor = textColor;
         configJson.addProperty("textColor", textColor);
         writeJson();
     }
 
-    public static int getBackgroundColor() {
-        return backgroundColor;
-    }
-
     public static void setBackgroundColor(int backgroundColor) {
         ConfigManager.backgroundColor = backgroundColor;
         configJson.addProperty("backgroundColor", backgroundColor);
         writeJson();
-    }
-
-    public static float getX() {
-        return x;
     }
 
     public static void setX(float x) {
@@ -140,10 +119,6 @@ public class ConfigManager {
         writeJson();
     }
 
-    public static float getY() {
-        return y;
-    }
-
     public static void setY(float y) {
         y = Math.max(0.0F, y);
         y = Math.min(1.0F, y);
@@ -152,18 +127,10 @@ public class ConfigManager {
         writeJson();
     }
 
-    public static int getMaxListLength() {
-        return maxListLength;
-    }
-
     public static void setMaxListLength(int maxListLength) {
         ConfigManager.maxListLength = maxListLength;
         configJson.addProperty("maxListLength", maxListLength);
         writeJson();
-    }
-
-    public static int getThreshold() {
-        return threshold;
     }
 
     public static void setThreshold(int threshold) {
@@ -173,87 +140,61 @@ public class ConfigManager {
     }
 
     public static void reset() {
-        setShowEntitiesCount(true);
-        setEntityType("All");
-        setListMode("Blacklist");
-        setWhiteList(List.of());
-        setBlackList(List.of());
-        setScale(10.0F);
-        setTextColor(-1);
-        setBackgroundColor(1065386112);
-        setX(0.01F);
-        setY(0.01F);
-        setMaxListLength(-1);
-        setThreshold(-1);
+        setShowEntitiesCount(Default.showEntitiesCount);
+        setEntityType(Default.entityType);
+        setListMode(Default.listMode);
+        setWhiteList(Default.whiteList);
+        setBlackList(Default.blackList);
+        setScale(Default.scale);
+        setTextColor(Default.textColor);
+        setBackgroundColor(Default.backgroundColor);
+        setX(Default.x);
+        setY(Default.y);
+        setMaxListLength(Default.maxListLength);
+        setThreshold(Default.threshold);
     }
 
     public static void init() {
-        if (Files.exists(CONFIG_FILE, new LinkOption[0])) {
+        if (Files.exists(CONFIG_FILE)) {
             load();
         } else {
             reset();
             writeJson();
         }
+    }
 
+    @FunctionalInterface
+    private interface ConfigParser<T> {
+        T parse(JsonObject json) throws Exception;
+    }
+    private static <T> void parseConfigValue(JsonObject json, ConfigParser<T> parser, java.util.function.Consumer<T> setter, T defaultValue) {
+        try {
+            setter.accept(parser.parse(json));
+        } catch (Exception e) {
+            setter.accept(defaultValue);
+            LOGGER.error("Failed to parse config value, using default", e);
+        }
     }
 
     public static void load() {
         try {
-            if (Files.exists(CONFIG_FILE, new LinkOption[0])) {
-                JsonObject loadedJson = (JsonObject)GSON.fromJson(Files.newBufferedReader(CONFIG_FILE, StandardCharsets.UTF_8), JsonObject.class);
-                if (loadedJson.has("showEntitiesCount")) {
-                    setShowEntitiesCount(loadedJson.get("showEntitiesCount").getAsBoolean());
-                }
+            JsonObject loadedJson = (JsonObject)GSON.fromJson(Files.newBufferedReader(CONFIG_FILE, StandardCharsets.UTF_8), JsonObject.class);
 
-                if (loadedJson.has("entityType")) {
-                    setEntityType(loadedJson.get("entityType").getAsString());
-                }
-
-                if (loadedJson.has("listMode")) {
-                    setListMode(loadedJson.get("listMode").getAsString());
-                }
-
-                if (loadedJson.has("whiteList")) {
-                    setWhiteList(GSON.fromJson(loadedJson.get("whiteList"), List.class));
-                }
-
-                if (loadedJson.has("blackList")) {
-                    setBlackList(GSON.fromJson(loadedJson.get("blackList"), List.class));
-                }
-
-                if (loadedJson.has("scale")) {
-                    setScale(loadedJson.get("scale").getAsFloat());
-                }
-
-                if (loadedJson.has("textColor")) {
-                    setTextColor(loadedJson.get("textColor").getAsInt());
-                }
-
-                if (loadedJson.has("backgroundColor")) {
-                    setBackgroundColor(loadedJson.get("backgroundColor").getAsInt());
-                }
-
-                if (loadedJson.has("x")) {
-                    setX(loadedJson.get("x").getAsFloat());
-                }
-
-                if (loadedJson.has("y")) {
-                    setY(loadedJson.get("y").getAsFloat());
-                }
-
-                if (loadedJson.has("maxListLength")) {
-                    setMaxListLength(loadedJson.get("maxListLength").getAsInt());
-                }
-
-                if (loadedJson.has("threshold")) {
-                    setThreshold(loadedJson.get("threshold").getAsInt());
-                }
-            }
-        } catch (IOException var1) {
-            IOException e = var1;
-            e.printStackTrace();
+            parseConfigValue(loadedJson, j -> j.get("showEntitiesCount").getAsBoolean(), ConfigManager::setShowEntitiesCount, Default.showEntitiesCount);
+            parseConfigValue(loadedJson, j -> j.get("entityType").getAsString(), ConfigManager::setEntityType, Default.entityType);
+            parseConfigValue(loadedJson, j -> j.get("listMode").getAsString(), ConfigManager::setListMode, Default.listMode);
+            parseConfigValue(loadedJson, j -> GSON.fromJson(j.get("whiteList"), List.class), ConfigManager::setWhiteList, Default.whiteList);
+            parseConfigValue(loadedJson, j -> GSON.fromJson(j.get("blackList"), List.class), ConfigManager::setBlackList, Default.blackList);
+            parseConfigValue(loadedJson, j -> j.get("scale").getAsFloat(), ConfigManager::setScale, Default.scale);
+            parseConfigValue(loadedJson, j -> j.get("textColor").getAsInt(), ConfigManager::setTextColor, Default.textColor);
+            parseConfigValue(loadedJson, j -> j.get("backgroundColor").getAsInt(), ConfigManager::setBackgroundColor, Default.backgroundColor);
+            parseConfigValue(loadedJson, j -> j.get("x").getAsFloat(), ConfigManager::setX, Default.x);
+            parseConfigValue(loadedJson, j -> j.get("y").getAsFloat(), ConfigManager::setY, Default.y);
+            parseConfigValue(loadedJson, j -> j.get("maxListLength").getAsInt(), ConfigManager::setMaxListLength, Default.maxListLength);
+            parseConfigValue(loadedJson, j -> j.get("threshold").getAsInt(), ConfigManager::setThreshold, Default.threshold);
+        } catch (Exception e) {
+            LOGGER.error("Failed to load config file", e);
         }
-
     }
 
     private static void writeJson() {
@@ -273,9 +214,8 @@ public class ConfigManager {
             }
 
             writer.close();
-        } catch (IOException var5) {
-            IOException e = var5;
-            e.printStackTrace();
+        } catch (IOException e) {
+            LOGGER.error("Failed to write config file", e);
         }
 
     }
