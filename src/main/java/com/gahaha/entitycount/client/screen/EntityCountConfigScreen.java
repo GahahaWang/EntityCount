@@ -60,7 +60,7 @@ public class EntityCountConfigScreen extends Screen {
         // 背景顯示遊戲畫面，可省略super.render()預設背景
         // 簡易繪製代表 EntityCount 顯示框
         super.render(context, mouseX, mouseY, delta);
-        HudRenderer.renderDefault(context, defaultMap.entrySet().stream().toList());
+        HudRenderer.renderEntityCountHUD(context, defaultMap.entrySet().stream().toList());
     }
 
     @Override
