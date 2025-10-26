@@ -24,9 +24,9 @@ public class HudRenderer implements HudElement {
     @Override
     public void render(DrawContext context, RenderTickCounter tickCounter) {
         if (!MainSwitch.canComputeAndRender()) return;
-        renderDefault(context, EntityListFilter.getProcessedList(entityCountMap));
+        renderEntityCountHUD(context, EntityListFilter.getProcessedList(entityCountMap));
     }
-    public static void renderDefault(DrawContext context, List<Map.Entry<String, Integer>> entryList) {
+    public static void renderEntityCountHUD(DrawContext context, List<Map.Entry<String, Integer>> entryList) {
         float scale = ConfigManager.getScale()/10;
         int tmpx = (int)(ConfigManager.getX()*MinecraftClient.getInstance().getWindow().getScaledWidth() / scale);
         int tmpy = (int)(ConfigManager.getY()*MinecraftClient.getInstance().getWindow().getScaledHeight() / scale);
