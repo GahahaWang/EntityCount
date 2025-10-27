@@ -38,9 +38,9 @@ public class EntityCountConfigScreen extends Screen {
         }).dimensions(10, this.height - 80, 60, 20).build());
 
         // 開關按鈕
-        this.addDrawableChild(ButtonWidget.builder(ScreenTexts.onOrOff(ConfigManager.getShowEntitiesCount()), (b) -> {
-            ConfigManager.setShowEntitiesCount(!ConfigManager.getShowEntitiesCount());
-            b.setMessage(ScreenTexts.onOrOff(ConfigManager.getShowEntitiesCount()));
+        this.addDrawableChild(ButtonWidget.builder(ScreenTexts.onOrOff(ConfigManager.isShowEntitiesCount()), (b) -> {
+            ConfigManager.setShowEntitiesCount(!ConfigManager.isShowEntitiesCount());
+            b.setMessage(ScreenTexts.onOrOff(ConfigManager.isShowEntitiesCount()));
         }).dimensions(10, this.height - 50, 40, 20).build());
 
         // 重設全部
@@ -60,7 +60,7 @@ public class EntityCountConfigScreen extends Screen {
         // 背景顯示遊戲畫面，可省略super.render()預設背景
         // 簡易繪製代表 EntityCount 顯示框
         super.render(context, mouseX, mouseY, delta);
-        HudRenderer.renderDefault(context, defaultMap.entrySet().stream().toList());
+        HudRenderer.renderEntityCountHUD(context, defaultMap.entrySet().stream().toList());
     }
 
     @Override

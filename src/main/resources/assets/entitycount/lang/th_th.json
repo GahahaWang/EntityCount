@@ -26,5 +26,7 @@
     "entitycount.config.whitelist": "บัญชีขาว",
     "entitycount.config.whitelist.tooltip": "แสดงเฉพาะเอนทิตีในรายการนี้ (เมื่อโหมดตัวกรองเป็นบัญชีขาว)",
     "entitycount.config.blacklist": "บัญชีดำ",
-    "entitycount.config.blacklist.tooltip": "ซ่อนเอนทิตีในรายการนี้ (เมื่อโหมดตัวกรองเป็นบัญชีดำ)"
+    "entitycount.config.blacklist.tooltip": "ซ่อนเอนทิตีในรายการนี้ (เมื่อโหมดตัวกรองเป็นบัญชีดำ)",
+    "entitycount.config.pinnedlist": "รายการปักหมุด",
+    "entitycount.config.pinnedlist.tooltip": "เอนทิตีในรายการนี้จะแสดงที่ด้านบนเสมอ (แม้ว่าจำนวนจะเป็น 0)"
 }

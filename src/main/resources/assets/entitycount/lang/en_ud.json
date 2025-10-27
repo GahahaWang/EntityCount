@@ -26,5 +26,7 @@
     "entitycount.config.whitelist": "ʇsᴉlǝʇᴉɥʍ",
     "entitycount.config.whitelist.tooltip": "(ʇsᴉlǝʇᴉɥʍ sᴉ ǝpoɯ ɹǝʇlᴉɟ uǝɥʍ) ʇsᴉl sᴉɥʇ uᴉ sǝᴉʇᴉʇuǝ ʍoɥs ʎluo",
     "entitycount.config.blacklist": "ʇsᴉlʞɔɐlq",
-    "entitycount.config.blacklist.tooltip": "(ʇsᴉlʞɔɐlq sᴉ ǝpoɯ ɹǝʇlᴉɟ uǝɥʍ) ʇsᴉl sᴉɥʇ uᴉ sǝᴉʇᴉʇuǝ ǝpᴉɥ"
+    "entitycount.config.blacklist.tooltip": "(ʇsᴉlʞɔɐlq sᴉ ǝpoɯ ɹǝʇlᴉɟ uǝɥʍ) ʇsᴉl sᴉɥʇ uᴉ sǝᴉʇᴉʇuǝ ǝpᴉɥ",
+    "entitycount.config.pinnedlist": "ʇsᴉlpǝuuᴉd",
+    "entitycount.config.pinnedlist.tooltip": "(0 sᴉ ʇunoɔ ɟᴉ uǝʌǝ) doʇ ʇɐ pǝʎɐldsᴉp sʎɐʍlɐ ǝq llᴉʍ ʇsᴉl sᴉɥʇ uᴉ sǝᴉʇᴉʇuǝ"
 }

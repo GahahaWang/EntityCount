@@ -19,7 +19,7 @@ public class ClothConfigIntergration implements ModMenuApi{
 
             builder.getOrCreateCategory(Text.translatable("entitycount.general"))
                     .addEntry(builder.entryBuilder()
-                            .startBooleanToggle(Text.translatable("entitycount.config.master_toggle"), ConfigManager.getShowEntitiesCount())
+                            .startBooleanToggle(Text.translatable("entitycount.config.master_toggle"), ConfigManager.isShowEntitiesCount())
                             .setDefaultValue(ConfigManager.Default.showEntitiesCount)
                             .setSaveConsumer(ConfigManager::setShowEntitiesCount)
                             .setTooltip(Text.translatable("entitycount.config.master_toggle.tooltip"))
@@ -102,6 +102,13 @@ public class ClothConfigIntergration implements ModMenuApi{
                             .setDefaultValue(ConfigManager.Default.blackList)
                             .setSaveConsumer(ConfigManager::setBlackList)
                             .setTooltip(Text.translatable("entitycount.config.blacklist.tooltip"))
+                            .build()
+                    )
+                    .addEntry(builder.entryBuilder()
+                            .startStrList(Text.translatable("entitycount.config.pinnedlist"), ConfigManager.getPinnedList())
+                            .setDefaultValue(ConfigManager.Default.pinnedList)
+                            .setSaveConsumer(ConfigManager::setPinnedList)
+                            .setTooltip(Text.translatable("entitycount.config.pinnedlist.tooltip"))
                             .build()
                     )
             ;

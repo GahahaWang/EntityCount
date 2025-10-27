@@ -26,5 +26,7 @@
     "entitycount.config.whitelist": "Белый список",
     "entitycount.config.whitelist.tooltip": "Показывать только сущности из этого списка (когда режим фильтра - белый список)",
     "entitycount.config.blacklist": "Чёрный список",
-    "entitycount.config.blacklist.tooltip": "Скрывать сущности из этого списка (когда режим фильтра - чёрный список)"
+    "entitycount.config.blacklist.tooltip": "Скрывать сущности из этого списка (когда режим фильтра - чёрный список)",
+    "entitycount.config.pinnedlist": "Закреплённый список",
+    "entitycount.config.pinnedlist.tooltip": "Сущности из этого списка всегда будут отображаться вверху (даже если количество равно 0)"
 }
