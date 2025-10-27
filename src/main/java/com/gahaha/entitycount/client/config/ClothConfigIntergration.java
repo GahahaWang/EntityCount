@@ -104,6 +104,13 @@ public class ClothConfigIntergration implements ModMenuApi{
                             .setTooltip(Text.translatable("entitycount.config.blacklist.tooltip"))
                             .build()
                     )
+                    .addEntry(builder.entryBuilder()
+                            .startStrList(Text.translatable("entitycount.config.pinnedlist"), ConfigManager.getPinnedList())
+                            .setDefaultValue(ConfigManager.Default.pinnedList)
+                            .setSaveConsumer(ConfigManager::setPinnedList)
+                            .setTooltip(Text.translatable("entitycount.config.pinnedlist.tooltip"))
+                            .build()
+                    )
             ;
             return builder.build();
         };

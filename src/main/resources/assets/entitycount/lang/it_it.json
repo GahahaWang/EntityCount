@@ -26,5 +26,7 @@
     "entitycount.config.whitelist": "Lista bianca",
     "entitycount.config.whitelist.tooltip": "Mostra solo entità in questa lista (quando la modalità filtro è lista bianca)",
     "entitycount.config.blacklist": "Lista nera",
-    "entitycount.config.blacklist.tooltip": "Nascondi entità in questa lista (quando la modalità filtro è lista nera)"
+    "entitycount.config.blacklist.tooltip": "Nascondi entità in questa lista (quando la modalità filtro è lista nera)",
+    "entitycount.config.pinnedlist": "Lista bloccata",
+    "entitycount.config.pinnedlist.tooltip": "Le entità in questa lista saranno sempre visualizzate in alto (anche se il conteggio è 0)"
 }

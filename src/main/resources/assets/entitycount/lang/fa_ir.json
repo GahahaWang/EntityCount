@@ -26,5 +26,7 @@
     "entitycount.config.whitelist": "لیست سفید",
     "entitycount.config.whitelist.tooltip": "فقط موجودات این لیست را نمایش دهید (زمانی که حالت فیلتر لیست سفید است)",
     "entitycount.config.blacklist": "لیست سیاه",
-    "entitycount.config.blacklist.tooltip": "موجودات این لیست را مخفی کنید (زمانی که حالت فیلتر لیست سیاه است)"
+    "entitycount.config.blacklist.tooltip": "موجودات این لیست را مخفی کنید (زمانی که حالت فیلتر لیست سیاه است)",
+    "entitycount.config.pinnedlist": "لیست پین شده",
+    "entitycount.config.pinnedlist.tooltip": "موجودات این لیست همیشه در بالا نمایش داده می‌شوند (حتی اگر تعداد 0 باشد)"
 }

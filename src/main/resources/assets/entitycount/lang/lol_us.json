@@ -26,5 +26,7 @@
     "entitycount.config.whitelist": "whitelis",
     "entitycount.config.whitelist.tooltip": "onli sho entiys in dis lis (wen filtr mod iz whitelis)",
     "entitycount.config.blacklist": "blaklist",
-    "entitycount.config.blacklist.tooltip": "hid entiys in dis lis (wen filtr mod iz blaklist)"
+    "entitycount.config.blacklist.tooltip": "hid entiys in dis lis (wen filtr mod iz blaklist)",
+    "entitycount.config.pinnedlist": "pinnd lis",
+    "entitycount.config.pinnedlist.tooltip": "entiys in dis lis will alwayz be showd at teh top (even if count iz 0)"
 }

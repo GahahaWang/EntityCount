@@ -9,11 +9,14 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.function.Consumer;
 import java.util.List;
 
 import lombok.Getter;
+import lombok.NonNull;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,6 +50,8 @@ public class ConfigManager {
     private static List<String> whiteList = List.of();
     @Getter
     private static List<String> blackList = List.of();
+    @Getter
+    private static List<String> pinnedList = List.of();
 
     public static final class Default {
         public static final boolean showEntitiesCount = true;
@@ -61,6 +66,7 @@ public class ConfigManager {
         public static final int threshold = -1;
         public static final List<String> whiteList = List.of();
         public static final List<String> blackList = List.of();
+        public static final List<String> pinnedList = List.of();
     }
 
     public static void setShowEntitiesCount(boolean showEntitiesCount) {
@@ -139,12 +145,19 @@ public class ConfigManager {
         writeJson();
     }
 
+    public static void setPinnedList(List<String> pinnedList) {
+        ConfigManager.pinnedList = pinnedList;
+        configJson.add("pinnedList", GSON.toJsonTree(pinnedList));
+        writeJson();
+    }
+
     public static void reset() {
         setShowEntitiesCount(Default.showEntitiesCount);
         setEntityType(Default.entityType);
         setListMode(Default.listMode);
         setWhiteList(Default.whiteList);
         setBlackList(Default.blackList);
+        setPinnedList(Default.pinnedList);
         setScale(Default.scale);
         setTextColor(Default.textColor);
         setBackgroundColor(Default.backgroundColor);
@@ -167,9 +180,11 @@ public class ConfigManager {
     private interface ConfigParser<T> {
         T parse(JsonObject json) throws Exception;
     }
-    private static <T> void parseConfigValue(JsonObject json, ConfigParser<T> parser, java.util.function.Consumer<T> setter, T defaultValue) {
+    private static <T> void parseConfigValue(JsonObject json, ConfigParser<T> parser, Consumer<T> setter, T defaultValue) {
         try {
-            setter.accept(parser.parse(json));
+            @NonNull var value = parser.parse(json);
+            LOGGER.info(value.toString());
+            setter.accept(value);
         } catch (Exception e) {
             setter.accept(defaultValue);
             LOGGER.error("Failed to parse config value, using default", e);
@@ -185,6 +200,7 @@ public class ConfigManager {
             parseConfigValue(loadedJson, j -> j.get("listMode").getAsString(), ConfigManager::setListMode, Default.listMode);
             parseConfigValue(loadedJson, j -> GSON.fromJson(j.get("whiteList"), List.class), ConfigManager::setWhiteList, Default.whiteList);
             parseConfigValue(loadedJson, j -> GSON.fromJson(j.get("blackList"), List.class), ConfigManager::setBlackList, Default.blackList);
+            parseConfigValue(loadedJson, j -> GSON.fromJson(j.get("pinnedList"), List.class), ConfigManager::setPinnedList, Default.pinnedList);
             parseConfigValue(loadedJson, j -> j.get("scale").getAsFloat(), ConfigManager::setScale, Default.scale);
             parseConfigValue(loadedJson, j -> j.get("textColor").getAsInt(), ConfigManager::setTextColor, Default.textColor);
             parseConfigValue(loadedJson, j -> j.get("backgroundColor").getAsInt(), ConfigManager::setBackgroundColor, Default.backgroundColor);
