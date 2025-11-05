@@ -26,5 +26,8 @@
     "entitycount.config.whitelist": "ホワイトリスト",
     "entitycount.config.whitelist.tooltip": "このリストのエンティティのみを表示（フィルターモードがホワイトリストの場合）",
     "entitycount.config.blacklist": "ブラックリスト",
-    "entitycount.config.blacklist.tooltip": "このリストのエンティティを非表示（フィルターモードがブラックリストの場合）"
+    "entitycount.config.blacklist.tooltip": "このリストのエンティティを非表示（フィルターモードがブラックリストの場合）",
+    "entitycount.config.pinnedlist": "ピン留めリスト",
+    "entitycount.config.pinnedlist.tooltip": "このリストのエンティティは常に上部に表示されます（数が0でも）"
 }
+

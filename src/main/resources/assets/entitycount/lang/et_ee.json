@@ -26,5 +26,7 @@
     "entitycount.config.whitelist": "Valge nimekiri",
     "entitycount.config.whitelist.tooltip": "Näita ainult selle nimekirja objekte (kui filtrirežiim on valge nimekiri)",
     "entitycount.config.blacklist": "Must nimekiri",
-    "entitycount.config.blacklist.tooltip": "Peida selle nimekirja objektid (kui filtrirežiim on must nimekiri)"
+    "entitycount.config.blacklist.tooltip": "Peida selle nimekirja objektid (kui filtrirežiim on must nimekiri)",
+    "entitycount.config.pinnedlist": "Kinnitatud nimekiri",
+    "entitycount.config.pinnedlist.tooltip": "Selle nimekirja objektid kuvatakse alati üleval (isegi kui arv on 0)"
 }

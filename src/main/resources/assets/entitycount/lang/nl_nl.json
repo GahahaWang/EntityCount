@@ -26,5 +26,7 @@
     "entitycount.config.whitelist": "Witte lijst",
     "entitycount.config.whitelist.tooltip": "Toon alleen entiteiten in deze lijst (wanneer filtermodus witte lijst is)",
     "entitycount.config.blacklist": "Zwarte lijst",
-    "entitycount.config.blacklist.tooltip": "Verberg entiteiten in deze lijst (wanneer filtermodus zwarte lijst is)"
+    "entitycount.config.blacklist.tooltip": "Verberg entiteiten in deze lijst (wanneer filtermodus zwarte lijst is)",
+    "entitycount.config.pinnedlist": "Vastgezette lijst",
+    "entitycount.config.pinnedlist.tooltip": "Entiteiten in deze lijst worden altijd bovenaan weergegeven (zelfs als het aantal 0 is)"
 }

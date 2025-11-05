@@ -8,6 +8,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.text.Text;
 
+import java.util.List;
+
 @Environment(EnvType.CLIENT)
 public class ClothConfigIntergration implements ModMenuApi{
     @Override
@@ -58,7 +60,7 @@ public class ClothConfigIntergration implements ModMenuApi{
                             .build()
                     )
                     .addEntry(builder.entryBuilder()
-                            .startFloatField(Text.translatable("entitycount.config.text_scale"), (ConfigManager.getScale()))
+                            .startFloatField(Text.translatable("entitycount.config.text_scale"), ConfigManager.getScale())
                             .setDefaultValue(ConfigManager.Default.scale)
                             .setSaveConsumer(ConfigManager::setScale)
                             .setTooltip(Text.translatable("entitycount.config.text_scale.tooltip"))
@@ -102,6 +104,13 @@ public class ClothConfigIntergration implements ModMenuApi{
                             .setDefaultValue(ConfigManager.Default.blackList)
                             .setSaveConsumer(ConfigManager::setBlackList)
                             .setTooltip(Text.translatable("entitycount.config.blacklist.tooltip"))
+                            .build()
+                    )
+                    .addEntry(builder.entryBuilder()
+                            .startStrList(Text.translatable("entitycount.config.pinnedlist"), ConfigManager.getPinnedList())
+                            .setDefaultValue(ConfigManager.Default.pinnedList)
+                            .setSaveConsumer(ConfigManager::setPinnedList)
+                            .setTooltip(Text.translatable("entitycount.config.pinnedlist.tooltip"))
                             .build()
                     )
             ;

@@ -26,5 +26,7 @@
     "entitycount.config.whitelist": "Valkoinen lista",
     "entitycount.config.whitelist.tooltip": "Näytä vain tämän listan entiteetit (kun suodatintila on valkoinen lista)",
     "entitycount.config.blacklist": "Musta lista",
-    "entitycount.config.blacklist.tooltip": "Piilota tämän listan entiteetit (kun suodatintila on musta lista)"
+    "entitycount.config.blacklist.tooltip": "Piilota tämän listan entiteetit (kun suodatintila on musta lista)",
+    "entitycount.config.pinnedlist": "Kiinnitetty lista",
+    "entitycount.config.pinnedlist.tooltip": "Tämän listan entiteetit näytetään aina ylhäällä (vaikka määrä olisi 0)"
 }
