@@ -19,9 +19,11 @@ public class EntityListFilter {
         // 首先為所有 pinned 項目創建條目（即使數量為 0）
         for (String pinnedEntityName : pinnedList) {
             Integer count = sourceMap.getOrDefault(pinnedEntityName, 0);
-            pinnedEntries.add(new AbstractMap.SimpleEntry<>(pinnedEntityName, count));
+            // 在釘選的實體名稱前加上釘子 emoji
+            String displayName = "📌 " + pinnedEntityName;
+            pinnedEntries.add(new AbstractMap.SimpleEntry<>(displayName, count));
         }
-        
+
         // 處理非固定項目
         for (Map.Entry<String, Integer> entry : sourceMap.entrySet()) {
             if (!pinnedList.contains(entry.getKey())) {
