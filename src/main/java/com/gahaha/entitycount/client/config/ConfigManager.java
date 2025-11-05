@@ -16,13 +16,11 @@ import lombok.Getter;
 import lombok.NonNull;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import static com.gahaha.entitycount.client.EntityCountClient.LOGGER;
 
 @Environment(EnvType.CLIENT)
 public class ConfigManager {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ConfigManager.class);
     private static final Path CONFIG_FILE = Paths.get("config", "entitycount.json");
     private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().create();
     private static final JsonObject configJson = new JsonObject();
@@ -194,7 +192,10 @@ public class ConfigManager {
     public static void load() {
         try {
             JsonObject loadedJson = (JsonObject)GSON.fromJson(Files.newBufferedReader(CONFIG_FILE, StandardCharsets.UTF_8), JsonObject.class);
-
+            if(loadedJson == null) {
+                reset();
+                return;
+            }
             parseConfigValue(loadedJson, j -> j.get("showEntitiesCount").getAsBoolean(), ConfigManager::setShowEntitiesCount, Default.showEntitiesCount);
             parseConfigValue(loadedJson, j -> j.get("entityType").getAsString(), ConfigManager::setEntityType, Default.entityType);
             parseConfigValue(loadedJson, j -> j.get("listMode").getAsString(), ConfigManager::setListMode, Default.listMode);
