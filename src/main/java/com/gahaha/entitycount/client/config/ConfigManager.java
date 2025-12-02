@@ -31,7 +31,7 @@ public class ConfigManager {
     @Getter
     private static String listMode = "Blacklist";
     @Getter
-    private static float scale = 10.0F;
+    private static float scale = 7.5F;
     @Getter
     private static int textColor = -1;
     @Getter

@@ -26,7 +26,10 @@
     "entitycount.config.whitelist": "Biely zoznam",
     "entitycount.config.whitelist.tooltip": "Zobraziť len entity v tomto zozname (keď je režim filtra biely zoznam)",
     "entitycount.config.blacklist": "Čierny zoznam",
-    "entitycount.config.blacklist.tooltip": "Skryť entity v tomto zozname (keď je režim filtra čierny zoznam)",
+    "entitycount.config.blacklist.tooltip": "Skryť entity v tomto zozname (keď je režim filtra čierna listina)",
     "entitycount.config.pinnedlist": "Pripnutý zoznam",
-    "entitycount.config.pinnedlist.tooltip": "Entity v tomto zozname budú vždy zobrazené navrchu (aj keď je počet 0)"
+    "entitycount.config.pinnedlist.tooltip": "Entity v tomto zozname budú vždy zobrazené navrchu (aj keď je počet 0)",
+    "entitycount.config.hint": "Kliknite a presuňte zobrazovací box na úpravu pozície",
+    "key.entitycount.openconfig": "Otvoriť konfiguráciu EntityCount",
+    "key.category.minecraft.entitycount": "EntityCount"
 }

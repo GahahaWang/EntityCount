@@ -28,5 +28,8 @@
     "entitycount.config.blacklist": "블랙리스트",
     "entitycount.config.blacklist.tooltip": "이 목록의 개체를 숨깁니다 (필터 모드가 블랙리스트일 때)",
     "entitycount.config.pinnedlist": "고정 목록",
-    "entitycount.config.pinnedlist.tooltip": "이 목록의 개체는 항상 상단에 표시됩니다 (수가 0이어도)"
+    "entitycount.config.pinnedlist.tooltip": "이 목록의 개체는 항상 상단에 표시됩니다 (수가 0이어도)",
+    "entitycount.config.hint": "표시 상자를 클릭하고 드래그하여 위치를 조정합니다",
+    "key.entitycount.openconfig": "EntityCount 설정 열기",
+    "key.category.minecraft.entitycount": "EntityCount"
 }

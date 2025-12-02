@@ -26,7 +26,10 @@
     "entitycount.config.whitelist": "Lista Branca",
     "entitycount.config.whitelist.tooltip": "Mostrar apenas entidades nesta lista (quando o modo de filtro for lista branca)",
     "entitycount.config.blacklist": "Lista Negra",
-    "entitycount.config.blacklist.tooltip": "Ocultar entidades nesta lista (quando o modo de filtro for lista negra)",
-    "entitycount.config.pinnedlist": "Lista Fixada",
-    "entitycount.config.pinnedlist.tooltip": "Entidades nesta lista serão sempre exibidas no topo (mesmo que a contagem seja 0)"
+    "entitycount.config.blacklist.tooltip": "Ocultar entidades nesta lista (quando o modo de filtro é lista negra)",
+    "entitycount.config.pinnedlist": "Lista fixada",
+    "entitycount.config.pinnedlist.tooltip": "As entidades nesta lista sempre serão exibidas no topo (mesmo se a contagem for 0)",
+    "entitycount.config.hint": "Clique e arraste a caixa de exibição para ajustar a posição",
+    "key.entitycount.openconfig": "Abrir configuração do EntityCount",
+    "key.category.minecraft.entitycount": "EntityCount"
 }

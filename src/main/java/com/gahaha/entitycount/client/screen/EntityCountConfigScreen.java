@@ -1,6 +1,6 @@
 package com.gahaha.entitycount.client.screen;
 
-import com.gahaha.entitycount.client.config.ClothConfigIntergration;
+import com.gahaha.entitycount.client.config.ClothConfigIntegration;
 import com.gahaha.entitycount.client.config.ConfigManager;
 import com.gahaha.entitycount.client.render.HudRenderer;
 import net.fabricmc.api.EnvType;
@@ -31,10 +31,17 @@ public class EntityCountConfigScreen extends Screen {
         TextWidget ga = new TextWidget(Text.literal("Gahaha"), this.textRenderer);
         ga.setDimensionsAndPosition(40, 20, 70, this.height-80);
         this.addDrawableChild(ga);
+        
+        // 提示文字
+        TextWidget hintText = new TextWidget(Text.translatable("entitycount.config.hint"), this.textRenderer);
+        int textWidth = this.textRenderer.getWidth(Text.translatable("entitycount.config.hint"));
+        hintText.setDimensionsAndPosition(textWidth, 20, (this.width - textWidth) / 2, 20);
+        this.addDrawableChild(hintText);
+        
         //進階設置
         this.addDrawableChild(ButtonWidget.builder(Text.translatable("entitycount.advance"), (b) -> {
             assert this.client != null;
-            this.client.setScreen(new ClothConfigIntergration().getModConfigScreenFactory().create(this));
+            this.client.setScreen(new ClothConfigIntegration().getModConfigScreenFactory().create(this));
         }).dimensions(10, this.height - 80, 60, 20).build());
 
         // 開關按鈕

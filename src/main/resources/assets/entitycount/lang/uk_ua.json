@@ -26,7 +26,10 @@
     "entitycount.config.whitelist": "Білий список",
     "entitycount.config.whitelist.tooltip": "Показати сутності в цьому списку (коли режим фільтру — білий список)",
     "entitycount.config.blacklist": "Чорний список",
-    "entitycount.config.blacklist.tooltip": "Приховати сутності в цьому списку (коли режим фільтру — чорний список)",
+    "entitycount.config.blacklist.tooltip": "Сховати об'єкти з цього списку (коли режим фільтра - чорний список)",
     "entitycount.config.pinnedlist": "Закріплений список",
-    "entitycount.config.pinnedlist.tooltip": "Сутності з цього списку завжди відображатимуться вгорі (навіть якщо кількість дорівнює 0)"
+    "entitycount.config.pinnedlist.tooltip": "Об'єкти з цього списку завжди відображатимуться зверху (навіть якщо кількість дорівнює 0)",
+    "entitycount.config.hint": "Клацніть і перетягніть вікно відображення, щоб налаштувати позицію",
+    "key.entitycount.openconfig": "Відкрити налаштування EntityCount",
+    "key.category.minecraft.entitycount": "EntityCount"
 }

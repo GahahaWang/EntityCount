@@ -26,7 +26,10 @@
     "entitycount.config.whitelist": "Whitelist",
     "entitycount.config.whitelist.tooltip": "Only show entities in this list (when filter mode is whitelist)",
     "entitycount.config.blacklist": "Blacklist",
-    "entitycount.config.blacklist.tooltip": "Hide entities in this list (when filter mode is blacklist)",
+    "entitycount.config.blacklist.tooltip": "'ide entities in this list (w'en filter mode be blacklist)",
     "entitycount.config.pinnedlist": "Pinned List",
-    "entitycount.config.pinnedlist.tooltip": "Entities in this list will always be displayed at the top (even if count is 0)"
+    "entitycount.config.pinnedlist.tooltip": "Entities in this list will always be displayed at t'e top (even if count be 0)",
+    "entitycount.config.hint": "Click an' drag t'e display box to adjust position",
+    "key.entitycount.openconfig": "Open EntityCount Config",
+    "key.category.minecraft.entitycount": "EntityCount"
 }
