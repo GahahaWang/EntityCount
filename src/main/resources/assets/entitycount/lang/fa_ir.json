@@ -28,5 +28,8 @@
     "entitycount.config.blacklist": "لیست سیاه",
     "entitycount.config.blacklist.tooltip": "موجودات این لیست را مخفی کنید (زمانی که حالت فیلتر لیست سیاه است)",
     "entitycount.config.pinnedlist": "لیست پین شده",
-    "entitycount.config.pinnedlist.tooltip": "موجودات این لیست همیشه در بالا نمایش داده می‌شوند (حتی اگر تعداد 0 باشد)"
+    "entitycount.config.pinnedlist.tooltip": "موجودات این لیست همیشه در بالا نمایش داده می‌شوند (حتی اگر تعداد 0 باشد)",
+    "entitycount.config.hint": "برای تنظیم موقعیت، جعبه نمایش را کلیک کرده و بکشید",
+    "key.entitycount.openconfig": "باز کردن پیکربندی EntityCount",
+    "key.category.minecraft.entitycount": "EntityCount"
 }

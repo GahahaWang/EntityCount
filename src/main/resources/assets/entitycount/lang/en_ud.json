@@ -26,7 +26,10 @@
     "entitycount.config.whitelist": "ʇsᴉlǝʇᴉɥʍ",
     "entitycount.config.whitelist.tooltip": "(ʇsᴉlǝʇᴉɥʍ sᴉ ǝpoɯ ɹǝʇlᴉɟ uǝɥʍ) ʇsᴉl sᴉɥʇ uᴉ sǝᴉʇᴉʇuǝ ʍoɥs ʎluo",
     "entitycount.config.blacklist": "ʇsᴉlʞɔɐlq",
-    "entitycount.config.blacklist.tooltip": "(ʇsᴉlʞɔɐlq sᴉ ǝpoɯ ɹǝʇlᴉɟ uǝɥʍ) ʇsᴉl sᴉɥʇ uᴉ sǝᴉʇᴉʇuǝ ǝpᴉɥ",
-    "entitycount.config.pinnedlist": "ʇsᴉlpǝuuᴉd",
-    "entitycount.config.pinnedlist.tooltip": "(0 sᴉ ʇunoɔ ɟᴉ uǝʌǝ) doʇ ʇɐ pǝʎɐldsᴉp sʎɐʍlɐ ǝq llᴉʍ ʇsᴉl sᴉɥʇ uᴉ sǝᴉʇᴉʇuǝ"
+    "entitycount.config.blacklist.tooltip": "(ʇsᴉlʞɔɐlq sᴉ ǝpoɯ ɹǝʇlᴉɟ uǝɥʍ) ʇsᴉl sᴉɥʇ uᴉ sǝᴉʇᴉʇuǝ ǝpᴉH",
+    "entitycount.config.pinnedlist": "ʇsᴉ˥ pǝuuᴉԀ",
+    "entitycount.config.pinnedlist.tooltip": "(0 sᴉ ʇunoɔ ɟᴉ uǝʌǝ) doʇ ǝɥʇ ʇɐ pǝʎɐldsᴉp ǝq sʎɐʍlɐ llᴉʍ ʇsᴉl sᴉɥʇ uᴉ sǝᴉʇᴉʇu∀",
+    "entitycount.config.hint": "uoᴉʇᴉsod ʇsnɾpɐ oʇ xoq ʎɐldsᴉp ǝɥʇ ɓɐɹp puɐ ʞɔᴉl Ɔ",
+    "key.entitycount.openconfig": "ɓᴉɟuoƆ ʇunoƆʎʇᴉʇu∀ uǝdO",
+    "key.category.minecraft.entitycount": "ʇunoƆʎʇᴉʇu∀"
 }

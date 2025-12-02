@@ -9,7 +9,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
-public class ClothConfigIntergration implements ModMenuApi{
+public class ClothConfigIntegration implements ModMenuApi{
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
         return parent -> {

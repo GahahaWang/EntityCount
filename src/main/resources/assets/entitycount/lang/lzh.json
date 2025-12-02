@@ -26,7 +26,10 @@
     "entitycount.config.whitelist": "白名單",
     "entitycount.config.whitelist.tooltip": "僅顯示此名單中之實體（當過濾模式為白名單時）",
     "entitycount.config.blacklist": "黑名單",
-    "entitycount.config.blacklist.tooltip": "隱藏此名單中之實體（當過濾模式為黑名單時）",
+    "entitycount.config.blacklist.tooltip": "隱此名單中之實體（當過濾模式為黑名單時）",
     "entitycount.config.pinnedlist": "釘選名單",
-    "entitycount.config.pinnedlist.tooltip": "此名單中之實體將恆顯於上（縱數為零）"
+    "entitycount.config.pinnedlist.tooltip": "此名單中之實體將恆顯於上（縱數為零）",
+    "entitycount.config.hint": "點擊並拖曳顯示框以調位置",
+    "key.entitycount.openconfig": "開 EntityCount 設定",
+    "key.category.minecraft.entitycount": "EntityCount"
 }

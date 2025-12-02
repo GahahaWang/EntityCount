@@ -26,8 +26,11 @@
     "entitycount.config.whitelist": "ホワイトリスト",
     "entitycount.config.whitelist.tooltip": "このリストのエンティティのみを表示（フィルターモードがホワイトリストの場合）",
     "entitycount.config.blacklist": "ブラックリスト",
-    "entitycount.config.blacklist.tooltip": "このリストのエンティティを非表示（フィルターモードがブラックリストの場合）",
-    "entitycount.config.pinnedlist": "ピン留めリスト",
-    "entitycount.config.pinnedlist.tooltip": "このリストのエンティティは常に上部に表示されます（数が0でも）"
+    "entitycount.config.blacklist.tooltip": "このリスト内のエンティティを非表示にします (フィルターモードがブラックリストの場合)",
+    "entitycount.config.pinnedlist": "固定リスト",
+    "entitycount.config.pinnedlist.tooltip": "このリスト内のエンティティは常に最上部に表示されます (カウントが0でも)",
+    "entitycount.config.hint": "表示ボックスをクリックしてドラッグし、位置を調整します",
+    "key.entitycount.openconfig": "EntityCount設定を開く",
+    "key.category.minecraft.entitycount": "EntityCount"
 }
 

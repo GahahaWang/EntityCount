@@ -28,5 +28,8 @@
     "entitycount.config.blacklist": "blaklist",
     "entitycount.config.blacklist.tooltip": "hid entiys in dis lis (wen filtr mod iz blaklist)",
     "entitycount.config.pinnedlist": "pinnd lis",
-    "entitycount.config.pinnedlist.tooltip": "entiys in dis lis will alwayz be showd at teh top (even if count iz 0)"
+    "entitycount.config.pinnedlist.tooltip": "entiys in dis lis will alwayz be showd at teh top (even if count iz 0)",
+    "entitycount.config.hint": "Click an drag teh displa box 2 adjus positn",
+    "key.entitycount.openconfig": "Opn EntityCount Confg",
+    "key.category.minecraft.entitycount": "EntityCount"
 }

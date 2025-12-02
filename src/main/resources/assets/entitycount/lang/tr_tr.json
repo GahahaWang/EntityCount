@@ -27,6 +27,9 @@
     "entitycount.config.whitelist.tooltip": "Bu listedeki varlıkları göster (filtre modu beyaz liste olduğunda)",
     "entitycount.config.blacklist": "Kara Liste",
     "entitycount.config.blacklist.tooltip": "Bu listedeki varlıkları gizle (filtre modu kara liste olduğunda)",
-    "entitycount.config.pinnedlist": "Sabitlenmiş Liste",
-    "entitycount.config.pinnedlist.tooltip": "Bu listedeki varlıklar her zaman en üstte gösterilecektir (sayım 0 olsa bile)"
+    "entitycount.config.pinnedlist": "Sabitlenmiş liste",
+    "entitycount.config.pinnedlist.tooltip": "Bu listedeki varlıklar her zaman en üstte gösterilecektir (sayı 0 olsa bile)",
+    "entitycount.config.hint": "Konumu ayarlamak için görüntü kutusunu tıklayın ve sürükleyin",
+    "key.entitycount.openconfig": "EntityCount Yapılandırmasını Aç",
+    "key.category.minecraft.entitycount": "EntityCount"
 }

@@ -26,7 +26,10 @@
     "entitycount.config.whitelist": "Biała lista",
     "entitycount.config.whitelist.tooltip": "Pokaż tylko byty z tej listy (gdy tryb filtra to biała lista)",
     "entitycount.config.blacklist": "Czarna lista",
-    "entitycount.config.blacklist.tooltip": "Ukryj byty z tej listy (gdy tryb filtra to czarna lista)",
+    "entitycount.config.blacklist.tooltip": "Ukryj jednostki z tej listy (gdy tryb filtra to czarna lista)",
     "entitycount.config.pinnedlist": "Lista przypięta",
-    "entitycount.config.pinnedlist.tooltip": "Byty z tej listy będą zawsze wyświetlane na górze (nawet jeśli liczba wynosi 0)"
+    "entitycount.config.pinnedlist.tooltip": "Jednostki z tej listy będą zawsze wyświetlane na górze (nawet jeśli liczba wynosi 0)",
+    "entitycount.config.hint": "Kliknij i przeciągnij pole wyświetlania, aby dostosować pozycję",
+    "key.entitycount.openconfig": "Otwórz konfigurację EntityCount",
+    "key.category.minecraft.entitycount": "EntityCount"
 }
