@@ -28,5 +28,8 @@
     "entitycount.config.blacklist": "Must nimekiri",
     "entitycount.config.blacklist.tooltip": "Peida selle nimekirja objektid (kui filtrirežiim on must nimekiri)",
     "entitycount.config.pinnedlist": "Kinnitatud nimekiri",
-    "entitycount.config.pinnedlist.tooltip": "Selle nimekirja objektid kuvatakse alati üleval (isegi kui arv on 0)"
+    "entitycount.config.pinnedlist.tooltip": "Selles nimekirjas olevad üksused kuvatakse alati üleval (isegi kui arv on 0)",
+    "entitycount.config.hint": "Klõpsake ja lohistage kuvakasti positsiooni reguleerimiseks",
+    "key.entitycount.openconfig": "Ava EntityCount seaded",
+    "category.entitycount": "EntityCount"
 }

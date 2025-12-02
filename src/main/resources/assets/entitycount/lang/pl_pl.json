@@ -28,5 +28,8 @@
     "entitycount.config.blacklist": "Czarna lista",
     "entitycount.config.blacklist.tooltip": "Ukryj byty z tej listy (gdy tryb filtra to czarna lista)",
     "entitycount.config.pinnedlist": "Lista przypięta",
-    "entitycount.config.pinnedlist.tooltip": "Byty z tej listy będą zawsze wyświetlane na górze (nawet jeśli liczba wynosi 0)"
+    "entitycount.config.pinnedlist.tooltip": "Byty z tej listy będą zawsze wyświetlane na górze (nawet jeśli liczba wynosi 0)",
+    "entitycount.config.hint": "Kliknij i przeciągnij pole wyświetlania, aby dostosować pozycję",
+    "key.entitycount.openconfig": "Otwórz ustawienia EntityCount",
+    "category.entitycount": "EntityCount"
 }

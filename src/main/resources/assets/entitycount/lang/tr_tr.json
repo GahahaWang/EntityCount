@@ -28,5 +28,8 @@
     "entitycount.config.blacklist": "Kara Liste",
     "entitycount.config.blacklist.tooltip": "Bu listedeki varlıkları gizle (filtre modu kara liste olduğunda)",
     "entitycount.config.pinnedlist": "Sabitlenmiş Liste",
-    "entitycount.config.pinnedlist.tooltip": "Bu listedeki varlıklar her zaman en üstte gösterilecektir (sayım 0 olsa bile)"
+    "entitycount.config.pinnedlist.tooltip": "Bu listedeki varlıklar her zaman en üstte gösterilecektir (sayım 0 olsa bile)",
+    "entitycount.config.hint": "Konumu ayarlamak için görüntü kutusunu tıklayın ve sürükleyin",
+    "key.entitycount.openconfig": "EntityCount ayarlarını aç",
+    "category.entitycount": "EntityCount"
 }

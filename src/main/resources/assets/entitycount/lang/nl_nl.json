@@ -28,5 +28,8 @@
     "entitycount.config.blacklist": "Zwarte lijst",
     "entitycount.config.blacklist.tooltip": "Verberg entiteiten in deze lijst (wanneer filtermodus zwarte lijst is)",
     "entitycount.config.pinnedlist": "Vastgezette lijst",
-    "entitycount.config.pinnedlist.tooltip": "Entiteiten in deze lijst worden altijd bovenaan weergegeven (zelfs als het aantal 0 is)"
+    "entitycount.config.pinnedlist.tooltip": "Entiteiten in deze lijst worden altijd bovenaan weergegeven (zelfs als het aantal 0 is)",
+    "entitycount.config.hint": "Klik en sleep het weergavevak om de positie aan te passen",
+    "key.entitycount.openconfig": "Open EntityCount-instellingen",
+    "category.entitycount": "EntityCount"
 }

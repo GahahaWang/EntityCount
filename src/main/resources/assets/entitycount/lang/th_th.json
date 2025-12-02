@@ -28,5 +28,8 @@
     "entitycount.config.blacklist": "บัญชีดำ",
     "entitycount.config.blacklist.tooltip": "ซ่อนเอนทิตีในรายการนี้ (เมื่อโหมดตัวกรองเป็นบัญชีดำ)",
     "entitycount.config.pinnedlist": "รายการปักหมุด",
-    "entitycount.config.pinnedlist.tooltip": "เอนทิตีในรายการนี้จะแสดงที่ด้านบนเสมอ (แม้ว่าจำนวนจะเป็น 0)"
+    "entitycount.config.pinnedlist.tooltip": "เอนทิตีในรายการนี้จะแสดงที่ด้านบนเสมอ (แม้ว่าจำนวนจะเป็น 0)",
+    "entitycount.config.hint": "คลิกและลากกล่องแสดงผลเพื่อปรับตำแหน่ง",
+    "key.entitycount.openconfig": "เปิดการตั้งค่า EntityCount",
+    "category.entitycount": "EntityCount"
 }

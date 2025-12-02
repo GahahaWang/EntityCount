@@ -28,5 +28,8 @@
     "entitycount.config.blacklist": "Lista Negra",
     "entitycount.config.blacklist.tooltip": "Ocultar entidades nesta lista (quando o modo de filtro for lista negra)",
     "entitycount.config.pinnedlist": "Lista Fixada",
-    "entitycount.config.pinnedlist.tooltip": "Entidades nesta lista serão sempre exibidas no topo (mesmo que a contagem seja 0)"
+    "entitycount.config.pinnedlist.tooltip": "Entidades nesta lista serão sempre exibidas no topo (mesmo que a contagem seja 0)",
+    "entitycount.config.hint": "Clique e arraste a caixa de exibição para ajustar a posição",
+    "key.entitycount.openconfig": "Abrir configurações do EntityCount",
+    "category.entitycount": "EntityCount"
 }

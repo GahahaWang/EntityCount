@@ -28,5 +28,8 @@
     "entitycount.config.blacklist": "Černá listina",
     "entitycount.config.blacklist.tooltip": "Skrýt entity v tomto seznamu (když je režim filtru černá listina)",
     "entitycount.config.pinnedlist": "Připnutý seznam",
-    "entitycount.config.pinnedlist.tooltip": "Entity v tomto seznamu budou vždy zobrazeny nahoře (i když je počet 0)"
+    "entitycount.config.pinnedlist.tooltip": "Entity v tomto seznamu budou vždy zobrazeny nahoře (i když je počet 0)",
+    "entitycount.config.hint": "Klikněte a přetáhněte zobrazovací pole pro úpravu pozice",
+    "key.entitycount.openconfig": "Otevřít nastavení EntityCount",
+    "category.entitycount": "EntityCount"
 }

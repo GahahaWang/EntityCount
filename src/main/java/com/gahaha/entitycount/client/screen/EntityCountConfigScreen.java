@@ -30,6 +30,13 @@ public class EntityCountConfigScreen extends Screen {
         TextWidget ga = new TextWidget(Text.literal("Gahaha"), this.textRenderer);
         ga.setDimensionsAndPosition(40, 20, 70, this.height-80);
         this.addDrawableChild(ga);
+        
+        // 提示文字
+        TextWidget hintText = new TextWidget(Text.translatable("entitycount.config.hint"), this.textRenderer);
+        int textWidth = this.textRenderer.getWidth(Text.translatable("entitycount.config.hint"));
+        hintText.setDimensionsAndPosition(textWidth, 20, (this.width - textWidth) / 2, 20);
+        this.addDrawableChild(hintText);
+        
         //進階設置
         this.addDrawableChild(ButtonWidget.builder(Text.translatable("entitycount.advance"), (b) -> {
             assert this.client != null;

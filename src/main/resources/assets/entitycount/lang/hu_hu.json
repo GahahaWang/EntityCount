@@ -28,5 +28,8 @@
     "entitycount.config.blacklist": "Fekete lista",
     "entitycount.config.blacklist.tooltip": "Ebben a listában szereplő entitások elrejtése (amikor a szűrő mód fekete lista)",
     "entitycount.config.pinnedlist": "Rögzített lista",
-    "entitycount.config.pinnedlist.tooltip": "Az ebben a listában szereplő entitások mindig a tetején jelennek meg (még ha a szám 0 is)"
+    "entitycount.config.pinnedlist.tooltip": "Az ebben a listában szereplő entitások mindig a tetején jelennek meg (még ha a szám 0 is)",
+    "entitycount.config.hint": "Kattintson és húzza a megjelenítési mezőt a pozíció beállításához",
+    "key.entitycount.openconfig": "EntityCount beállítások megnyitása",
+    "category.entitycount": "EntityCount"
 }

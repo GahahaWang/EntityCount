@@ -28,5 +28,8 @@
     "entitycount.config.blacklist": "Musta lista",
     "entitycount.config.blacklist.tooltip": "Piilota tämän listan entiteetit (kun suodatintila on musta lista)",
     "entitycount.config.pinnedlist": "Kiinnitetty lista",
-    "entitycount.config.pinnedlist.tooltip": "Tämän listan entiteetit näytetään aina ylhäällä (vaikka määrä olisi 0)"
+    "entitycount.config.pinnedlist.tooltip": "Tämän listan entiteetit näytetään aina ylhäällä (vaikka määrä olisi 0)",
+    "entitycount.config.hint": "Napsauta ja vedä näyttöruutua sijainnin säätämiseksi",
+    "key.entitycount.openconfig": "Avaa EntityCount-asetukset",
+    "category.entitycount": "EntityCount"
 }

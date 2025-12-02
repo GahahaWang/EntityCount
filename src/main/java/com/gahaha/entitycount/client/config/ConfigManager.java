@@ -55,7 +55,7 @@ public class ConfigManager {
         public static final boolean showEntitiesCount = true;
         public static final String entityType = "All";
         public static final String listMode = "Blacklist";
-        public static final float scale = 10.0F;
+        public static final float scale = 7.5F;
         public static final int textColor = -1;
         public static final int backgroundColor = 1065386112;
         public static final float x = 0.01F;

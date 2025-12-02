@@ -28,5 +28,8 @@
     "entitycount.config.blacklist": "Blacklist",
     "entitycount.config.blacklist.tooltip": "Hide entities in this list (when filter mode is blacklist)",
     "entitycount.config.pinnedlist": "Pinned List",
-    "entitycount.config.pinnedlist.tooltip": "Entities in this list will always be displayed at the top (even if count is 0)"
+    "entitycount.config.pinnedlist.tooltip": "Entities in this list will always be displayed at the top (even if count is 0)",
+    "entitycount.config.hint": "Click and drag the display box to adjust position",
+    "key.entitycount.openconfig": "Open EntityCount Config",
+    "category.entitycount": "EntityCount"
 }

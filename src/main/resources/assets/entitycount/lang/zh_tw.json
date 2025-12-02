@@ -28,5 +28,8 @@
     "entitycount.config.blacklist": "黑名單",
     "entitycount.config.blacklist.tooltip": "不顯示此列表中的實體 (當過濾模式為黑名單時)",
     "entitycount.config.pinnedlist": "釘選列表",
-    "entitycount.config.pinnedlist.tooltip": "此列表中的實體將始終顯示在頂部 (即使數量為 0)"
+    "entitycount.config.pinnedlist.tooltip": "此列表中的實體將始終顯示在頂部 (即使數量為 0)",
+    "entitycount.config.hint": "點擊並拖曳顯示框以調整位置",
+    "key.entitycount.openconfig": "開啟 EntityCount 設定",
+    "category.entitycount": "EntityCount"
 }
