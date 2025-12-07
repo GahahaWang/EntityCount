@@ -15,12 +15,12 @@ import java.util.Map;
 @Environment(EnvType.CLIENT)
 public class CountEntityEvent implements ClientTickEvents.EndTick{
 
-    public static final Map<String, Integer> defaultMap = new HashMap<>() {
-        {put("Gahaha", 1);}
-        {put("Is", 1);}
-        {put("So", 1);}
-        {put("Handsome",1);}
-    };
+    public static final Map<String, Integer> defaultMap = Map.of(
+        "Gahaha", 1,
+        "Is", 1,
+        "So", 1,
+        "Handsome", 1
+    );
 
     public static Map<String, Integer> entityCountMap = new HashMap<>();
 

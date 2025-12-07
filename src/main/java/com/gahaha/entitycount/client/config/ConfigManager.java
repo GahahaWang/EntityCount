@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.function.Consumer;
 import java.util.List;
 
+import com.google.gson.reflect.TypeToken;
 import lombok.Getter;
 import lombok.NonNull;
 import net.fabricmc.api.EnvType;
@@ -199,9 +200,9 @@ public class ConfigManager {
             parseConfigValue(loadedJson, j -> j.get("showEntitiesCount").getAsBoolean(), ConfigManager::setShowEntitiesCount, Default.showEntitiesCount);
             parseConfigValue(loadedJson, j -> j.get("entityType").getAsString(), ConfigManager::setEntityType, Default.entityType);
             parseConfigValue(loadedJson, j -> j.get("listMode").getAsString(), ConfigManager::setListMode, Default.listMode);
-            parseConfigValue(loadedJson, j -> GSON.fromJson(j.get("whiteList"), List.class), ConfigManager::setWhiteList, Default.whiteList);
-            parseConfigValue(loadedJson, j -> GSON.fromJson(j.get("blackList"), List.class), ConfigManager::setBlackList, Default.blackList);
-            parseConfigValue(loadedJson, j -> GSON.fromJson(j.get("pinnedList"), List.class), ConfigManager::setPinnedList, Default.pinnedList);
+            parseConfigValue(loadedJson, j -> GSON.fromJson(j.get("whiteList"), new TypeToken<List<String>>(){}.getType()), ConfigManager::setWhiteList, Default.whiteList);
+            parseConfigValue(loadedJson, j -> GSON.fromJson(j.get("blackList"), new TypeToken<List<String>>(){}.getType()), ConfigManager::setBlackList, Default.blackList);
+            parseConfigValue(loadedJson, j -> GSON.fromJson(j.get("pinnedList"), new TypeToken<List<String>>(){}.getType()), ConfigManager::setPinnedList, Default.pinnedList);
             parseConfigValue(loadedJson, j -> j.get("scale").getAsFloat(), ConfigManager::setScale, Default.scale);
             parseConfigValue(loadedJson, j -> j.get("textColor").getAsInt(), ConfigManager::setTextColor, Default.textColor);
             parseConfigValue(loadedJson, j -> j.get("backgroundColor").getAsInt(), ConfigManager::setBackgroundColor, Default.backgroundColor);
