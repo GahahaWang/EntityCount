@@ -51,6 +51,8 @@ public class ConfigManager {
     private static List<String> blackList = List.of();
     @Getter
     private static List<String> pinnedList = List.of();
+    @Getter
+    private static boolean expandItemDisplay = true;
 
     public static final class Default {
         public static final boolean showEntitiesCount = true;
@@ -66,6 +68,7 @@ public class ConfigManager {
         public static final List<String> whiteList = List.of();
         public static final List<String> blackList = List.of();
         public static final List<String> pinnedList = List.of();
+        public static final boolean expandItemDisplay = true;
     }
 
     public static void setShowEntitiesCount(boolean showEntitiesCount) {
@@ -150,6 +153,12 @@ public class ConfigManager {
         writeJson();
     }
 
+    public static void setExpandItemDisplay(boolean expandItemDisplay) {
+        ConfigManager.expandItemDisplay = expandItemDisplay;
+        configJson.addProperty("expandItemDisplay", expandItemDisplay);
+        writeJson();
+    }
+
     public static void reset() {
         setShowEntitiesCount(Default.showEntitiesCount);
         setEntityType(Default.entityType);
@@ -157,6 +166,7 @@ public class ConfigManager {
         setWhiteList(Default.whiteList);
         setBlackList(Default.blackList);
         setPinnedList(Default.pinnedList);
+        setExpandItemDisplay(Default.expandItemDisplay);
         setScale(Default.scale);
         setTextColor(Default.textColor);
         setBackgroundColor(Default.backgroundColor);
@@ -203,6 +213,7 @@ public class ConfigManager {
             parseConfigValue(loadedJson, j -> GSON.fromJson(j.get("whiteList"), new TypeToken<List<String>>(){}.getType()), ConfigManager::setWhiteList, Default.whiteList);
             parseConfigValue(loadedJson, j -> GSON.fromJson(j.get("blackList"), new TypeToken<List<String>>(){}.getType()), ConfigManager::setBlackList, Default.blackList);
             parseConfigValue(loadedJson, j -> GSON.fromJson(j.get("pinnedList"), new TypeToken<List<String>>(){}.getType()), ConfigManager::setPinnedList, Default.pinnedList);
+            parseConfigValue(loadedJson, j -> j.get("expandItemDisplay").getAsBoolean(), ConfigManager::setExpandItemDisplay, Default.expandItemDisplay);
             parseConfigValue(loadedJson, j -> j.get("scale").getAsFloat(), ConfigManager::setScale, Default.scale);
             parseConfigValue(loadedJson, j -> j.get("textColor").getAsInt(), ConfigManager::setTextColor, Default.textColor);
             parseConfigValue(loadedJson, j -> j.get("backgroundColor").getAsInt(), ConfigManager::setBackgroundColor, Default.backgroundColor);

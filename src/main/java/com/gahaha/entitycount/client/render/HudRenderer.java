@@ -36,7 +36,7 @@ public class HudRenderer implements HudElement {
         context.getMatrices().pushMatrix();
         context.getMatrices().scale(scale, scale);
 
-        context.fill(tmpx, tmpy ,tmpx + 70, tmpy + (11*entryList.size()), ConfigManager.getBackgroundColor());
+        context.fill(tmpx, tmpy ,tmpx + 80, tmpy + (11*entryList.size()), ConfigManager.getBackgroundColor());
 
         for (Map.Entry<String, Integer> entry : entryList) {
             String displayText = entry.getKey() + ": " + entry.getValue();

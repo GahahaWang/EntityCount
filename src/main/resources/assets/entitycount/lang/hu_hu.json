@@ -31,5 +31,7 @@
     "entitycount.config.pinnedlist.tooltip": "Az ebben a listában szereplő entitások mindig a tetején jelennek meg (még ha a szám 0 is)",
     "entitycount.config.hint": "Kattintson és húzza a megjelenítési dobozt a pozíció beállításához",
     "key.entitycount.openconfig": "EntityCount konfiguráció megnyitása",
+    "entitycount.config.expand_item_display": "Tárgy megjelenítés kibővítése",
+    "entitycount.config.expand_item_display.tooltip": "Részletes tárgynév megjelenítése az elejtett tárgyaknál (pl. Item.Gyémánt)",
     "key.category.minecraft.entitycount": "EntityCount"
 }

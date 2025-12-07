@@ -31,5 +31,7 @@
     "entitycount.config.pinnedlist.tooltip": "Entidades nesta lista sempre serão exibidas no topo (mesmo se a contagem for 0)",
     "entitycount.config.hint": "Clique e arraste a caixa de exibição para ajustar a posição",
     "key.entitycount.openconfig": "Abrir configuração do EntityCount",
+    "entitycount.config.expand_item_display": "Expandir exibição de itens",
+    "entitycount.config.expand_item_display.tooltip": "Mostrar nomes detalhados de itens caídos (por exemplo, Item.Diamante)",
     "key.category.minecraft.entitycount": "EntityCount"
 }

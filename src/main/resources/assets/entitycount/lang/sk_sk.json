@@ -31,5 +31,7 @@
     "entitycount.config.pinnedlist.tooltip": "Entity v tomto zozname budú vždy zobrazené navrchu (aj keď je počet 0)",
     "entitycount.config.hint": "Kliknite a presuňte zobrazovací box na úpravu pozície",
     "key.entitycount.openconfig": "Otvoriť konfiguráciu EntityCount",
+    "entitycount.config.expand_item_display": "Rozšíriť zobrazenie predmetov",
+    "entitycount.config.expand_item_display.tooltip": "Zobraziť podrobné názvy padnutých predmetov (napr. Item.Diamant)",
     "key.category.minecraft.entitycount": "EntityCount"
 }
