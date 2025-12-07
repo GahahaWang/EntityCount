@@ -31,5 +31,7 @@
     "entitycount.config.pinnedlist.tooltip": "Selle nimekirja objektid kuvatakse alati üleval (isegi kui arv on 0)",
     "entitycount.config.hint": "Klõpsake ja lohistage kuvakasti positsiooni reguleerimiseks",
     "key.entitycount.openconfig": "Ava EntityCount'i konfiguratsioon",
+    "entitycount.config.expand_item_display": "Laienda eseme kuvamist",
+    "entitycount.config.expand_item_display.tooltip": "Näita üksikasjalikke esemenimesid kukkunud esemete jaoks (nt Item.Teemant)",
     "key.category.minecraft.entitycount": "EntityCount"
 }

@@ -31,5 +31,7 @@
     "entitycount.config.pinnedlist.tooltip": "此名單中之實體將恆顯於上（縱數為零）",
     "entitycount.config.hint": "點擊並拖曳顯示框以調位置",
     "key.entitycount.openconfig": "開 EntityCount 設定",
+    "entitycount.config.expand_item_display": "展物顯示",
+    "entitycount.config.expand_item_display.tooltip": "顯落物之詳名（如：Item.鑽）",
     "key.category.minecraft.entitycount": "EntityCount"
 }

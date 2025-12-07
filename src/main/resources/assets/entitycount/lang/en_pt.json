@@ -31,5 +31,7 @@
     "entitycount.config.pinnedlist.tooltip": "Entities in this list will always be displayed at t'e top (even if count be 0)",
     "entitycount.config.hint": "Click an' drag t'e display box to adjust position",
     "key.entitycount.openconfig": "Open EntityCount Config",
+    "entitycount.config.expand_item_display": "Expand Item Display",
+    "entitycount.config.expand_item_display.tooltip": "Show detailed item names fer dropped items (e.g., Item.Diamond)",
     "key.category.minecraft.entitycount": "EntityCount"
 }

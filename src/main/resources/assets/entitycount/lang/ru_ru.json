@@ -31,5 +31,7 @@
     "entitycount.config.pinnedlist.tooltip": "Сущности из этого списка всегда будут отображаться вверху (даже если количество равно 0)",
     "entitycount.config.hint": "Нажмите и перетащите окно отображения, чтобы настроить позицию",
     "key.entitycount.openconfig": "Открыть настройки EntityCount",
+    "entitycount.config.expand_item_display": "Развернуть отображение предметов",
+    "entitycount.config.expand_item_display.tooltip": "Показывать подробные названия выпавших предметов (например, Item.Алмаз)",
     "key.category.minecraft.entitycount": "EntityCount"
 }

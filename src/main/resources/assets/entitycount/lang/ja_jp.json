@@ -31,6 +31,8 @@
     "entitycount.config.pinnedlist.tooltip": "このリスト内のエンティティは常に最上部に表示されます (カウントが0でも)",
     "entitycount.config.hint": "表示ボックスをクリックしてドラッグし、位置を調整します",
     "key.entitycount.openconfig": "EntityCount設定を開く",
+    "entitycount.config.expand_item_display": "アイテム表示を展開",
+    "entitycount.config.expand_item_display.tooltip": "ドロップアイテムの詳細名を表示（例：Item.ダイヤモンド）",
     "key.category.minecraft.entitycount": "EntityCount"
 }
 

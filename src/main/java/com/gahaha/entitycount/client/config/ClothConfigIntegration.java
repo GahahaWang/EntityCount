@@ -8,6 +8,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.text.Text;
 
+import java.util.List;
+
 @Environment(EnvType.CLIENT)
 public class ClothConfigIntegration implements ModMenuApi{
     @Override
@@ -29,7 +31,7 @@ public class ClothConfigIntegration implements ModMenuApi{
                             .startStringDropdownMenu(Text.translatable("entitycount.config.display_mode"),
                                     ConfigManager.getEntityType().equals("Living") ? "Living" : "All")
                             .setDefaultValue(ConfigManager.Default.entityType)
-                            .setSelections(java.util.List.of("All", "Living"))
+                            .setSelections(List.of("All", "Living"))
                             .setSaveConsumer(ConfigManager::setEntityType)
                             .setTooltip(Text.translatable("entitycount.config.display_mode.tooltip"))
                             .build()
@@ -38,7 +40,7 @@ public class ClothConfigIntegration implements ModMenuApi{
                             .startStringDropdownMenu(Text.translatable("entitycount.config.filter_mode"),
                                     ConfigManager.getListMode())
                             .setDefaultValue(ConfigManager.Default.listMode)
-                            .setSelections(java.util.List.of("Blacklist", "Whitelist"))
+                            .setSelections(List.of("Blacklist", "Whitelist"))
                             .setSaveConsumer(ConfigManager::setListMode)
                             .setTooltip(Text.translatable("entitycount.config.filter_mode.tooltip"))
                             .build()
@@ -109,6 +111,13 @@ public class ClothConfigIntegration implements ModMenuApi{
                             .setDefaultValue(ConfigManager.Default.pinnedList)
                             .setSaveConsumer(ConfigManager::setPinnedList)
                             .setTooltip(Text.translatable("entitycount.config.pinnedlist.tooltip"))
+                            .build()
+                    )
+                    .addEntry(builder.entryBuilder()
+                            .startBooleanToggle(Text.translatable("entitycount.config.expand_item_display"), ConfigManager.isExpandItemDisplay())
+                            .setDefaultValue(ConfigManager.Default.expandItemDisplay)
+                            .setSaveConsumer(ConfigManager::setExpandItemDisplay)
+                            .setTooltip(Text.translatable("entitycount.config.expand_item_display.tooltip"))
                             .build()
                     )
             ;

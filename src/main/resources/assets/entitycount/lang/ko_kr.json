@@ -31,5 +31,7 @@
     "entitycount.config.pinnedlist.tooltip": "이 목록의 개체는 항상 상단에 표시됩니다 (수가 0이어도)",
     "entitycount.config.hint": "표시 상자를 클릭하고 드래그하여 위치를 조정합니다",
     "key.entitycount.openconfig": "EntityCount 설정 열기",
+    "entitycount.config.expand_item_display": "아이템 표시 확장",
+    "entitycount.config.expand_item_display.tooltip": "드롭된 아이템의 상세 이름 표시 (예: Item.다이아몬드)",
     "key.category.minecraft.entitycount": "EntityCount"
 }

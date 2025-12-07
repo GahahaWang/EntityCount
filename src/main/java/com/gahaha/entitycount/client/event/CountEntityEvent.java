@@ -7,6 +7,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.text.Text;
 
 import java.util.HashMap;
@@ -62,6 +63,13 @@ public class CountEntityEvent implements ClientTickEvents.EndTick{
             }
             
             countMap.put(className, countMap.getOrDefault(className, 0) + 1);
+            
+            // 如果是物品實體且啟用了擴展顯示，額外記錄物品類型
+            if (ConfigManager.isExpandItemDisplay() && entity instanceof ItemEntity itemEntity) {
+                String itemName = itemEntity.getStack().getName().getString();
+                String itemKey = Text.translatable(entity.getType().getTranslationKey()).getString() + " " + itemName;
+                countMap.put(itemKey, countMap.getOrDefault(itemKey, 0) + itemEntity.getStack().getCount());
+            }
         }
         entityCountMap = countMap;
     }
