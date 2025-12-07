@@ -31,5 +31,7 @@
     "entitycount.config.pinnedlist.tooltip": "此列表中的实体将始终显示在顶部（即使数量为 0）",
     "entitycount.config.hint": "点击并拖动显示框以调整位置",
     "key.entitycount.openconfig": "打开 EntityCount 设置",
+    "entitycount.config.expand_item_display": "展开物品显示",
+    "entitycount.config.expand_item_display.tooltip": "显示掉落物品的详细名称(例如:Item.钻石)",
     "category.entitycount": "EntityCount"
 }

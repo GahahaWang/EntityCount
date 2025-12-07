@@ -29,7 +29,9 @@
     "entitycount.config.blacklist.tooltip": "(ʇsılʞɔɐlq sı ǝpoɯ ɹǝʇlıɟ uǝɥʍ) ʇsıl sıɥʇ uı sǝıʇıʇuǝ ǝpıɥ",
     "entitycount.config.pinnedlist": "ʇsıꞁpǝʇǝuıԀ",
     "entitycount.config.pinnedlist.tooltip": "(Ɔ sı ʇunoɔ ɟı uǝʌǝ) doʇ ʇɐ pǝʎɐldsıp sʎɐʍlɐ ǝq llıʍ ʇsıl sıɥʇ uı sǝıʇıʇuƎ",
-    "entitycount.config.hint": "uoıʇısod ʇsɐɸpɐ oʇ xoq ʎɐldsip ǝɥʇ ᵷɐɹp puɐ ʞɔılƆ",
-    "key.entitycount.openconfig": "sᵷuıʇʇǝᵙ ʇunoƆʎʇıʇuƎʔ uqdŐ",
-    "category.entitycount": "ʇunoƆʎʇıʇuƎʔ"
+    "entitycount.config.hint": "uoıʇısod ʇsɐɰpɐ oʇ xoq ʎɐldsip ǝɥʇ ᵷɐɹp puɐ ʞɔılƆ",
+    "key.entitycount.openconfig": "sᵷuıʇʇǝʙ ʇunoƆʎʇıʇuƎɔ uqdƖ0",
+    "entitycount.config.expand_item_display": "ʎɐldsᴉᗡ ɯǝʇI puɐdxƎ",
+    "entitycount.config.expand_item_display.tooltip": "(puoɯɐᴉᗡ˙ɯǝʇI ˙ƃ˙ǝ) sɯǝʇᴉ pǝddoɹp ɹoɟ sǝɯɐu ɯǝʇᴉ pǝlᴉɐʇǝp ʍoɥS",
+    "category.entitycount": "ʇunoƆʎʇᴉʇuƎ"
 }

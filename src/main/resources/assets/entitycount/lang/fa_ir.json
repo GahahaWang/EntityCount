@@ -31,5 +31,7 @@
     "entitycount.config.pinnedlist.tooltip": "موجودات این لیست همیشه در بالا نمایش داده می‌شوند (حتی اگر تعداد 0 باشد)",
     "entitycount.config.hint": "برای تنظیم موقعیت ، جعبه نمایش را کلیک و بکشید",
     "key.entitycount.openconfig": "باز کردن تنظیمات EntityCount",
+    "entitycount.config.expand_item_display": "گسترش نمایش اقلام",
+    "entitycount.config.expand_item_display.tooltip": "نمایش نام‌های دقیق اقلام افتاده (مثلاً Item.الماس)",
     "category.entitycount": "EntityCount"
 }

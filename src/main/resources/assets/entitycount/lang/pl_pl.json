@@ -31,5 +31,7 @@
     "entitycount.config.pinnedlist.tooltip": "Byty z tej listy będą zawsze wyświetlane na górze (nawet jeśli liczba wynosi 0)",
     "entitycount.config.hint": "Kliknij i przeciągnij pole wyświetlania, aby dostosować pozycję",
     "key.entitycount.openconfig": "Otwórz ustawienia EntityCount",
+    "entitycount.config.expand_item_display": "Rozwiń wyświetlanie przedmiotów",
+    "entitycount.config.expand_item_display.tooltip": "Pokaż szczegółowe nazwy upuszczonych przedmiotów (np. Item.Diament)",
     "category.entitycount": "EntityCount"
 }

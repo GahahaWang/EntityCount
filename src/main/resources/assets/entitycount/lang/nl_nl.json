@@ -31,5 +31,7 @@
     "entitycount.config.pinnedlist.tooltip": "Entiteiten in deze lijst worden altijd bovenaan weergegeven (zelfs als het aantal 0 is)",
     "entitycount.config.hint": "Klik en sleep het weergavevak om de positie aan te passen",
     "key.entitycount.openconfig": "Open EntityCount-instellingen",
+    "entitycount.config.expand_item_display": "Itemweergave uitvouwen",
+    "entitycount.config.expand_item_display.tooltip": "Toon gedetailleerde itemnamen voor gevallen items (bijv. Item.Diamant)",
     "category.entitycount": "EntityCount"
 }

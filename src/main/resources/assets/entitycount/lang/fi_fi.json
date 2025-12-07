@@ -31,5 +31,7 @@
     "entitycount.config.pinnedlist.tooltip": "Tämän listan entiteetit näytetään aina ylhäällä (vaikka määrä olisi 0)",
     "entitycount.config.hint": "Napsauta ja vedä näyttöruutua sijainnin säätämiseksi",
     "key.entitycount.openconfig": "Avaa EntityCount-asetukset",
+    "entitycount.config.expand_item_display": "Laajenna esineennäyttö",
+    "entitycount.config.expand_item_display.tooltip": "Näytä pudonneiden esineiden yksityiskohtaiset nimet (esim. Item.Timantti)",
     "category.entitycount": "EntityCount"
 }

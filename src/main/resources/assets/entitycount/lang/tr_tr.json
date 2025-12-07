@@ -31,5 +31,7 @@
     "entitycount.config.pinnedlist.tooltip": "Bu listedeki varlıklar her zaman en üstte gösterilecektir (sayım 0 olsa bile)",
     "entitycount.config.hint": "Konumu ayarlamak için görüntü kutusunu tıklayın ve sürükleyin",
     "key.entitycount.openconfig": "EntityCount ayarlarını aç",
+    "entitycount.config.expand_item_display": "Eşya Görünümünü Genişlet",
+    "entitycount.config.expand_item_display.tooltip": "Düşürülen eşyalar için ayrıntılı adları göster (örn. Item.Elmas)",
     "category.entitycount": "EntityCount"
 }

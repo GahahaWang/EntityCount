@@ -31,5 +31,7 @@
     "entitycount.config.pinnedlist.tooltip": "เอนทิตีในรายการนี้จะแสดงที่ด้านบนเสมอ (แม้ว่าจำนวนจะเป็น 0)",
     "entitycount.config.hint": "คลิกและลากกล่องแสดงผลเพื่อปรับตำแหน่ง",
     "key.entitycount.openconfig": "เปิดการตั้งค่า EntityCount",
+    "entitycount.config.expand_item_display": "ขยายการแสดงผลไอเทม",
+    "entitycount.config.expand_item_display.tooltip": "แสดงชื่อรายละเอียดของไอเทมที่หล่น (เช่น Item.เพชร)",
     "category.entitycount": "EntityCount"
 }

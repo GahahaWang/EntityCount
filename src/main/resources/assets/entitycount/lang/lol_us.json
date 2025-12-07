@@ -30,6 +30,8 @@
     "entitycount.config.pinnedlist": "pinnd lis",
     "entitycount.config.pinnedlist.tooltip": "entiys in dis lis will alwayz be showd at teh top (even if count iz 0)",
     "entitycount.config.hint": "clik an drag teh display box 2 adjust pozishun",
-    "key.entitycount.openconfig": "Open EntityCount Settinz",
+    "key.entitycount.openconfig": "Open EntityCount Konfig",
+    "entitycount.config.expand_item_display": "Expand Item Display",
+    "entitycount.config.expand_item_display.tooltip": "ShowDetailEd item namez for droppED stuffz (e.g., Item.Diamond)",
     "category.entitycount": "EntityCount"
 }

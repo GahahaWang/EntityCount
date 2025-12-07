@@ -31,5 +31,7 @@
     "entitycount.config.pinnedlist.tooltip": "Las entidades en esta lista siempre se mostrarán en la parte superior (incluso si el conteo es 0)",
     "entitycount.config.hint": "Haga clic y arrastre el cuadro de visualización para ajustar la posición",
     "key.entitycount.openconfig": "Abrir configuración de EntityCount",
+    "entitycount.config.expand_item_display": "Expandir visualización de objetos",
+    "entitycount.config.expand_item_display.tooltip": "Mostrar nombres detallados de objetos caídos (ej. Item.Diamante)",
     "category.entitycount": "EntityCount"
 }

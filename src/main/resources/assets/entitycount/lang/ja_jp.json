@@ -30,7 +30,9 @@
     "entitycount.config.pinnedlist": "ピン留めリスト",
     "entitycount.config.pinnedlist.tooltip": "このリストのエンティティは常に上部に表示されます（数が0でも）",
     "entitycount.config.hint": "表示ボックスをクリックしてドラッグし、位置を調整します",
-    "key.entitycount.openconfig": "EntityCount設定を開く",
+    "key.entitycount.openconfig": "EntityCountの設定を開く",
+    "entitycount.config.expand_item_display": "アイテム表示を展開",
+    "entitycount.config.expand_item_display.tooltip": "ドロップアイテムの詳細名を表示(例:Item.ダイヤモンド)",
     "category.entitycount": "EntityCount"
 }
 
