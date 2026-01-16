@@ -41,7 +41,7 @@ public class EntityCountConfigScreen extends Screen {
         //進階設置
         this.addDrawableChild(ButtonWidget.builder(Text.translatable("entitycount.advance"), (b) -> {
             assert this.client != null;
-            this.client.setScreen(new ClothConfigIntegration().getModConfigScreenFactory().create(this));
+            this.client.setScreen(new ClothConfigIntegration().getModConfigScreenFactory(this));
         }).dimensions(10, this.height - 80, 60, 20).build());
 
         // 開關按鈕
