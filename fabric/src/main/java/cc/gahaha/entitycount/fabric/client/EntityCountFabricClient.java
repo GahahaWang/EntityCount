@@ -1,21 +1,14 @@
 package cc.gahaha.entitycount.fabric.client;
 
 import cc.gahaha.entitycount.EntityCount;
-import cc.gahaha.entitycount.config.Command;
 import cc.gahaha.entitycount.config.ConfigManager;
-import cc.gahaha.entitycount.event.CountEntityEvent;
 import cc.gahaha.entitycount.render.HudRenderer;
 import cc.gahaha.entitycount.utils.EntityListFilter;
 import cc.gahaha.entitycount.utils.MainSwitch;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
-import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier;
 
 import static cc.gahaha.entitycount.event.CountEntityEvent.entityCountMap;
@@ -31,20 +24,7 @@ public final class EntityCountFabricClient extends EntityCount implements Client
 
     @Override
     public void onInitializeClient() {
-        ConfigManager.init(FabricLoader.getInstance().getConfigDir().toAbsolutePath().normalize());
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (MainSwitch.canComputeAndRender())
-                CountEntityEvent.updateEntityCount(client);
-            while (openConfigScreenKey.wasPressed())
-                openConfigScreen();
-            while (switchOnOff.wasPressed())
-                setSwitchOnOff();
-        });
+        this.init();
         HudElementRegistry.attachElementAfter(VanillaHudElements.SCOREBOARD, ENTITY_COUNT_HUD_ID, hudElement);
-        KeyBindingHelper.registerKeyBinding(openConfigScreenKey);
-        KeyBindingHelper.registerKeyBinding(switchOnOff);
-        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
-            new Command<FabricClientCommandSource>().registerCommands(dispatcher, registryAccess);
-        });
     }
 }

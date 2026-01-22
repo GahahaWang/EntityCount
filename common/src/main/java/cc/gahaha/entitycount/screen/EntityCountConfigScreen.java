@@ -3,7 +3,6 @@ package cc.gahaha.entitycount.screen;
 import cc.gahaha.entitycount.event.CountEntityEvent;
 import cc.gahaha.entitycount.render.HudRenderer;
 import cc.gahaha.entitycount.utils.AtomicVec3d;
-import lombok.Getter;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
