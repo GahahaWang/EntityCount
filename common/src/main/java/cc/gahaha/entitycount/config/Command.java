@@ -2,7 +2,6 @@ package cc.gahaha.entitycount.config;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
@@ -86,44 +85,24 @@ public class Command {
                         .then(literal("clear").executes(ctx -> clearPinned()))
                         .then(literal("list").executes(ctx -> listPinned())))
                 .then(literal("listmode")
-                        .then(argument("mode", StringArgumentType.word())
-                                .suggests((ctx, builder) -> {
-                                    builder.suggest("Whitelist");
-                                    builder.suggest("Blacklist");
-                                    return builder.buildFuture();
-                                }).executes(ctx -> setListMode(StringArgumentType.getString(ctx, "mode")))))
+                        .then(literal("Whitelist").executes(ctx -> setListMode("Whitelist")))
+                        .then(literal("Blacklist").executes(ctx -> setListMode("Blacklist"))))
                 .then(literal("entitytype")
-                        .then(argument("type", StringArgumentType.word())
-                                .suggests((ctx, builder) -> {
-                                    builder.suggest("All");
-                                    builder.suggest("Living");
-                                    return builder.buildFuture();
-                                }).executes(ctx -> setEntityType(StringArgumentType.getString(ctx, "type")))))
+                        .then(literal("All").executes(ctx -> setEntityType("All")))
+                        .then(literal("Living").executes(ctx -> setEntityType("Living"))))
                 .then(literal("threshold")
                         .then(argument("value", IntegerArgumentType.integer(-1)).executes(ctx -> setThreshold(IntegerArgumentType.getInteger(ctx, "value")))))
                 .then(literal("maxlength")
                         .then(argument("value", IntegerArgumentType.integer(-1)).executes(ctx -> setMaxLength(IntegerArgumentType.getInteger(ctx, "value")))))
                 .then(literal("expanditem")
-                        .then(argument("value", StringArgumentType.word())
-                                .suggests((ctx, builder) -> {
-                                    builder.suggest("true");
-                                    builder.suggest("false");
-                                    return builder.buildFuture();
-                                }).executes(ctx -> setExpandItem(StringArgumentType.getString(ctx, "value")))))
+                        .then(literal("true").executes(ctx -> setExpandItem("true")))
+                        .then(literal("false").executes(ctx -> setExpandItem("false"))))
                 .then(literal("expanditemprefix")
-                        .then(argument("value", StringArgumentType.word())
-                                .suggests((ctx, builder) -> {
-                                    builder.suggest("true");
-                                    builder.suggest("false");
-                                    return builder.buildFuture();
-                                }).executes(ctx -> setExpandItemPrefix(StringArgumentType.getString(ctx, "value")))))
+                        .then(literal("true").executes(ctx -> setExpandItemPrefix("true")))
+                        .then(literal("false").executes(ctx -> setExpandItemPrefix("false"))))
                 .then(literal("pinnedshowevenzero")
-                        .then(argument("value", StringArgumentType.word())
-                                .suggests((ctx, builder) -> {
-                                    builder.suggest("true");
-                                    builder.suggest("false");
-                                    return builder.buildFuture();
-                                }).executes(ctx -> setPinnedShowEvenZero(StringArgumentType.getString(ctx, "value")))))
+                        .then(literal("true").executes(ctx -> setPinnedShowEvenZero("true")))
+                        .then(literal("false").executes(ctx -> setPinnedShowEvenZero("false"))))
                 .then(literal("reload").executes(ctx -> reload()))
                 .then(literal("reset").executes(ctx -> reset()))
         );
