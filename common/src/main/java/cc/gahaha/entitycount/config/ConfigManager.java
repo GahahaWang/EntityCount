@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import dev.architectury.platform.Platform;
 import lombok.Getter;
 import lombok.NonNull;
 import net.minecraft.util.math.Vec3d;
@@ -23,7 +22,7 @@ import static cc.gahaha.entitycount.EntityCount.LOGGER;
 
 public class ConfigManager {
     //private static final Path CONFIG_FILE = Paths.get("config", "entitycount.json");
-    private static final Path CONFIG_FILE = Platform.getConfigFolder().resolve("entitycount.json");
+    private static Path CONFIG_FILE;// = Platform.getConfigFolder().resolve("entitycount.json");
     private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().create();
     private static final JsonObject configJson = new JsonObject();
     @Getter
@@ -289,7 +288,8 @@ public class ConfigManager {
         setThreshold(Default.threshold);
     }
 
-    public static void init() {
+    public static void init(Path configFilePath) {
+        CONFIG_FILE = configFilePath.resolve("entitycount.json");
         if (Files.exists(CONFIG_FILE)) {
             load();
         } else {
