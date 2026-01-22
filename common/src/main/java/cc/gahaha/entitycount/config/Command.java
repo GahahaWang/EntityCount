@@ -1,13 +1,14 @@
 package cc.gahaha.entitycount.config;
 
-import cc.gahaha.entitycount.EntityCount;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
+import dev.architectury.event.events.client.ClientCommandRegistrationEvent;
+import static dev.architectury.event.events.client.ClientCommandRegistrationEvent.*;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.CommandSource;
@@ -24,15 +25,18 @@ import net.minecraft.util.Identifier;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Command<T extends CommandSource>{
+public class Command {
     public static final SuggestionProvider<CommandSource> ALL_ENTITIES = SuggestionProviders.register(Identifier.of("entitycount","all_entities"), (context, builder) -> CommandSource.suggestFromIdentifier(Registries.ENTITY_TYPE.stream().filter((entityType) -> entityType.isEnabled(((CommandSource)context.getSource()).getEnabledFeatures())), builder, Registries.ENTITY_TYPE::getId, EntityType::getName));
     public static final SuggestionProvider<CommandSource> ALL_ITEMS = SuggestionProviders.register(Identifier.of("entitycount","all_items"), (context, builder) -> CommandSource.suggestFromIdentifier(Registries.ITEM.stream().filter((entityType) -> entityType.isEnabled(((CommandSource)context.getSource()).getEnabledFeatures())), builder, Registries.ITEM::getId, Item::getName));
+    public static void register() {
+        ClientCommandRegistrationEvent.EVENT.register(Command::registerCommands);
+    }
 
-    public void registerCommands(CommandDispatcher<T> dispatcher, CommandRegistryAccess registryAccess) {
+    private static void registerCommands(CommandDispatcher<ClientCommandSourceStack> dispatcher, CommandRegistryAccess registryAccess) {
         RegistryEntryReferenceArgumentType<EntityType<?>> entityTypeArgumentType = RegistryEntryReferenceArgumentType.registryEntry(registryAccess, RegistryKeys.ENTITY_TYPE);
         RegistryEntryReferenceArgumentType<Item> itemArgumentType = RegistryEntryReferenceArgumentType.registryEntry(registryAccess, RegistryKeys.ITEM);
-        RequiredArgumentBuilder<T, RegistryEntry.Reference<EntityType<?>>> entityTypeArgument = argument("entity", entityTypeArgumentType).suggests(SuggestionProviders.cast(ALL_ENTITIES));
-        RequiredArgumentBuilder<T, RegistryEntry.Reference<Item>> itemArgument = argument("item", itemArgumentType).suggests(SuggestionProviders.cast(ALL_ITEMS));
+        RequiredArgumentBuilder<ClientCommandSourceStack, ?> entityTypeArgument = argument("entity", entityTypeArgumentType).suggests(SuggestionProviders.cast(ALL_ENTITIES));
+        RequiredArgumentBuilder<ClientCommandSourceStack, ?> itemArgument = argument("item", itemArgumentType).suggests(SuggestionProviders.cast(ALL_ITEMS));
         dispatcher.register(literal("entitycount")
                 .then(literal("toggle")
                         .executes(ctx -> toggleDisplay()))
@@ -82,24 +86,44 @@ public class Command<T extends CommandSource>{
                         .then(literal("clear").executes(ctx -> clearPinned()))
                         .then(literal("list").executes(ctx -> listPinned())))
                 .then(literal("listmode")
-                        .then(literal("Whitelist").executes(ctx-> setListMode("Whitelist")))
-                        .then(literal("Blacklist").executes(ctx-> setListMode("Blacklist"))))
+                        .then(argument("mode", StringArgumentType.word())
+                                .suggests((ctx, builder) -> {
+                                    builder.suggest("Whitelist");
+                                    builder.suggest("Blacklist");
+                                    return builder.buildFuture();
+                                }).executes(ctx -> setListMode(StringArgumentType.getString(ctx, "mode")))))
                 .then(literal("entitytype")
-                        .then(literal("All").executes(ctx -> setEntityType("All")))
-                        .then(literal("Living").executes(ctx -> setEntityType("Living"))))
+                        .then(argument("type", StringArgumentType.word())
+                                .suggests((ctx, builder) -> {
+                                    builder.suggest("All");
+                                    builder.suggest("Living");
+                                    return builder.buildFuture();
+                                }).executes(ctx -> setEntityType(StringArgumentType.getString(ctx, "type")))))
                 .then(literal("threshold")
                         .then(argument("value", IntegerArgumentType.integer(-1)).executes(ctx -> setThreshold(IntegerArgumentType.getInteger(ctx, "value")))))
                 .then(literal("maxlength")
                         .then(argument("value", IntegerArgumentType.integer(-1)).executes(ctx -> setMaxLength(IntegerArgumentType.getInteger(ctx, "value")))))
                 .then(literal("expanditem")
-                        .then(literal("true").executes(ctx -> setExpandItem("true")))
-                        .then(literal("false").executes(ctx -> setExpandItem("false"))))
+                        .then(argument("value", StringArgumentType.word())
+                                .suggests((ctx, builder) -> {
+                                    builder.suggest("true");
+                                    builder.suggest("false");
+                                    return builder.buildFuture();
+                                }).executes(ctx -> setExpandItem(StringArgumentType.getString(ctx, "value")))))
                 .then(literal("expanditemprefix")
-                        .then(literal("true").executes(ctx -> setExpandItemPrefix("true")))
-                        .then(literal("false").executes(ctx -> setExpandItemPrefix("false"))))
+                        .then(argument("value", StringArgumentType.word())
+                                .suggests((ctx, builder) -> {
+                                    builder.suggest("true");
+                                    builder.suggest("false");
+                                    return builder.buildFuture();
+                                }).executes(ctx -> setExpandItemPrefix(StringArgumentType.getString(ctx, "value")))))
                 .then(literal("pinnedshowevenzero")
-                        .then(literal("true").executes(ctx -> setPinnedShowEvenZero("true")))
-                        .then(literal("false").executes(ctx -> setPinnedShowEvenZero("false"))))
+                        .then(argument("value", StringArgumentType.word())
+                                .suggests((ctx, builder) -> {
+                                    builder.suggest("true");
+                                    builder.suggest("false");
+                                    return builder.buildFuture();
+                                }).executes(ctx -> setPinnedShowEvenZero(StringArgumentType.getString(ctx, "value")))))
                 .then(literal("reload").executes(ctx -> reload()))
                 .then(literal("reset").executes(ctx -> reset()))
         );
@@ -417,21 +441,13 @@ public class Command<T extends CommandSource>{
     }
 
     @SuppressWarnings("unchecked")
-    private String getEntityTranslationName(CommandContext<T> context) {
+    private static String getEntityTranslationName(CommandContext<ClientCommandSourceStack> context) {
         RegistryEntry.Reference<EntityType<?>> entry = context.getArgument("entity", RegistryEntry.Reference.class);
         return Text.translatable(entry.value().getTranslationKey()).getString();
     }
     @SuppressWarnings("unchecked")
-    private String getItemTranslationName(CommandContext<T> context) {
+    private static String getItemTranslationName(CommandContext<ClientCommandSourceStack> context) {
         RegistryEntry.Reference<Item> entry = context.getArgument("item", RegistryEntry.Reference.class);
         return Text.translatable(entry.value().getTranslationKey()).getString();
-    }
-
-    LiteralArgumentBuilder<T> literal(String name) {
-        return LiteralArgumentBuilder.literal(name);
-    }
-
-    <S> RequiredArgumentBuilder<T, S> argument(String name, ArgumentType<S> type) {
-        return RequiredArgumentBuilder.argument(name, type);
     }
 }

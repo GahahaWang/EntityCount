@@ -28,7 +28,8 @@
         "fabricloader": "*",
         "minecraft": "${minecraft_version_range_fabric}",
         "java": "*",
-        "fabric-api": "*"
+        "fabric-api": "*",
+        "architectury": "*"
     },
     "suggests": {
         "another-mod": "*"
