@@ -1,5 +1,6 @@
 package cc.gahaha.entitycount.config;
 
+import cc.gahaha.entitycount.EntityCount;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;

@@ -24,8 +24,7 @@ public class CountEntityEvent{
 
     public static final Object2IntOpenHashMap<ExtendString> entityCountMap = new Object2IntOpenHashMap<>(30);
 
-    public static void updateEntityCount(Object ...__) {
-        MinecraftClient client = MinecraftClient.getInstance();
+    public static void updateEntityCount(MinecraftClient client) {
         if (client.player == null || client.world == null) return;
         Iterable<Entity> entities = client.world.getEntities();
         entityCountMap.clear();
