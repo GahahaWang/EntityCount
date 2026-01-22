@@ -1,0 +1,38 @@
+modLoader = "javafml"
+loaderVersion = "[2,)"
+#issueTrackerURL = ""
+license = "All Rights Reserved"
+
+[[mods]]
+modId = "entitycount"
+version = "${version}"
+displayName = "EntityCount"
+authors = "Gahaha"
+description = '''
+Count entities in your loaded chunks.
+'''
+logoFile = "assets/entitycount/icon.png"
+
+[[dependencies.entitycount]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.entitycount]]
+modId = "minecraft"
+type = "required"
+versionRange = "${minecraft_version_range_neoforge}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.entitycount]]
+modId = "architectury"
+type = "required"
+versionRange = "[17.0.8,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[mixins]]
+config = "entitycount.mixins.json"

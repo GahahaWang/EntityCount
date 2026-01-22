@@ -1,0 +1,37 @@
+{
+    "schemaVersion": 1,
+    "id": "entitycount",
+    "version": "${version}",
+    "name": "EntityCount",
+    "description": "Count entities in your loaded chunks.",
+    "authors": [
+        "Gahaha"
+    ],
+    "contact": {
+        "homepage": "https://modrinth.com/mod/entitycount-client"
+    },
+    "license": "All-Rights-Reserved",
+    "icon": "assets/entitycount/icon.png",
+    "environment": "*",
+    "entrypoints": {
+        "client": [
+            "cc.gahaha.entitycount.fabric.client.EntityCountFabricClient"
+        ],
+        "modmenu": [
+            "cc.gahaha.entitycount.fabric.client.ModMenu"
+        ]
+    },
+    "mixins": [
+        "entitycount.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": "*",
+        "minecraft": "${minecraft_version_range_fabric}",
+        "java": "*",
+        "fabric-api": "*",
+        "architectury": "*"
+    },
+    "suggests": {
+        "another-mod": "*"
+    }
+}
