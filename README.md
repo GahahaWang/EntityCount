@@ -49,6 +49,7 @@ Both keys are customizable in Controls settings.
 ### Required Dependencies
 - **[Fabric API](https://modrinth.com/mod/fabric-api)** - Required for Fabric mods
 - **[Cloth Config](https://modrinth.com/mod/cloth-config)** - Required for configuration screen
+- **[Architectury](https://modrinth.com/mod/architectury-api)** - Required since multi-platform supported
 ### Optional Dependencies
 - **[Mod Menu](https://modrinth.com/mod/modmenu)** - Recommended for easy access to config screen
 
