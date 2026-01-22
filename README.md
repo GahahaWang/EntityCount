@@ -56,7 +56,9 @@ Both keys are customizable in Controls settings.
 ## Supported Versions
 - **Currently maintaining**:
     - `1.21.6 - 1.21.8` (Fabric, NeoForge)
-    - `1.21.9 - 1.21.11` (Fabric, NeoForge)
+    - `1.21.9 - 1.21.11` (Fabric)
+    - `1.21.9 - 1.21.10` (NeoForge)
+    - `1.21.11` (NeoForge)
 
 ## If you face any issue, please don't hesitate to contact me 🤪
 
