@@ -42,5 +42,5 @@
     "entitycount.config.item_entity_color.tooltip": "Ustaw kolor tekstu dla wyświetlania liczby bytów przedmiotów",
     "entitycount.config.normal_list_example": "Lista. Wpisz nazwę encji (np.: %s)",
     "entitycount.config.item_list_example": "Lista. Wpisz nazwę przedmiotu (np.: %s)",
-    "category.entitycount": "EntityCount"
+    "key.category.entitycount.keybind": "EntityCount"
 }

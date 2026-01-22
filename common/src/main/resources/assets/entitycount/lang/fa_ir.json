@@ -42,5 +42,5 @@
     "entitycount.config.item_entity_color.tooltip": "تنظیم رنگ متن برای نمایش شمارش موجودات اقلام",
     "entitycount.config.normal_list_example": "فهرست. نام موجودیت را وارد کنید (مثال: %s)",
     "entitycount.config.item_list_example": "فهرست. نام آیتم را وارد کنید (مثال: %s)",
-    "category.entitycount": "EntityCount"
+    "key.category.entitycount.keybind": "EntityCount"
 }

@@ -42,5 +42,5 @@
     "entitycount.config.item_entity_color.tooltip": "Definir a cor do texto fer a exibição da contagem de entidades de itens",
     "entitycount.config.normal_list_example": "List. Fill in th' beastie name (ex: %s)",
     "entitycount.config.item_list_example": "List. Fill in th' loot name (ex: %s)",
-    "category.entitycount": "EntityCount"
+    "key.category.entitycount.keybind": "EntityCount"
 }

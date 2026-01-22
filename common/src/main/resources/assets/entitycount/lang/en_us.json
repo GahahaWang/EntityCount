@@ -42,5 +42,5 @@
     "entitycount.config.item_entity_color.tooltip": "Set the text color for item entity count display",
     "entitycount.config.normal_list_example": "List. Fill in entity name (ex: %s)",
     "entitycount.config.item_list_example": "List. Fill in item name (ex: %s)",
-    "category.entitycount": "EntityCount"
+    "key.category.entitycount.keybind": "EntityCount"
 }

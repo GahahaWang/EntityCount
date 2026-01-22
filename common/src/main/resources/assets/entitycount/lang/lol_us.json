@@ -42,5 +42,5 @@
     "entitycount.config.item_entity_color.tooltip": "set teh tex color fr item entiy count displa",
     "entitycount.config.normal_list_example": "List. Fill in entity naem (ex: %s)",
     "entitycount.config.item_list_example": "List. Fill in item naem (ex: %s)",
-    "category.entitycount": "EntityCount"
+    "key.category.entitycount.keybind": "EntityCount"
 }

@@ -42,5 +42,5 @@
     "entitycount.config.item_entity_color.tooltip": "アイテムエンティティカウントのテキスト色を設定",
     "entitycount.config.normal_list_example": "リスト エンティティ名を入力 (例: %s)",
     "entitycount.config.item_list_example": "リスト アイテム名を入力 (例: %s)",
-    "category.entitycount": "EntityCount"
+    "key.category.entitycount.keybind": "EntityCount"
 }

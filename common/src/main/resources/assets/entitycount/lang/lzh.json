@@ -42,5 +42,5 @@
     "entitycount.config.item_entity_color.tooltip": "設定物品實體計數之文字顏色",
     "entitycount.config.normal_list_example": "表。填實體之名 (如: %s)",
     "entitycount.config.item_list_example": "表。填物品之名 (如: %s)",
-    "category.entitycount": "EntityCount"
+    "key.category.entitycount.keybind": "EntityCount"
 }

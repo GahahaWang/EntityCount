@@ -42,5 +42,5 @@
     "entitycount.config.item_entity_color.tooltip": "Aseta tekstin väri esine-entiteettien lukumäärän näytölle",
     "entitycount.config.normal_list_example": "Lista. Täytä entiteetin nimi (esim.: %s)",
     "entitycount.config.item_list_example": "Lista. Täytä kohteen nimi (esim.: %s)",
-    "category.entitycount": "EntityCount"
+    "key.category.entitycount.keybind": "EntityCount"
 }

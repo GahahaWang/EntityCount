@@ -10,15 +10,27 @@ import dev.architectury.registry.client.keymappings.KeyMappingRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EntityCount {
     public static final String MOD_ID = "entitycount";
+    public static final KeyBinding.Category category = new KeyBinding.Category(Identifier.of("entitycount", "keybind"));
     public static final Logger LOGGER = LoggerFactory.getLogger("EntityCount");
-    public static KeyBinding openConfigScreenKey;
-    public static KeyBinding switchOnOff;
+    public static KeyBinding openConfigScreenKey = new KeyBinding(
+            "key.entitycount.openconfig",
+            InputUtil.Type.KEYSYM,
+            GLFW.GLFW_KEY_O,
+            category
+    );;
+    public static KeyBinding switchOnOff = new KeyBinding(
+            "key.entitycount.switchonoff",
+            InputUtil.Type.KEYSYM,
+            InputUtil.GLFW_KEY_I,
+            category
+    );;
 
     public void init() {
         ConfigManager.init();
@@ -31,20 +43,6 @@ public class EntityCount {
             while (switchOnOff.wasPressed())
                 setSwitchOnOff();
         });
-
-        openConfigScreenKey = new KeyBinding(
-                "key.entitycount.openconfig",
-                InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_O,
-                "category.entitycount"
-        );
-
-        switchOnOff = new KeyBinding(
-                "key.entitycount.switchonoff",
-                InputUtil.Type.KEYSYM,
-                InputUtil.GLFW_KEY_I,
-                "category.entitycount"
-        );
 
         KeyMappingRegistry.register(openConfigScreenKey);
         KeyMappingRegistry.register(switchOnOff);

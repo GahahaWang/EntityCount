@@ -42,5 +42,5 @@
     "entitycount.config.item_entity_color.tooltip": "Textfarb für d'Azeig vo de Gegenstandsentitäte-Aazahl ifstelle",
     "entitycount.config.normal_list_example": "Liste. Gäbet de Entitätsname i (z.B.: %s)",
     "entitycount.config.item_list_example": "Liste. Gäbet de Gegenstandsname i (z.B.: %s)",
-    "category.entitycount": "EntityCount"
+    "key.category.entitycount.keybind": "EntityCount"
 }

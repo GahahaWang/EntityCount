@@ -42,5 +42,5 @@
     "entitycount.config.item_entity_color.tooltip": "Eşya varlığı sayısı görüntülemesi için metin rengini ayarla",
     "entitycount.config.normal_list_example": "Liste. Varlık adını girin (örn.: %s)",
     "entitycount.config.item_list_example": "Liste. Eşya adını girin (örn.: %s)",
-    "category.entitycount": "EntityCount"
+    "key.category.entitycount.keybind": "EntityCount"
 }

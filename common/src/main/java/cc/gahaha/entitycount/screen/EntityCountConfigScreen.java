@@ -3,10 +3,10 @@ package cc.gahaha.entitycount.screen;
 import cc.gahaha.entitycount.event.CountEntityEvent;
 import cc.gahaha.entitycount.render.HudRenderer;
 import cc.gahaha.entitycount.utils.AtomicVec3d;
-import lombok.Getter;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextWidget;
@@ -70,20 +70,20 @@ public class EntityCountConfigScreen extends Screen {
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        return super.mouseClicked(mouseX, mouseY, button);
+    public boolean mouseClicked(Click click, boolean doubled) {
+        return super.mouseClicked(click, doubled);
     }
 
     @Override
-    public boolean mouseReleased(double mouseX, double mouseY, int button) {
-        return super.mouseReleased(mouseX, mouseY, button);
+    public boolean mouseReleased(Click click) {
+        return super.mouseReleased(click);
     }
 
     @Override
-    public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
-        this.modifyX += (float) (deltaX)/MinecraftClient.getInstance().getWindow().getScaledWidth();
-        this.modifyY += (float) (deltaY)/MinecraftClient.getInstance().getWindow().getScaledHeight();
-        return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
+    public boolean mouseDragged(Click click, double offsetX, double offsetY) {
+        this.modifyX += (float) (offsetX)/MinecraftClient.getInstance().getWindow().getScaledWidth();
+        this.modifyY += (float) (offsetY)/MinecraftClient.getInstance().getWindow().getScaledHeight();
+        return super.mouseDragged(click, offsetX, offsetY);
     }
 
     @Override

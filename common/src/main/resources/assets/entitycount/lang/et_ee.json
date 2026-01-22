@@ -42,5 +42,5 @@
     "entitycount.config.item_entity_color.tooltip": "Määra teksti värv eseme objektide loenduse kuvamiseks",
     "entitycount.config.normal_list_example": "Nimekiri. Sisesta olemi nimi (nt: %s)",
     "entitycount.config.item_list_example": "Nimekiri. Sisesta eseme nimi (nt: %s)",
-    "category.entitycount": "EntityCount"
+    "key.category.entitycount.keybind": "EntityCount"
 }

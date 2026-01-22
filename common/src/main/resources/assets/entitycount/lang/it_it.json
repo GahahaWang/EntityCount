@@ -42,5 +42,5 @@
     "entitycount.config.item_entity_color.tooltip": "Imposta il colore del testo per la visualizzazione del conteggio delle entità oggetti",
     "entitycount.config.normal_list_example": "Lista. Inserisci il nome dell'entità (es: %s)",
     "entitycount.config.item_list_example": "Lista. Inserisci il nome dell'oggetto (es: %s)",
-    "category.entitycount": "EntityCount"
+    "key.category.entitycount.keybind": "EntityCount"
 }

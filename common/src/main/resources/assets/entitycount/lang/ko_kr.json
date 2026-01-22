@@ -41,5 +41,5 @@
     "entitycount.config.item_entity_color.tooltip": "아이템 개체 수 표시의 텍스트 색상을 설정합니다",
     "entitycount.config.normal_list_example": "목록 개체 이름 입력 (예: %s)",
     "entitycount.config.item_list_example": "목록 아이템 이름 입력 (예: %s)",
-    "category.entitycount": "EntityCount"
+    "key.category.entitycount.keybind": "EntityCount"
 }

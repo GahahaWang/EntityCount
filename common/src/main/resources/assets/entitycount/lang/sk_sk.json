@@ -42,5 +42,5 @@
     "entitycount.config.item_entity_color.tooltip": "Nastaviť farbu textu pre zobrazenie počtu entít predmetov",
     "entitycount.config.normal_list_example": "Zoznam. Vyplňte názov entity (napr.: %s)",
     "entitycount.config.item_list_example": "Zoznam. Vyplňte názov položky (napr.: %s)",
-    "category.entitycount": "EntityCount"
+    "key.category.entitycount.keybind": "EntityCount"
 }

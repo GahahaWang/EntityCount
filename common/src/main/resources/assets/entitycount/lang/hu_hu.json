@@ -42,5 +42,5 @@
     "entitycount.config.item_entity_color.tooltip": "Szöveg színének beállítása a tárgy entitás számlálás megjelenítéséhez",
     "entitycount.config.normal_list_example": "Lista. Töltse ki az entitás nevét (pl.: %s)",
     "entitycount.config.item_list_example": "Lista. Töltse ki a tárgy nevét (pl.: %s)",
-    "category.entitycount": "EntityCount"
+    "key.category.entitycount.keybind": "EntityCount"
 }

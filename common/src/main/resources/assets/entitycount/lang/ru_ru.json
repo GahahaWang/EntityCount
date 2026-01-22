@@ -42,5 +42,5 @@
     "entitycount.config.item_entity_color.tooltip": "Установить цвет текста для отображения счётчика предметных сущностей",
     "entitycount.config.normal_list_example": "Список. Введите имя сущности (напр.: %s)",
     "entitycount.config.item_list_example": "Список. Введите имя предмета (напр.: %s)",
-    "category.entitycount": "EntityCount"
+    "key.category.entitycount.keybind": "EntityCount"
 }
