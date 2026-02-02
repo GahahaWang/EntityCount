@@ -7,6 +7,10 @@ import net.minecraft.client.gui.hud.debug.DebugHudProfile;
 public class MainSwitch {
     private static final MinecraftClient client = MinecraftClient.getInstance();
 
+    /**
+     * Reference from minihud
+     * https://github.com/sakura-ryoko/minihud/blob/LTS/1.21.10/src/main/java/fi/dy/masa/minihud/data/DebugDataManager.java#L157
+     */
     public static boolean shouldShowDebugHudFix() {
         DebugHudProfile profile = client.debugHudEntryList;
         return profile.isF3Enabled() && (!client.options.hudHidden || client.currentScreen != null);
