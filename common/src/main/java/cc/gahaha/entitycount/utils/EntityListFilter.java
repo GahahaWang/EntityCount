@@ -2,6 +2,7 @@ package cc.gahaha.entitycount.utils;
 
 import cc.gahaha.entitycount.config.ConfigManager;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import net.minecraft.text.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,16 +11,26 @@ import java.util.stream.Collectors;
 public class EntityListFilter {
     public static List<Object2IntOpenHashMap.Entry<ExtendString>> getProcessedList(Object2IntOpenHashMap<ExtendString> sourceMap) {
         List<ExtendString> pinnedList = ConfigManager.getPinnedList();
-        
+
         // 分離固定項目和非固定項目
         List<Object2IntOpenHashMap.Entry<ExtendString>> pinnedEntries = new ArrayList<>();
         List<Object2IntOpenHashMap.Entry<ExtendString>> unpinnedEntries = new ArrayList<>();
 
         // 首先為所有 pinned 項目創建條目（根據 pinnedShowEvenZero 設定決定是否包含數量為 0 的項目）
         for (ExtendString pinnedEntityName : pinnedList) {
+            // 根據黑白名單模式過濾
+            if (!processListMode(pinnedEntityName)) {
+                continue;
+            }
+
             int count = sourceMap.getInt(pinnedEntityName);
             if (ConfigManager.isPinnedShowEvenZero() || count > 0) {
-                ExtendString displayName = new ExtendString( "📌 " + pinnedEntityName.value(), pinnedEntityName.displayEntryEntityType());
+                String tmp = pinnedEntityName.value();
+                if (pinnedEntityName.displayEntryEntityType().equals(DisplayEntryEntityType.ITEM)
+                        && ConfigManager.isExpandItemDisplayPrefix())
+                    tmp = Text.translatable("entity.minecraft.item").getString() + " " + tmp;
+                tmp  = "📌 " + tmp;
+                ExtendString displayName = new ExtendString(tmp, pinnedEntityName.displayEntryEntityType());
                 pinnedEntries.add(new ExtendString2IntEntry( displayName, count));
             }
         }
@@ -27,7 +38,10 @@ public class EntityListFilter {
         // 處理非固定項目
         for (Object2IntOpenHashMap.Entry<ExtendString> entry : sourceMap.object2IntEntrySet()) {
             if (!pinnedList.contains(entry.getKey())) {
-                unpinnedEntries.add(entry);
+                // 根據黑白名單模式過濾
+                if (processListMode(entry.getKey())) {
+                    unpinnedEntries.add(entry);
+                }
             }
         }
 
@@ -53,5 +67,30 @@ public class EntityListFilter {
             return new ArrayList<>(resultList.subList(0, ConfigManager.getMaxListLength()));
         }
         return resultList;
+    }
+
+    private static boolean processListMode(ExtendString entityName) {
+        String listMode = ConfigManager.getListMode();
+        var whiteListNormal = ConfigManager.getWhiteListNormal();
+        var whiteListItem = ConfigManager.getWhiteListItem();
+        var blackListNormal = ConfigManager.getBlackListNormal();
+        var blackListItem = ConfigManager.getBlackListItem();
+
+        if ("Whitelist".equals(listMode)) {
+            // 白名單模式
+            if (entityName.displayEntryEntityType().equals(DisplayEntryEntityType.ITEM)) {
+                return whiteListItem.contains(entityName.value());
+            } else {
+                return whiteListNormal.contains(entityName.value());
+            }
+        } else if ("Blacklist".equals(listMode)) {
+            // 黑名單模式
+            if (entityName.displayEntryEntityType().equals(DisplayEntryEntityType.ITEM)) {
+                return !blackListItem.contains(entityName.value());
+            } else {
+                return !blackListNormal.contains(entityName.value());
+            }
+        }
+        return true;
     }
 }
