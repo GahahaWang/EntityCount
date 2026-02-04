@@ -31,11 +31,6 @@ public class CountEntityEvent{
         entityCountMap.clear();
         
         String entityType = ConfigManager.getEntityType();
-        String listMode = ConfigManager.getListMode();
-        var whiteListNormal = ConfigManager.getWhiteListNormal();
-        var whiteListItem = ConfigManager.getWhiteListItem();
-        var blackListNormal = ConfigManager.getBlackListNormal();
-        var blackListItem = ConfigManager.getBlackListItem();
         
         for (Entity entity : entities) {
             // 根據實體類型過濾實體
@@ -47,36 +42,10 @@ public class CountEntityEvent{
             String className = Text.translatable(classTranslationKey).getString();
             
             boolean isItemEntity = entity instanceof ItemEntity;
-            String itemName = isItemEntity?Text.translatable(((ItemEntity)entity).getStack().getItem().getTranslationKey()).getString():null;
-            // 根據黑白名單模式過濾
-            if ("Whitelist".equals(listMode)) {
-                // 白名單模式：根據實體類型選擇對應的白名單
-                if (isItemEntity && ConfigManager.isExpandItemDisplay()) {
-                    if (!whiteListItem.contains(itemName)) {
-                        continue;
-                    }
-                } else {
-                    if (!whiteListNormal.contains(className)) {
-                        continue;
-                    }
-                }
-            } else if ("Blacklist".equals(listMode)) {
-                // 黑名單模式：根據實體類型選擇對應的黑名單
-                if (isItemEntity && ConfigManager.isExpandItemDisplay()) {
-                    if (blackListItem.contains(itemName)) {
-                        continue;
-                    }
-                } else {
-                    if (blackListNormal.contains(className)) {
-                        continue;
-                    }
-                }
-            }
-
+            
             // 如果是物品實體且啟用了擴展顯示，額外記錄物品類型
             if (isItemEntity && ConfigManager.isExpandItemDisplay()) {
-                if (ConfigManager.isExpandItemDisplayPrefix())
-                    itemName = Text.translatable("entity.minecraft.item").getString() + " " + itemName;
+                String itemName = Text.translatable(((ItemEntity)entity).getStack().getItem().getTranslationKey()).getString();
                 entityCountMap.addTo(new ExtendString(itemName, DisplayEntryEntityType.ITEM), ((ItemEntity)entity).getStack().getCount());
             } else {
                 entityCountMap.addTo(new ExtendString(className, DisplayEntryEntityType.NORMAL), 1);
