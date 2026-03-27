@@ -2,25 +2,19 @@ package cc.gahaha.entitycount.utils;
 
 import net.minecraft.util.math.Vec3d;
 
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static java.lang.Double.doubleToLongBits;
-import static java.lang.Double.longBitsToDouble;
 
 public class AtomicVec3d {
-
-    private final AtomicLong xBits;
-    private final AtomicLong yBits;
-    private final AtomicLong zBits;
+    private final AtomicReference<Vec3d> ref;
 
     public AtomicVec3d() {
         this(0.0, 0.0, 0.0);
     }
 
     public AtomicVec3d(double x, double y, double z) {
-        this.xBits = new AtomicLong(doubleToLongBits(x));
-        this.yBits = new AtomicLong(doubleToLongBits(y));
-        this.zBits = new AtomicLong(doubleToLongBits(z));
+        this.ref = new AtomicReference<>(new Vec3d(x, y, z));
     }
 
     public AtomicVec3d(Vec3d vec) {
@@ -28,69 +22,63 @@ public class AtomicVec3d {
     }
 
     public final void set(double x, double y, double z) {
-        xBits.set(doubleToLongBits(x));
-        yBits.set(doubleToLongBits(y));
-        zBits.set(doubleToLongBits(z));
+        ref.set(new Vec3d(x, y, z));
     }
 
     public final void set(Vec3d vec) {
-        set(vec.x, vec.y, vec.z);
+        ref.set(new Vec3d(vec.x, vec.y, vec.z));
     }
 
     public final Vec3d get() {
-        return new Vec3d(
-                longBitsToDouble(xBits.get()),
-                longBitsToDouble(yBits.get()),
-                longBitsToDouble(zBits.get())
-        );
+        return ref.get();
     }
 
     public final double getX() {
-        return longBitsToDouble(xBits.get());
+        return ref.get().x;
     }
 
     public final double getY() {
-        return longBitsToDouble(yBits.get());
+        return ref.get().y;
     }
 
     public final double getZ() {
-        return longBitsToDouble(zBits.get());
+        return ref.get().z;
     }
 
     public final void setX(double x) {
-        xBits.set(doubleToLongBits(x));
+        ref.updateAndGet(vec -> new Vec3d(x, vec.y, vec.z));
     }
 
     public final void setY(double y) {
-        yBits.set(doubleToLongBits(y));
+        ref.updateAndGet(vec -> new Vec3d(vec.x, y, vec.z));
     }
 
     public final void setZ(double z) {
-        zBits.set(doubleToLongBits(z));
+        ref.updateAndGet(vec -> new Vec3d(vec.x, vec.y, z));
     }
 
     public final Vec3d getAndSet(double x, double y, double z) {
-        return new Vec3d(
-                longBitsToDouble(xBits.getAndSet(doubleToLongBits(x))),
-                longBitsToDouble(yBits.getAndSet(doubleToLongBits(y))),
-                longBitsToDouble(zBits.getAndSet(doubleToLongBits(z)))
-        );
+        return ref.getAndSet(new Vec3d(x, y, z));
     }
 
     public final Vec3d getAndSet(Vec3d vec) {
-        return getAndSet(vec.x, vec.y, vec.z);
+        return ref.getAndSet(new Vec3d(vec.x, vec.y, vec.z));
     }
 
     public final boolean compareAndSet(Vec3d expect, Vec3d update) {
-        return xBits.compareAndSet(doubleToLongBits(expect.x), doubleToLongBits(update.x))
-                && yBits.compareAndSet(doubleToLongBits(expect.y), doubleToLongBits(update.y))
-                && zBits.compareAndSet(doubleToLongBits(expect.z), doubleToLongBits(update.z));
+        Vec3d updated = new Vec3d(update.x, update.y, update.z);
+        Vec3d current = ref.get();
+        return ref.compareAndSet(current, updated);
     }
 
     public final boolean weakCompareAndSet(Vec3d expect, Vec3d update) {
-        return xBits.weakCompareAndSet(doubleToLongBits(expect.x), doubleToLongBits(update.x))
-                && yBits.weakCompareAndSet(doubleToLongBits(expect.y), doubleToLongBits(update.y))
-                && zBits.weakCompareAndSet(doubleToLongBits(expect.z), doubleToLongBits(update.z));
+        return compareAndSet(expect, update);
+    }
+
+    private static boolean sameBits(Vec3d a, Vec3d b) {
+        return doubleToLongBits(a.x) == doubleToLongBits(b.x)
+            && doubleToLongBits(a.y) == doubleToLongBits(b.y)
+            && doubleToLongBits(a.z) == doubleToLongBits(b.z);
     }
 
     @Override
