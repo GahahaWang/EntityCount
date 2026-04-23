@@ -71,7 +71,8 @@ processResources {
     filesMatching('META-INF/neoforge.mods.toml') {
         expand([
             'version': project.version,
-            'minecraft_version_range_neoforge': rootProject.minecraft_version_range_neoforge
+            'minecraft_version_range_neoforge': rootProject.minecraft_version_range_neoforge,
+            'neoforge_version_range' :rootProject.neoforge_version_range
         ])
     }
 }

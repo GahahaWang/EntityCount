@@ -16,7 +16,7 @@ logoFile = "assets/entitycount/icon.png"
 [[dependencies.entitycount]]
 modId = "neoforge"
 type = "required"
-versionRange = "[21,)"
+versionRange = "${neoforge_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
