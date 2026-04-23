@@ -1,56 +1,57 @@
 package cc.gahaha.entitycount;
 
 import cc.gahaha.entitycount.config.ClothConfigIntegration;
-import cc.gahaha.entitycount.config.Command;
 import cc.gahaha.entitycount.config.ConfigManager;
 import cc.gahaha.entitycount.event.CountEntityEvent;
 import cc.gahaha.entitycount.utils.MainSwitch;
-import dev.architectury.event.events.client.ClientTickEvent;
-import dev.architectury.registry.client.keymappings.KeyMappingRegistry;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
-import net.minecraft.util.Identifier;
+import com.mojang.blaze3d.platform.InputConstants;
+import lombok.NonNull;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
+import net.minecraft.resources.Identifier;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EntityCount {
+import java.nio.file.Path;
+
+public abstract class EntityCount {
+    protected static EntityCount INSTANCE = null;
+    public static EntityCount getInstance() { return INSTANCE; }
     public static final String MOD_ID = "entitycount";
-    public static final KeyBinding.Category category = new KeyBinding.Category(Identifier.of("entitycount", "keybind"));
+    public abstract @NonNull Path getConfigFolder();
+
+    public static final KeyMapping.Category category = new KeyMapping.Category(Identifier.fromNamespaceAndPath(MOD_ID, "keybind"));
     public static final Logger LOGGER = LoggerFactory.getLogger("EntityCount");
-    public static KeyBinding openConfigScreenKey = new KeyBinding(
+    public static final KeyMapping openConfigScreenKey = new KeyMapping(
             "key.entitycount.openconfig",
-            InputUtil.Type.KEYSYM,
+            InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_O,
             category
     );;
-    public static KeyBinding switchOnOff = new KeyBinding(
+    public static final KeyMapping switchOnOff = new KeyMapping(
             "key.entitycount.switchonoff",
-            InputUtil.Type.KEYSYM,
-            InputUtil.GLFW_KEY_I,
+            InputConstants.Type.KEYSYM,
+            GLFW.GLFW_KEY_I,
             category
     );;
 
+    public void onClientTick(Minecraft client) {
+        if (MainSwitch.canComputeAndRender())
+            CountEntityEvent.updateEntityCount();
+        while (openConfigScreenKey.consumeClick())
+            openConfigScreen();
+        while (switchOnOff.consumeClick())
+            setSwitchOnOff();
+    }
+
     public void init() {
         ConfigManager.init();
-        Command.register();
-        ClientTickEvent.CLIENT_POST.register(client -> {
-            if (MainSwitch.canComputeAndRender())
-                CountEntityEvent.updateEntityCount(client);
-            while (openConfigScreenKey.wasPressed())
-                openConfigScreen();
-            while (switchOnOff.wasPressed())
-                setSwitchOnOff();
-        });
-
-        KeyMappingRegistry.register(openConfigScreenKey);
-        KeyMappingRegistry.register(switchOnOff);
     }
 
     public void openConfigScreen () {
-        var mc =  MinecraftClient.getInstance();
-        mc.setScreen(ClothConfigIntegration.createConfigScreen(mc.currentScreen));
+        var mc =  Minecraft.getInstance();
+        mc.setScreen(ClothConfigIntegration.createConfigScreen(mc.screen));
     }
 
     public void setSwitchOnOff () {

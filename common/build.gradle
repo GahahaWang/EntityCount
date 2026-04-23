@@ -1,16 +1,40 @@
-architectury {
-    common rootProject.enabled_platforms.split(",")
+apply plugin: 'multiloader-common'
+apply plugin: 'net.fabricmc.fabric-loom'
+
+configurations {
+    commonJava {
+        canBeResolved = false
+        canBeConsumed = true
+    }
+    commonResources {
+        canBeResolved = false
+        canBeConsumed = true
+    }
 }
 
 dependencies {
-    // We depend on Fabric Loader here to use the Fabric @Environment annotations,
-    // which get remapped to the correct annotations on each platform.
-    // Do NOT use other classes from Fabric Loader.
-    modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
+    minecraft "net.minecraft:minecraft:$rootProject.minecraft_version"
 
-    modImplementation "dev.architectury:architectury:$rootProject.architectury_api_version"
-
-    modApi("me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_config}") {
+    compileOnly("me.shedaniel.cloth:cloth-config:${rootProject.cloth_config}") {
         exclude(group: "net.fabricmc.fabric-api")
+        exclude(group: "net.fabricmc:fabric-loader")
+    }
+}
+
+def loaderAttribute = Attribute.of('io.github.mcgradleconventions.loader', String)
+['apiElements', 'runtimeElements'].each { variant ->
+    configurations.named("$variant") {
+        attributes {
+            attribute(loaderAttribute, 'common')
+        }
+    }
+}
+sourceSets.configureEach {
+    [it.compileClasspathConfigurationName, it.runtimeClasspathConfigurationName].each { variant->
+        configurations.named("$variant") {
+            attributes {
+                attribute(loaderAttribute, 'common')
+            }
+        }
     }
 }

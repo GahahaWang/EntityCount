@@ -7,23 +7,20 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import me.shedaniel.clothconfig2.impl.builders.AbstractFieldBuilder;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-@Environment(EnvType.CLIENT)
-public class Vec3dConsumerButtonBuilder extends AbstractFieldBuilder<Vec3d, Vec3dConsumerButtonEntry, Vec3dConsumerButtonBuilder> {
-    private Function<Vec3d, Text> nameProvider = null;
-    private Consumer<AtomicVec3d> buttonFunction = atomicVec3d -> {};
-    public Vec3dConsumerButtonBuilder(Text resetButtonKey, Text fieldNameKey, Vec3d value) {
+public class Vec3dConsumerButtonBuilder extends AbstractFieldBuilder<Vec3, Vec3dConsumerButtonEntry, Vec3dConsumerButtonBuilder> {
+    private Function<Vec3, Component> nameProvider = null;
+    private Consumer<AtomicVec3d> buttonFunction = atomicVec3 -> {};
+    public Vec3dConsumerButtonBuilder(Component resetButtonKey, Component fieldNameKey, Vec3 value) {
         super(resetButtonKey, fieldNameKey);
         Objects.requireNonNull(value);
         this.value = value;
     }
 
-    public Vec3dConsumerButtonBuilder setErrorSupplier(Function<Vec3d, Optional<Text>> errorSupplier) {
+    public Vec3dConsumerButtonBuilder setErrorSupplier(Function<Vec3, Optional<Component>> errorSupplier) {
         return (Vec3dConsumerButtonBuilder)super.setErrorSupplier(errorSupplier);
     }
 
@@ -36,37 +33,38 @@ public class Vec3dConsumerButtonBuilder extends AbstractFieldBuilder<Vec3d, Vec3
         return this;
     }
 
-    public Vec3dConsumerButtonBuilder setSaveConsumer(Consumer<Vec3d> saveConsumer) {
+    public Vec3dConsumerButtonBuilder setSaveConsumer(Consumer<Vec3> saveConsumer) {
         return (Vec3dConsumerButtonBuilder)super.setSaveConsumer(saveConsumer);
     }
 
-    public Vec3dConsumerButtonBuilder setDefaultValue(Supplier<Vec3d> defaultValue) {
+    public Vec3dConsumerButtonBuilder setDefaultValue(Supplier<Vec3> defaultValue) {
         return (Vec3dConsumerButtonBuilder)super.setDefaultValue(defaultValue);
     }
 
-    public Vec3dConsumerButtonBuilder setDefaultValue(Vec3d defaultValue) {
+    public Vec3dConsumerButtonBuilder setDefaultValue(Vec3 defaultValue) {
         return (Vec3dConsumerButtonBuilder)super.setDefaultValue(defaultValue);
     }
 
-    public Vec3dConsumerButtonBuilder setTooltipSupplier(Function<Vec3d, Optional<Text[]>> tooltipSupplier) {
+    public Vec3dConsumerButtonBuilder setTooltipSupplier(Function<Vec3, Optional<Component[]>> tooltipSupplier) {
         return (Vec3dConsumerButtonBuilder)super.setTooltipSupplier(tooltipSupplier);
     }
 
-    public Vec3dConsumerButtonBuilder setTooltipSupplier(Supplier<Optional<Text[]>> tooltipSupplier) {
+    public Vec3dConsumerButtonBuilder setTooltipSupplier(Supplier<Optional<Component[]>> tooltipSupplier) {
         return (Vec3dConsumerButtonBuilder)super.setTooltipSupplier(tooltipSupplier);
     }
 
-    public Vec3dConsumerButtonBuilder setTooltip(Text... tooltip) {
+    public Vec3dConsumerButtonBuilder setTooltip(Component... tooltip) {
         return (Vec3dConsumerButtonBuilder)super.setTooltip(tooltip);
     }
 
-    public Vec3dConsumerButtonBuilder setNameProvider(Function<Vec3d, Text> enumNameProvider) {
+    public Vec3dConsumerButtonBuilder setNameProvider(Function<Vec3, Component> enumNameProvider) {
         this.nameProvider = enumNameProvider;
         return this;
     }
 
     public @NotNull Vec3dConsumerButtonEntry build() {
-        Vec3dConsumerButtonEntry entry = new Vec3dConsumerButtonEntry(this.getFieldNameKey(), this.value, this.getResetButtonKey(), this.defaultValue, this.buttonFunction, this.getSaveConsumer(), this.nameProvider, (Supplier)null, this.isRequireRestart());
+        Vec3dConsumerButtonEntry entry = new Vec3dConsumerButtonEntry(this.getFieldNameKey(), this.value,
+                this.getResetButtonKey(), this.defaultValue, this.buttonFunction, this.getSaveConsumer(), this.nameProvider, (Supplier)null, this.isRequireRestart());
         //entry.setTooltipSupplier(() -> (Optional)this.getTooltipSupplier().apply(entry.getValue()));
         //if (this.errorSupplier != null) {
         //    entry.setErrorSupplier(() -> (Optional)this.errorSupplier.apply(entry.getValue()));

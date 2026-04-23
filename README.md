@@ -50,15 +50,18 @@ Both keys are customizable in Controls settings.
 - **[Fabric API](https://modrinth.com/mod/fabric-api)** - Required for Fabric mods
 - **[Cloth Config](https://modrinth.com/mod/cloth-config)** - Required for configuration screen
 - **[Architectury](https://modrinth.com/mod/architectury-api)** - Required since multi-platform supported
+
+#### Note that since 26.1 Entity Count do not require Architectury mod anymore.
+
 ### Optional Dependencies
 - **[Mod Menu](https://modrinth.com/mod/modmenu)** - Recommended for easy access to config screen
 
 ## Supported Versions
 - **Currently maintaining**:
-    - `1.21.6 - 1.21.8` (Fabric, NeoForge)
     - `1.21.9 - 1.21.11` (Fabric)
     - `1.21.9 - 1.21.10` (NeoForge)
     - `1.21.11` (NeoForge)
+    - `26.1.x` (Fabric ,NeoForge)
 
 ## If you face any issue, please don't hesitate to contact me 🤪
 

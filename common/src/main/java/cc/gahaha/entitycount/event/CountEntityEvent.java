@@ -6,10 +6,11 @@ import cc.gahaha.entitycount.utils.ExtendString;
 import cc.gahaha.entitycount.utils.ExtendString2IntEntry;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.text.Text;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 
 import java.util.List;
 
@@ -24,29 +25,29 @@ public class CountEntityEvent{
 
     public static final Object2IntOpenHashMap<ExtendString> entityCountMap = new Object2IntOpenHashMap<>(30);
 
-    public static void updateEntityCount(Object ...__) {
-        MinecraftClient client = MinecraftClient.getInstance();
-        if (client.player == null || client.world == null) return;
-        Iterable<Entity> entities = client.world.getEntities();
+    public static void updateEntityCount() {
+        Minecraft client = Minecraft.getInstance();
+        if (client.player == null || client.level == null) return;
+        Iterable<Entity> entities = client.level.entitiesForRendering();
         entityCountMap.clear();
 
         String entityType = ConfigManager.getEntityType();
 
         for (Entity entity : entities) {
             // 根據實體類型過濾實體
-            if ("Living".equals(entityType) && !(entity.isLiving())) {
+            if ("Living".equals(entityType) && !(entity instanceof LivingEntity)) {
                 continue; // 跳過非生物實體
             }
 
-            String classTranslationKey = entity.getType().getTranslationKey();
-            String className = Text.translatable(classTranslationKey).getString();
+            String classTranslationKey = entity.getType().toString();
+            String className = Component.translatable(classTranslationKey).getString();
 
             boolean isItemEntity = entity instanceof ItemEntity;
 
             // 如果是物品實體且啟用了擴展顯示，額外記錄物品類型
             if (isItemEntity && ConfigManager.isExpandItemDisplay()) {
-                String itemName = Text.translatable(((ItemEntity)entity).getStack().getItem().getTranslationKey()).getString();
-                entityCountMap.addTo(new ExtendString(itemName, DisplayEntryEntityType.ITEM), ((ItemEntity)entity).getStack().getCount());
+                String itemName = Component.translatable(((ItemEntity)entity).getItem().getItem().getDescriptionId()).getString();
+                entityCountMap.addTo(new ExtendString(itemName, DisplayEntryEntityType.ITEM), ((ItemEntity)entity).getItem().getCount());
             } else {
                 entityCountMap.addTo(new ExtendString(className, DisplayEntryEntityType.NORMAL), 1);
             }

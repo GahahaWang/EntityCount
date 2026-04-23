@@ -1,7 +1,6 @@
 package cc.gahaha.entitycount.utils;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 
 public class ExtendString2IntEntry implements Object2IntMap.Entry<ExtendString> {
     ExtendString key;
@@ -12,7 +11,7 @@ public class ExtendString2IntEntry implements Object2IntMap.Entry<ExtendString> 
         this.value = value;
     }
 
-    public static ExtendString2IntEntry of(Object2IntOpenHashMap.Entry<ExtendString> entry) {
+    public static ExtendString2IntEntry of(Object2IntMap.Entry<ExtendString> entry) {
         return new ExtendString2IntEntry(entry.getKey(), entry.getIntValue());
     }
 

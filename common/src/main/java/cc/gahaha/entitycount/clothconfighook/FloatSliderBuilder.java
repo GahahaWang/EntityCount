@@ -1,14 +1,7 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package cc.gahaha.entitycount.clothconfighook;
 
 import me.shedaniel.clothconfig2.impl.builders.AbstractSliderFieldBuilder;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
@@ -16,16 +9,16 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-@Environment(EnvType.CLIENT)
+@Deprecated
 public class FloatSliderBuilder extends AbstractSliderFieldBuilder<Float, FloatSliderEntry, FloatSliderBuilder> {
-    public FloatSliderBuilder(Text resetButtonKey, Text fieldNameKey, float value, float min, float max) {
+    public FloatSliderBuilder(Component resetButtonKey, Component fieldNameKey, float value, float min, float max) {
         super(resetButtonKey, fieldNameKey);
         this.value = value;
         this.max = max;
         this.min = min;
     }
 
-    public FloatSliderBuilder setErrorSupplier(Function<Float, Optional<Text>> errorSupplier) {
+    public FloatSliderBuilder setErrorSupplier(Function<Float, Optional<Component>> errorSupplier) {
         return (FloatSliderBuilder) super.setErrorSupplier(errorSupplier);
     }
 
@@ -33,7 +26,7 @@ public class FloatSliderBuilder extends AbstractSliderFieldBuilder<Float, FloatS
         return (FloatSliderBuilder)super.requireRestart();
     }
 
-    public FloatSliderBuilder setTextGetter(Function<Float, Text> textGetter) {
+    public FloatSliderBuilder setTextGetter(Function<Float, Component> textGetter) {
         return (FloatSliderBuilder)super.setTextGetter(textGetter);
     }
 
@@ -52,19 +45,19 @@ public class FloatSliderBuilder extends AbstractSliderFieldBuilder<Float, FloatS
         return this;
     }
 
-    public FloatSliderBuilder setTooltipSupplier(Function<Float, Optional<Text[]>> tooltipSupplier) {
+    public FloatSliderBuilder setTooltipSupplier(Function<Float, Optional<Component[]>> tooltipSupplier) {
         return (FloatSliderBuilder)super.setTooltipSupplier(tooltipSupplier);
     }
 
-    public FloatSliderBuilder setTooltipSupplier(Supplier<Optional<Text[]>> tooltipSupplier) {
+    public FloatSliderBuilder setTooltipSupplier(Supplier<Optional<Component[]>> tooltipSupplier) {
         return (FloatSliderBuilder)super.setTooltipSupplier(tooltipSupplier);
     }
 
-    public FloatSliderBuilder setTooltip(Optional<Text[]> tooltip) {
+    public FloatSliderBuilder setTooltip(Optional<Component[]> tooltip) {
         return (FloatSliderBuilder) super.setTooltip(tooltip);
     }
 
-    public FloatSliderBuilder setTooltip(Text... tooltip) {
+    public FloatSliderBuilder setTooltip(Component... tooltip) {
         return (FloatSliderBuilder)super.setTooltip(tooltip);
     }
 

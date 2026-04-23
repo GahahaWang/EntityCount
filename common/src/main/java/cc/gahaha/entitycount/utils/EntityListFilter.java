@@ -2,7 +2,7 @@ package cc.gahaha.entitycount.utils;
 
 import cc.gahaha.entitycount.config.ConfigManager;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ public class EntityListFilter {
                 String tmp = pinnedEntityName.value();
                 if (pinnedEntityName.displayEntryEntityType().equals(DisplayEntryEntityType.ITEM)
                         && ConfigManager.isExpandItemDisplayPrefix())
-                    tmp = Text.translatable("entity.minecraft.item").getString() + " " + tmp;
+                    tmp = Component.translatable("entity.minecraft.item").getString() + " " + tmp;
                 tmp  = "📌 " + tmp;
                 ExtendString displayName = new ExtendString(tmp, pinnedEntityName.displayEntryEntityType());
                 pinnedEntries.add(new ExtendString2IntEntry( displayName, count));

@@ -3,100 +3,94 @@ package cc.gahaha.entitycount.screen;
 import cc.gahaha.entitycount.event.CountEntityEvent;
 import cc.gahaha.entitycount.render.HudRenderer;
 import cc.gahaha.entitycount.utils.AtomicVec3d;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.Click;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.TextWidget;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.StringWidget;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-@Environment(EnvType.CLIENT)
 public class EntityCountConfigScreen extends Screen {
-
     private final @Nullable Screen parent;
-
-    public EntityCountConfigScreen(@Nullable Screen parent, AtomicVec3d coord) {
-        super(Text.literal("EntityCount Config"));
-        this.parent = parent;
-        setModify(coord.get());
-        this.coord = coord;
-    }
-
     private final AtomicVec3d coord;
     private float modifyX;
     private float modifyY;
     private float modifyScale;
 
-    public Vec3d getModify() {
-        return new Vec3d(modifyX, modifyY, modifyScale);
+    public EntityCountConfigScreen(@Nullable Screen parent, AtomicVec3d coord) {
+        super(Component.literal("EntityCount Config"));
+        this.parent = parent;
+        this.setModify(coord.get());
+        this.coord = coord;
     }
-    public void setModify(Vec3d vec3d) {
-        modifyX = (float) vec3d.x;
-        modifyY = (float) vec3d.y;
-        modifyScale = (float) vec3d.z;
+
+    public Vec3 getModify() {
+        return new Vec3((double)this.modifyX, (double)this.modifyY, (double)this.modifyScale);
+    }
+
+    public void setModify(Vec3 vec3d) {
+        this.modifyX = (float)vec3d.x;
+        this.modifyY = (float)vec3d.y;
+        this.modifyScale = (float)vec3d.z;
     }
 
     @Override
     protected void init() {
-        Text line1 = Text.translatable("entitycount.config.set_coord_screen.hint1");
-        Text line2 = Text.translatable("entitycount.config.set_coord_screen.hint2");
-        Text line3 = Text.translatable("entitycount.config.set_coord_screen.hint3");
-        TextWidget hintText1 = new TextWidget(line1, this.textRenderer);
-        TextWidget hintText2 = new TextWidget(line2, this.textRenderer);
-        TextWidget hintText3 = new TextWidget(line3, this.textRenderer);
-        int textWidth1 = this.textRenderer.getWidth(line1);
-        int textWidth2 = this.textRenderer.getWidth(line2);
-        int textWidth3 = this.textRenderer.getWidth(line3);
-        hintText1.setDimensionsAndPosition(textWidth1, 10, (this.width - textWidth1) / 2, 10);
-        hintText2.setDimensionsAndPosition(textWidth2, 10, (this.width - textWidth2) / 2, 20);
-        hintText3.setDimensionsAndPosition(textWidth3, 10, (this.width - textWidth3) / 2, 30);
-        hintText1.setAlpha(0.7f);
-        hintText2.setAlpha(0.7f);
-        hintText3.setAlpha(0.7f);
-        this.addDrawableChild(hintText1);
-        this.addDrawableChild(hintText2);
-        this.addDrawableChild(hintText3);
+        Component line1 = Component.translatable("entitycount.config.set_coord_screen.hint1");
+        Component line2 = Component.translatable("entitycount.config.set_coord_screen.hint2");
+        Component line3 = Component.translatable("entitycount.config.set_coord_screen.hint3");
+        StringWidget hintText1 = new StringWidget(line1, this.font);
+        StringWidget hintText2 = new StringWidget(line2, this.font);
+        StringWidget hintText3 = new StringWidget(line3, this.font);
+        int textWidth1 = this.font.width(line1);
+        int textWidth2 = this.font.width(line2);
+        int textWidth3 = this.font.width(line3);
+        hintText1.setRectangle(textWidth1, 10, (this.width - textWidth1) / 2, 10);
+        hintText2.setRectangle(textWidth2, 10, (this.width - textWidth2) / 2, 20);
+        hintText3.setRectangle(textWidth3, 10, (this.width - textWidth3) / 2, 30);
+        hintText1.setAlpha(0.7F);
+        hintText2.setAlpha(0.7F);
+        hintText3.setAlpha(0.7F);
+        this.addRenderableWidget(hintText1);
+        this.addRenderableWidget(hintText2);
+        this.addRenderableWidget(hintText3);
     }
 
-
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        super.render(context, mouseX, mouseY, delta);
+    public void extractRenderState(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
+        super.extractRenderState(context, mouseX, mouseY, delta);
         HudRenderer.renderEntityCountHUD(context, CountEntityEvent.defaultList, this.getModify());
     }
 
     @Override
-    public boolean mouseClicked(Click click, boolean doubled) {
+    public boolean mouseClicked(MouseButtonEvent click, boolean doubled) {
         return super.mouseClicked(click, doubled);
     }
 
     @Override
-    public boolean mouseReleased(Click click) {
+    public boolean mouseReleased(MouseButtonEvent click) {
         return super.mouseReleased(click);
     }
 
     @Override
-    public boolean mouseDragged(Click click, double offsetX, double offsetY) {
-        this.modifyX += (float) (offsetX)/MinecraftClient.getInstance().getWindow().getScaledWidth();
-        this.modifyY += (float) (offsetY)/MinecraftClient.getInstance().getWindow().getScaledHeight();
+    public boolean mouseDragged(MouseButtonEvent click, double offsetX, double offsetY) {
+        this.modifyX += (float)offsetX / (float)Minecraft.getInstance().getWindow().getGuiScaledWidth();
+        this.modifyY += (float)offsetY / (float)Minecraft.getInstance().getWindow().getGuiScaledHeight();
         return super.mouseDragged(click, offsetX, offsetY);
     }
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-        this.modifyScale += (float) verticalAmount * 0.1f;
-        // 限制縮放範圍在 1.0 到 20.0 之間
-        modifyScale = Math.max(1.0f, Math.min(20.0f, modifyScale));
+        this.modifyScale += (float)verticalAmount * 0.1F;
+        this.modifyScale = Math.clamp(this.modifyScale, 1.0F, 20.0F);
         return true;
     }
 
     @Override
-    public void close() {
-        coord.set(this.getModify());
-        this.client.setScreen(parent);
+    public void onClose() {
+        this.coord.set(this.getModify());
+        this.minecraft.setScreen(this.parent);
     }
 }

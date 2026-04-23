@@ -1,15 +1,15 @@
 package cc.gahaha.entitycount.config;
 
+import cc.gahaha.entitycount.EntityCount;
 import cc.gahaha.entitycount.utils.DisplayEntryEntityType;
 import cc.gahaha.entitycount.utils.ExtendString;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import dev.architectury.platform.Platform;
 import lombok.Getter;
 import lombok.NonNull;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.phys.Vec3;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -22,8 +22,7 @@ import java.util.function.Consumer;
 import static cc.gahaha.entitycount.EntityCount.LOGGER;
 
 public class ConfigManager {
-    //private static final Path CONFIG_FILE = Paths.get("config", "entitycount.json");
-    private static final Path CONFIG_FILE = Platform.getConfigFolder().resolve("entitycount.json");
+    private static final Path CONFIG_FILE = EntityCount.getInstance().getConfigFolder().resolve("entitycount.json");
     private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().create();
     private static final JsonObject configJson = new JsonObject();
     @Getter
@@ -67,7 +66,7 @@ public class ConfigManager {
     @Getter
     private static int itemEntityColor = -256;
     @Getter
-    private static Vec3d coord;
+    private static Vec3 coord;
 
     // Getter methods for combined lists with ExtendString
     public static List<ExtendString> getPinnedList() {
@@ -188,9 +187,9 @@ public class ConfigManager {
     }
 
     private static void setCoord() {
-        coord = new Vec3d(ConfigManager.x, ConfigManager.y, ConfigManager.scale);
+        coord = new Vec3(ConfigManager.x, ConfigManager.y, ConfigManager.scale);
     }
-    public static void setCoord(Vec3d coord) {
+    public static void setCoord(Vec3 coord) {
         setX((float) coord.x);
         setY((float) coord.y);
         setScale((float) coord.z);

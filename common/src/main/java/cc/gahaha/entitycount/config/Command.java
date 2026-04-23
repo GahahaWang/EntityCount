@@ -1,110 +1,134 @@
 package cc.gahaha.entitycount.config;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
-import dev.architectury.event.events.client.ClientCommandRegistrationEvent;
-import static dev.architectury.event.events.client.ClientCommandRegistrationEvent.*;
-
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.command.CommandRegistryAccess;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.argument.RegistryEntryReferenceArgumentType;
-import net.minecraft.command.suggestion.SuggestionProviders;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.commands.CommandBuildContext;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.commands.arguments.ResourceArgument;
+import net.minecraft.commands.synchronization.SuggestionProviders;
+import net.minecraft.core.DefaultedRegistry;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Stream;
+
+import static cc.gahaha.entitycount.EntityCount.MOD_ID;
 
 public class Command {
-    public static final SuggestionProvider<CommandSource> ALL_ENTITIES = SuggestionProviders.register(Identifier.of("entitycount","all_entities"), (context, builder) -> CommandSource.suggestFromIdentifier(Registries.ENTITY_TYPE.stream().filter((entityType) -> entityType.isEnabled(((CommandSource)context.getSource()).getEnabledFeatures())), builder, Registries.ENTITY_TYPE::getId, EntityType::getName));
-    public static final SuggestionProvider<CommandSource> ALL_ITEMS = SuggestionProviders.register(Identifier.of("entitycount","all_items"), (context, builder) -> CommandSource.suggestFromIdentifier(Registries.ITEM.stream().filter((entityType) -> entityType.isEnabled(((CommandSource)context.getSource()).getEnabledFeatures())), builder, Registries.ITEM::getId, Item::getName));
-    public static void register() {
-        ClientCommandRegistrationEvent.EVENT.register(Command::registerCommands);
+    public static final SuggestionProvider<SharedSuggestionProvider> ALL_ENTITIES = SuggestionProviders.register(Identifier.fromNamespaceAndPath(MOD_ID,"all_entities"), (context, builder) -> {
+        Stream<EntityType<?>> entityTypeStream = BuiltInRegistries.ENTITY_TYPE.stream().filter((entityType) -> entityType.isEnabled((context.getSource()).enabledFeatures()));
+        DefaultedRegistry<EntityType<?>> entityTypeDefaultedRegistry = BuiltInRegistries.ENTITY_TYPE;
+        Objects.requireNonNull(entityTypeDefaultedRegistry);
+        return SharedSuggestionProvider.suggestResource(entityTypeStream, builder, entityTypeDefaultedRegistry::getKey, EntityType::getDescription);
+    });
+    public static final SuggestionProvider<SharedSuggestionProvider> ALL_ITEMS = SuggestionProviders.register(Identifier.fromNamespaceAndPath(MOD_ID,"all_items"), (context, builder) -> {
+        Stream<Item> itemStream = BuiltInRegistries.ITEM.stream().filter((entityType) -> entityType.isEnabled((context.getSource()).enabledFeatures()));
+        DefaultedRegistry<Item> itemDefaultedRegistry = BuiltInRegistries.ITEM;
+        Objects.requireNonNull(itemDefaultedRegistry);
+        return SharedSuggestionProvider.suggestResource(itemStream, builder, itemDefaultedRegistry::getKey,  item -> new ItemStack(item).getItemName());
+    });
+
+    private static LiteralArgumentBuilder<CommandSourceStack> literalNode(String name) {
+    return LiteralArgumentBuilder.literal(name);
     }
 
-    private static void registerCommands(CommandDispatcher<ClientCommandSourceStack> dispatcher, CommandRegistryAccess registryAccess) {
-        RegistryEntryReferenceArgumentType<EntityType<?>> entityTypeArgumentType = RegistryEntryReferenceArgumentType.registryEntry(registryAccess, RegistryKeys.ENTITY_TYPE);
-        RegistryEntryReferenceArgumentType<Item> itemArgumentType = RegistryEntryReferenceArgumentType.registryEntry(registryAccess, RegistryKeys.ITEM);
-        RequiredArgumentBuilder<ClientCommandSourceStack, ?> entityTypeArgument = argument("entity", entityTypeArgumentType).suggests(SuggestionProviders.cast(ALL_ENTITIES));
-        RequiredArgumentBuilder<ClientCommandSourceStack, ?> itemArgument = argument("item", itemArgumentType).suggests(SuggestionProviders.cast(ALL_ITEMS));
-        dispatcher.register(literal("entitycount")
-                .then(literal("toggle")
+    private static <T> RequiredArgumentBuilder<CommandSourceStack, T> argumentNode(String name, ArgumentType<T> type) {
+    return RequiredArgumentBuilder.argument(name, type);
+    }
+
+    public static void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext registryAccess) {
+        ResourceArgument<EntityType<?>> entityTypeArgumentType = ResourceArgument.resource(registryAccess, Registries.ENTITY_TYPE);
+        ResourceArgument<Item> itemArgumentType = ResourceArgument.resource(registryAccess, Registries.ITEM);
+        RequiredArgumentBuilder<CommandSourceStack, Holder.Reference<EntityType<?>>> entityTypeArgument = argumentNode("entity", entityTypeArgumentType);
+        entityTypeArgument.suggests(SuggestionProviders.cast(ALL_ENTITIES));
+        RequiredArgumentBuilder<CommandSourceStack, Holder.Reference<Item>> itemArgument = argumentNode("item", itemArgumentType);
+        itemArgument.suggests(SuggestionProviders.cast(ALL_ITEMS));
+
+        dispatcher.register(literalNode("entitycount")
+            .then(literalNode("toggle")
                         .executes(ctx -> toggleDisplay()))
-                .then(literal("whitelist")
-                        .then(literal("add")
+            .then(literalNode("whitelist")
+                .then(literalNode("add")
                                 .then(entityTypeArgument
                                         .executes(ctx -> addToWhitelistNormal(getEntityTranslationName(ctx))))
-                                .then(literal("item")
+                    .then(literalNode("item")
                                         .then(itemArgument
                                                 .executes(ctx -> addToWhitelistItem(getItemTranslationName(ctx))))))
-                        .then(literal("remove")
+                .then(literalNode("remove")
                                 .then(entityTypeArgument
                                         .executes(ctx -> removeFromWhitelistNormal(getEntityTranslationName(ctx))))
-                                .then(literal("item")
+                    .then(literalNode("item")
                                         .then(itemArgument
                                                 .executes(ctx -> removeFromWhitelistItem(getItemTranslationName(ctx))))))
-                        .then(literal("clear").executes(ctx -> clearWhitelist()))
-                        .then(literal("list").executes(ctx -> listWhitelist())))
-                .then(literal("blacklist")
-                        .then(literal("add")
+                .then(literalNode("clear").executes(ctx -> clearWhitelist()))
+                .then(literalNode("list").executes(ctx -> listWhitelist())))
+            .then(literalNode("blacklist")
+                .then(literalNode("add")
                                 .then(entityTypeArgument
                                         .executes(ctx -> addToBlacklistNormal(getEntityTranslationName(ctx))))
-                                .then(literal("item")
+                    .then(literalNode("item")
                                         .then(itemArgument
                                                 .executes(ctx -> addToBlacklistItem(getItemTranslationName(ctx))))))
-                        .then(literal("remove")
+                .then(literalNode("remove")
                                 .then(entityTypeArgument
                                         .executes(ctx -> removeFromBlacklistNormal(getEntityTranslationName(ctx))))
-                                .then(literal("item")
+                    .then(literalNode("item")
                                         .then(itemArgument
                                                 .executes(ctx -> removeFromBlacklistItem(getItemTranslationName(ctx))))))
-                        .then(literal("clear").executes(ctx -> clearBlacklist()))
-                        .then(literal("list").executes(ctx -> listBlacklist())))
-                .then(literal("pinnedlist")
-                        .then(literal("add")
+                .then(literalNode("clear").executes(ctx -> clearBlacklist()))
+                .then(literalNode("list").executes(ctx -> listBlacklist())))
+            .then(literalNode("pinnedlist")
+                .then(literalNode("add")
                                 .then(entityTypeArgument
                                         .executes(ctx -> addToPinnedNormal(getEntityTranslationName(ctx))))
-                                .then(literal("item")
+                    .then(literalNode("item")
                                         .then(itemArgument
                                                 .executes(ctx -> addToPinnedItem(getItemTranslationName(ctx))))))
-                        .then(literal("remove")
+                .then(literalNode("remove")
                                 .then(entityTypeArgument
                                         .executes(ctx -> removeFromPinnedNormal(getEntityTranslationName(ctx))))
-                                .then(literal("item")
+                    .then(literalNode("item")
                                         .then(itemArgument
                                                 .executes(ctx -> removeFromPinnedItem(getItemTranslationName(ctx))))))
-                        .then(literal("clear").executes(ctx -> clearPinned()))
-                        .then(literal("list").executes(ctx -> listPinned())))
-                .then(literal("listmode")
-                        .then(literal("Whitelist").executes(ctx -> setListMode("Whitelist")))
-                        .then(literal("Blacklist").executes(ctx -> setListMode("Blacklist"))))
-                .then(literal("entitytype")
-                        .then(literal("All").executes(ctx -> setEntityType("All")))
-                        .then(literal("Living").executes(ctx -> setEntityType("Living"))))
-                .then(literal("threshold")
-                        .then(argument("value", IntegerArgumentType.integer(-1)).executes(ctx -> setThreshold(IntegerArgumentType.getInteger(ctx, "value")))))
-                .then(literal("maxlength")
-                        .then(argument("value", IntegerArgumentType.integer(-1)).executes(ctx -> setMaxLength(IntegerArgumentType.getInteger(ctx, "value")))))
-                .then(literal("expanditem")
-                        .then(literal("true").executes(ctx -> setExpandItem("true")))
-                        .then(literal("false").executes(ctx -> setExpandItem("false"))))
-                .then(literal("expanditemprefix")
-                        .then(literal("true").executes(ctx -> setExpandItemPrefix("true")))
-                        .then(literal("false").executes(ctx -> setExpandItemPrefix("false"))))
-                .then(literal("pinnedshowevenzero")
-                        .then(literal("true").executes(ctx -> setPinnedShowEvenZero("true")))
-                        .then(literal("false").executes(ctx -> setPinnedShowEvenZero("false"))))
-                .then(literal("reload").executes(ctx -> reload()))
-                .then(literal("reset").executes(ctx -> reset()))
+                .then(literalNode("clear").executes(ctx -> clearPinned()))
+                .then(literalNode("list").executes(ctx -> listPinned())))
+            .then(literalNode("listmode")
+                .then(literalNode("Whitelist").executes(ctx -> setListMode("Whitelist")))
+                .then(literalNode("Blacklist").executes(ctx -> setListMode("Blacklist"))))
+            .then(literalNode("entitytype")
+                .then(literalNode("All").executes(ctx -> setEntityType("All")))
+                .then(literalNode("Living").executes(ctx -> setEntityType("Living"))))
+            .then(literalNode("threshold")
+                .then(argumentNode("value", IntegerArgumentType.integer(-1)).executes(ctx -> setThreshold(IntegerArgumentType.getInteger(ctx, "value")))))
+            .then(literalNode("maxlength")
+                .then(argumentNode("value", IntegerArgumentType.integer(-1)).executes(ctx -> setMaxLength(IntegerArgumentType.getInteger(ctx, "value")))))
+            .then(literalNode("expanditem")
+                .then(literalNode("true").executes(ctx -> setExpandItem("true")))
+                .then(literalNode("false").executes(ctx -> setExpandItem("false"))))
+            .then(literalNode("expanditemprefix")
+                .then(literalNode("true").executes(ctx -> setExpandItemPrefix("true")))
+                .then(literalNode("false").executes(ctx -> setExpandItemPrefix("false"))))
+            .then(literalNode("pinnedshowevenzero")
+                .then(literalNode("true").executes(ctx -> setPinnedShowEvenZero("true")))
+                .then(literalNode("false").executes(ctx -> setPinnedShowEvenZero("false"))))
+            .then(literalNode("reload").executes(ctx -> reload()))
+            .then(literalNode("reset").executes(ctx -> reset()))
         );
     }
 
@@ -416,17 +440,17 @@ public class Command {
     }
 
     private static void addMessage(String text) {
-        MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of("EntityCount: "+text));
+        Minecraft.getInstance().gui.getChat().addClientSystemMessage(Component.nullToEmpty("EntityCount: "+text));
     }
 
     @SuppressWarnings("unchecked")
-    private static String getEntityTranslationName(CommandContext<ClientCommandSourceStack> context) {
-        RegistryEntry.Reference<EntityType<?>> entry = context.getArgument("entity", RegistryEntry.Reference.class);
-        return Text.translatable(entry.value().getTranslationKey()).getString();
+    private static String getEntityTranslationName(CommandContext<CommandSourceStack> context) {
+        Holder.Reference<EntityType<?>> entry = context.getArgument("entity", Holder.Reference.class);
+        return Component.translatable(entry.value().toString()).getString();
     }
     @SuppressWarnings("unchecked")
-    private static String getItemTranslationName(CommandContext<ClientCommandSourceStack> context) {
-        RegistryEntry.Reference<Item> entry = context.getArgument("item", RegistryEntry.Reference.class);
-        return Text.translatable(entry.value().getTranslationKey()).getString();
+    private static String getItemTranslationName(CommandContext<CommandSourceStack> context) {
+        Holder.Reference<Item> entry = context.getArgument("item", Holder.Reference.class);
+        return Component.translatable(entry.value().toString()).getString();
     }
 }

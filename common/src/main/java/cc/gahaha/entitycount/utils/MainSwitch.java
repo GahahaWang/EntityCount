@@ -1,21 +1,29 @@
 package cc.gahaha.entitycount.utils;
 
 import cc.gahaha.entitycount.config.ConfigManager;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.hud.debug.DebugHudProfile;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.debug.DebugScreenEntryList;
 
 public class MainSwitch {
-    private static final MinecraftClient client = MinecraftClient.getInstance();
+    private static final Minecraft client = Minecraft.getInstance();
+
+    public MainSwitch() {
+    }
 
     public static boolean shouldShowDebugHudFix() {
-        DebugHudProfile profile = client.debugHudEntryList;
-        return profile.isF3Enabled() && (!client.options.hudHidden || client.currentScreen != null);
+        DebugScreenEntryList profile = client.debugEntries;
+        return profile.isOverlayVisible() && (!client.options.hideGui || client.screen != null);
     }
 
     public static boolean canComputeAndRender() {
-        if (client.player == null || client.world == null) return false;
-        if (shouldShowDebugHudFix()) return false;
-        if (client.isPaused()) return false;
-        return ConfigManager.isShowEntitiesCount();
+        if (client.player != null && client.level != null) {
+            if (shouldShowDebugHudFix()) {
+                return false;
+            } else {
+                return client.isPaused() ? false : ConfigManager.isShowEntitiesCount();
+            }
+        } else {
+            return false;
+        }
     }
 }
