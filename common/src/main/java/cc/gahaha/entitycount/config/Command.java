@@ -445,7 +445,7 @@ public class Command {
     }
 
     private static void addMessage(String text) {
-        Minecraft.getInstance().gui.getChat().addClientSystemMessage(Component.nullToEmpty("EntityCount: "+text));
+        Minecraft.getInstance().gui.hud.getChat().addClientSystemMessage(Component.nullToEmpty("EntityCount: "+text));
     }
 
     @SuppressWarnings("unchecked")

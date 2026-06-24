@@ -51,7 +51,7 @@ public abstract class EntityCount {
 
     public void openConfigScreen () {
         var mc =  Minecraft.getInstance();
-        mc.setScreen(ClothConfigIntegration.createConfigScreen(mc.screen));
+        mc.gui.setScreen(ClothConfigIntegration.createConfigScreen(mc.gui.screen()));
     }
 
     public void setSwitchOnOff () {

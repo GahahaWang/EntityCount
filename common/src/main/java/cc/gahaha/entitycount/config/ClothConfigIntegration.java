@@ -27,9 +27,9 @@ public class ClothConfigIntegration{
                 )
                 .addEntry(new Vec3dConsumerButtonBuilder(Component.translatable("text.cloth-config.reset_value"), Component.translatable("entitycount.config.set_coord_screen"), ConfigManager.getCoord())
                         .setButtonFunction((atomicValue)->{
-                            Screen thisScreen = Minecraft.getInstance().screen;
+                            Screen thisScreen = Minecraft.getInstance().gui.screen();
                             EntityCountConfigScreen configScreen = new EntityCountConfigScreen(thisScreen, atomicValue);
-                            Minecraft.getInstance().setScreen(configScreen);
+                            Minecraft.getInstance().gui.setScreen(configScreen);
                         })
                         .setSaveConsumer(ConfigManager::setCoord)
                         .setDefaultValue(new Vec3(ConfigManager.Default.x, ConfigManager.Default.y, ConfigManager.Default.scale))

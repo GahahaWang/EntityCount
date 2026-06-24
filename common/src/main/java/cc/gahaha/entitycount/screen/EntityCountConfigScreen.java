@@ -91,6 +91,6 @@ public class EntityCountConfigScreen extends Screen {
     @Override
     public void onClose() {
         this.coord.set(this.getModify());
-        this.minecraft.setScreen(this.parent);
+        this.minecraft.gui.setScreen(this.parent);
     }
 }

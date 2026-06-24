@@ -12,7 +12,7 @@ public class MainSwitch {
 
     public static boolean shouldShowDebugHudFix() {
         DebugScreenEntryList profile = client.debugEntries;
-        return profile.isOverlayVisible() && (!client.options.hideGui || client.screen != null);
+        return profile.isOverlayVisible() && (!client.gui.hud.isHidden() || client.gui.screen() != null);
     }
 
     public static boolean canComputeAndRender() {
