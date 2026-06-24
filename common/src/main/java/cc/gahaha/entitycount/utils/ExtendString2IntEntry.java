@@ -19,7 +19,7 @@ public class ExtendString2IntEntry implements Object2IntMap.Entry<ExtendString> 
         return new ExtendString2IntEntry(key, value);
     }
 
-    public static ExtendString2IntEntry of(String key, DisplayEntryEntityType type, int value) {
+    public static ExtendString2IntEntry of(String key, Enums.DisplayEntryEntityType type, int value) {
         return new ExtendString2IntEntry(new ExtendString(key, type), value);
     }
 

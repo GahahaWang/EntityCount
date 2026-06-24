@@ -52,7 +52,9 @@ public class Command {
     return RequiredArgumentBuilder.argument(name, type);
     }
 
-    public static void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext registryAccess) {
+    @SuppressWarnings("unchecked")
+    public static void registerCommands(CommandDispatcher<? extends SharedSuggestionProvider> rawDispatcher, CommandBuildContext registryAccess) {
+        CommandDispatcher<CommandSourceStack> dispatcher = (CommandDispatcher<CommandSourceStack>) rawDispatcher;
         ResourceArgument<EntityType<?>> entityTypeArgumentType = ResourceArgument.resource(registryAccess, Registries.ENTITY_TYPE);
         ResourceArgument<Item> itemArgumentType = ResourceArgument.resource(registryAccess, Registries.ITEM);
         RequiredArgumentBuilder<CommandSourceStack, Holder.Reference<EntityType<?>>> entityTypeArgument = argumentNode("entity", entityTypeArgumentType);
@@ -108,22 +110,24 @@ public class Command {
                                                 .executes(ctx -> removeFromPinnedItem(getItemTranslationName(ctx))))))
                 .then(literalNode("clear").executes(ctx -> clearPinned()))
                 .then(literalNode("list").executes(ctx -> listPinned())))
-            .then(literalNode("listmode")
+            .then(literalNode("filtermode")
                 .then(literalNode("Whitelist").executes(ctx -> setListMode("Whitelist")))
                 .then(literalNode("Blacklist").executes(ctx -> setListMode("Blacklist"))))
-            .then(literalNode("entitytype")
-                .then(literalNode("All").executes(ctx -> setEntityType("All")))
-                .then(literalNode("Living").executes(ctx -> setEntityType("Living"))))
+            .then(literalNode("countliving")
+                .then(literalNode("true").executes(ctx -> setCountLiving("true")))
+                .then(literalNode("false").executes(ctx -> setCountLiving("false"))))
+            .then(literalNode("countnonliving")
+                .then(literalNode("true").executes(ctx -> setCountNonLiving("true")))
+                .then(literalNode("false").executes(ctx -> setCountNonLiving("false"))))
             .then(literalNode("threshold")
                 .then(argumentNode("value", IntegerArgumentType.integer(-1)).executes(ctx -> setThreshold(IntegerArgumentType.getInteger(ctx, "value")))))
             .then(literalNode("maxlength")
                 .then(argumentNode("value", IntegerArgumentType.integer(-1)).executes(ctx -> setMaxLength(IntegerArgumentType.getInteger(ctx, "value")))))
+            .then(literalNode("countrange")
+                .then(argumentNode("value", IntegerArgumentType.integer(0, ConfigManager.MAX_RENDER_DISTANCE)).executes(ctx -> setCountRange(IntegerArgumentType.getInteger(ctx, "value")))))
             .then(literalNode("expanditem")
                 .then(literalNode("true").executes(ctx -> setExpandItem("true")))
                 .then(literalNode("false").executes(ctx -> setExpandItem("false"))))
-            .then(literalNode("expanditemprefix")
-                .then(literalNode("true").executes(ctx -> setExpandItemPrefix("true")))
-                .then(literalNode("false").executes(ctx -> setExpandItemPrefix("false"))))
             .then(literalNode("pinnedshowevenzero")
                 .then(literalNode("true").executes(ctx -> setPinnedShowEvenZero("true")))
                 .then(literalNode("false").executes(ctx -> setPinnedShowEvenZero("false"))))
@@ -375,15 +379,17 @@ public class Command {
         return 1;
     }
 
-    private static int setEntityType(String type) {
-        List<String> validTypes = List.of("All", "Living");
-        if (!validTypes.contains(type)) {
-            addMessage("invalid type");
-            return 0;
-        } else {
-            ConfigManager.setEntityType(type);
-            addMessage("entity type set to " + type);
-        }
+    private static int setCountLiving(String value) {
+        boolean count = Boolean.parseBoolean(value);
+        ConfigManager.setCountLivingEntity(count);
+        addMessage("count living entity set to " + count);
+        return 1;
+    }
+
+    private static int setCountNonLiving(String value) {
+        boolean count = Boolean.parseBoolean(value);
+        ConfigManager.setCountNonLivingEntity(count);
+        addMessage("count non-living entity set to " + count);
         return 1;
     }
 
@@ -399,6 +405,12 @@ public class Command {
         return 1;
     }
 
+    private static int setCountRange(int value) {
+        ConfigManager.setCountRange(value);
+        addMessage("count range set to " + value + " chunks");
+        return 1;
+    }
+
     private static int toggleDisplay() {
         boolean current = ConfigManager.isShowEntitiesCount();
         ConfigManager.setShowEntitiesCount(!current);
@@ -410,13 +422,6 @@ public class Command {
         boolean expand = Boolean.parseBoolean(value);
         ConfigManager.setExpandItemDisplay(expand);
         addMessage("expand item set to " + expand);
-        return 1;
-    }
-
-    private static int setExpandItemPrefix(String value) {
-        boolean prefix = Boolean.parseBoolean(value);
-        ConfigManager.setExpandItemDisplayPrefix(prefix);
-        addMessage("expand item prefix set to " + prefix);
         return 1;
     }
 
@@ -451,6 +456,6 @@ public class Command {
     @SuppressWarnings("unchecked")
     private static String getItemTranslationName(CommandContext<CommandSourceStack> context) {
         Holder.Reference<Item> entry = context.getArgument("item", Holder.Reference.class);
-        return Component.translatable(entry.value().toString()).getString();
+        return Component.translatable(entry.value().getDescriptionId()).getString();
     }
 }

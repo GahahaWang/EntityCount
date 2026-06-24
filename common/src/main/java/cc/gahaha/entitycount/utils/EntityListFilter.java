@@ -1,8 +1,8 @@
 package cc.gahaha.entitycount.utils;
 
 import cc.gahaha.entitycount.config.ConfigManager;
+import cc.gahaha.entitycount.utils.Enums.*;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +26,6 @@ public class EntityListFilter {
             int count = sourceMap.getInt(pinnedEntityName);
             if (ConfigManager.isPinnedShowEvenZero() || count > 0) {
                 String tmp = pinnedEntityName.value();
-                if (pinnedEntityName.displayEntryEntityType().equals(DisplayEntryEntityType.ITEM)
-                        && ConfigManager.isExpandItemDisplayPrefix())
-                    tmp = Component.translatable("entity.minecraft.item").getString() + " " + tmp;
                 tmp  = "📌 " + tmp;
                 ExtendString displayName = new ExtendString(tmp, pinnedEntityName.displayEntryEntityType());
                 pinnedEntries.add(new ExtendString2IntEntry( displayName, count));
@@ -70,20 +67,20 @@ public class EntityListFilter {
     }
 
     private static boolean processListMode(ExtendString entityName) {
-        String listMode = ConfigManager.getListMode();
+        String filterMode = ConfigManager.getListMode();
         var whiteListNormal = ConfigManager.getWhiteListNormal();
         var whiteListItem = ConfigManager.getWhiteListItem();
         var blackListNormal = ConfigManager.getBlackListNormal();
         var blackListItem = ConfigManager.getBlackListItem();
 
-        if ("Whitelist".equals(listMode)) {
+        if (FilterMode.WHITELIST.str.equals(filterMode)) {
             // 白名單模式
             if (entityName.displayEntryEntityType().equals(DisplayEntryEntityType.ITEM)) {
                 return whiteListItem.contains(entityName.value());
             } else {
                 return whiteListNormal.contains(entityName.value());
             }
-        } else if ("Blacklist".equals(listMode)) {
+        } else if (FilterMode.BLACKLIST.str.equals(filterMode)) {
             // 黑名單模式
             if (entityName.displayEntryEntityType().equals(DisplayEntryEntityType.ITEM)) {
                 return !blackListItem.contains(entityName.value());

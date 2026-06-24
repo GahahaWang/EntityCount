@@ -7,12 +7,12 @@ import cc.gahaha.entitycount.render.HudRenderer;
 import cc.gahaha.entitycount.utils.EntityListFilter;
 import cc.gahaha.entitycount.utils.MainSwitch;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.Identifier;
 import org.jspecify.annotations.NonNull;
@@ -39,7 +39,7 @@ public final class EntityCountFabricClient extends EntityCount implements Client
         KeyMappingHelper.registerKeyMapping(switchOnOff);
         HudElementRegistry.attachElementAfter(VanillaHudElements.SCOREBOARD, ENTITY_COUNT_HUD_ID, hudElement);
         ClientTickEvents.END_CLIENT_TICK.register(super::onClientTick);
-        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
             Command.registerCommands(dispatcher, registryAccess);
         });
     }

@@ -2,7 +2,7 @@ package cc.gahaha.entitycount.render;
 
 import cc.gahaha.entitycount.config.ConfigManager;
 import cc.gahaha.entitycount.event.CountEntityEvent;
-import cc.gahaha.entitycount.utils.DisplayEntryEntityType;
+import cc.gahaha.entitycount.utils.Enums.*;
 import cc.gahaha.entitycount.utils.EntityListFilter;
 import cc.gahaha.entitycount.utils.ExtendString;
 import cc.gahaha.entitycount.utils.MainSwitch;

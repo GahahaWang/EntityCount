@@ -1,7 +1,7 @@
 package cc.gahaha.entitycount.config;
 
 import cc.gahaha.entitycount.EntityCount;
-import cc.gahaha.entitycount.utils.DisplayEntryEntityType;
+import cc.gahaha.entitycount.utils.Enums.*;
 import cc.gahaha.entitycount.utils.ExtendString;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -28,9 +28,11 @@ public class ConfigManager {
     @Getter
     private static boolean showEntitiesCount = true;
     @Getter
-    private static String entityType = "All";
+    private static boolean countLivingEntity = true;
     @Getter
-    private static String listMode = "Blacklist";
+    private static boolean countNonLivingEntity = true;
+    @Getter
+    private static String listMode = FilterMode.BLACKLIST.str;
     @Getter
     private static float scale = 10.0F;
     @Getter
@@ -45,6 +47,9 @@ public class ConfigManager {
     private static int maxListLength = -1;
     @Getter
     private static int threshold = -1;
+    public static final int MAX_RENDER_DISTANCE = 32;
+    @Getter
+    private static int countRange = MAX_RENDER_DISTANCE;
     @Getter
     private static List<String> whiteListNormal = List.of();
     @Getter
@@ -59,8 +64,6 @@ public class ConfigManager {
     private static List<String> pinnedListItem = List.of();
     @Getter
     private static boolean expandItemDisplay = true;
-    @Getter
-    private static boolean expandItemDisplayPrefix = false;
     @Getter
     private static boolean pinnedShowEvenZero = false;
     @Getter
@@ -96,8 +99,9 @@ public class ConfigManager {
 
     public static final class Default {
         public static final boolean showEntitiesCount = true;
-        public static final String entityType = "All";
-        public static final String listMode = "Blacklist";
+        public static final boolean countLivingEntity = true;
+        public static final boolean countNonLivingEntity = true;
+        public static final String listMode = FilterMode.BLACKLIST.str;
         public static final float scale = 7.0F;
         public static final int textColor = 0xffffffff;
         public static final int backgroundColor = 0x3f808080;
@@ -105,6 +109,7 @@ public class ConfigManager {
         public static final float y = 0.01F;
         public static final int maxListLength = -1;
         public static final int threshold = -1;
+        public static final int countRange = MAX_RENDER_DISTANCE;
         public static final List<String> whiteListNormal = List.of();
         public static final List<String> whiteListItem = List.of();
         public static final List<String> blackListNormal = List.of();
@@ -112,7 +117,6 @@ public class ConfigManager {
         public static final List<String> pinnedListNormal = List.of();
         public static final List<String> pinnedListItem = List.of();
         public static final boolean expandItemDisplay = true;
-        public static final boolean expandItemDisplayPrefix = false;
         public static final boolean pinnedShowEvenZero = false;
         public static final int itemEntityColor = 0xffffff64;
     }
@@ -123,9 +127,15 @@ public class ConfigManager {
         writeJson();
     }
 
-    public static void setEntityType(String entityType) {
-        ConfigManager.entityType = entityType;
-        configJson.addProperty("displayEntryEntityType", entityType);
+    public static void setCountLivingEntity(boolean countLivingEntity) {
+        ConfigManager.countLivingEntity = countLivingEntity;
+        configJson.addProperty("countLivingEntity", countLivingEntity);
+        writeJson();
+    }
+
+    public static void setCountNonLivingEntity(boolean countNonLivingEntity) {
+        ConfigManager.countNonLivingEntity = countNonLivingEntity;
+        configJson.addProperty("countNonLivingEntity", countNonLivingEntity);
         writeJson();
     }
 
@@ -225,6 +235,13 @@ public class ConfigManager {
         writeJson();
     }
 
+    public static void setCountRange(int countRange) {
+        countRange = Math.clamp(countRange, 0, MAX_RENDER_DISTANCE);
+        ConfigManager.countRange = countRange;
+        configJson.addProperty("countRange", countRange);
+        writeJson();
+    }
+
     public static void setPinnedListNormal(List<String> pinnedListNormal) {
         List<String> mutableList = new java.util.ArrayList<>(pinnedListNormal);
         mutableList.removeIf(s -> s.trim().isEmpty());
@@ -247,12 +264,6 @@ public class ConfigManager {
         writeJson();
     }
 
-    public static void setExpandItemDisplayPrefix(boolean expandItemDisplayPrefix) {
-        ConfigManager.expandItemDisplayPrefix = expandItemDisplayPrefix;
-        configJson.addProperty("expandItemDisplayPrefix", expandItemDisplayPrefix);
-        writeJson();
-    }
-
     public static void setPinnedShowEvenZero(boolean pinnedShowEvenZero) {
         ConfigManager.pinnedShowEvenZero = pinnedShowEvenZero;
         configJson.addProperty("pinnedShowEvenZero", pinnedShowEvenZero);
@@ -267,7 +278,8 @@ public class ConfigManager {
 
     public static void reset() {
         setShowEntitiesCount(Default.showEntitiesCount);
-        setEntityType(Default.entityType);
+        setCountLivingEntity(Default.countLivingEntity);
+        setCountNonLivingEntity(Default.countNonLivingEntity);
         setListMode(Default.listMode);
         setWhiteListNormal(Default.whiteListNormal);
         setWhiteListItem(Default.whiteListItem);
@@ -276,7 +288,6 @@ public class ConfigManager {
         setPinnedListNormal(Default.pinnedListNormal);
         setPinnedListItem(Default.pinnedListItem);
         setExpandItemDisplay(Default.expandItemDisplay);
-        setExpandItemDisplayPrefix(Default.expandItemDisplayPrefix);
         setPinnedShowEvenZero(Default.pinnedShowEvenZero);
         setItemEntityColor(Default.itemEntityColor);
         setScale(Default.scale);
@@ -286,6 +297,7 @@ public class ConfigManager {
         setY(Default.y);
         setMaxListLength(Default.maxListLength);
         setThreshold(Default.threshold);
+        setCountRange(Default.countRange);
     }
 
     public static void init() {
@@ -308,7 +320,7 @@ public class ConfigManager {
             setter.accept(value);
         } catch (Exception e) {
             setter.accept(defaultValue);
-            LOGGER.error("Failed to parse config value, using default", e);
+            LOGGER.warn("Failed to parse config value, using default", e);
         }
     }
 
@@ -320,7 +332,8 @@ public class ConfigManager {
                 return;
             }
             parseConfigValue(loadedJson, j -> j.get("showEntitiesCount").getAsBoolean(), ConfigManager::setShowEntitiesCount, Default.showEntitiesCount);
-            parseConfigValue(loadedJson, j -> j.get("displayEntryEntityType").getAsString(), ConfigManager::setEntityType, Default.entityType);
+            parseConfigValue(loadedJson, j -> j.get("countLivingEntity").getAsBoolean(), ConfigManager::setCountLivingEntity, Default.countLivingEntity);
+            parseConfigValue(loadedJson, j -> j.get("countNonLivingEntity").getAsBoolean(), ConfigManager::setCountNonLivingEntity, Default.countNonLivingEntity);
             parseConfigValue(loadedJson, j -> j.get("listMode").getAsString(), ConfigManager::setListMode, Default.listMode);
             parseConfigValue(loadedJson, j -> GSON.fromJson(j.get("whiteListNormal"), new TypeToken<List<String>>(){}.getType()), ConfigManager::setWhiteListNormal, Default.whiteListNormal);
             parseConfigValue(loadedJson, j -> GSON.fromJson(j.get("whiteListItem"), new TypeToken<List<String>>(){}.getType()), ConfigManager::setWhiteListItem, Default.whiteListItem);
@@ -329,7 +342,6 @@ public class ConfigManager {
             parseConfigValue(loadedJson, j -> GSON.fromJson(j.get("pinnedListNormal"), new TypeToken<List<String>>(){}.getType()), ConfigManager::setPinnedListNormal, Default.pinnedListNormal);
             parseConfigValue(loadedJson, j -> GSON.fromJson(j.get("pinnedListItem"), new TypeToken<List<String>>(){}.getType()), ConfigManager::setPinnedListItem, Default.pinnedListItem);
             parseConfigValue(loadedJson, j -> j.get("expandItemDisplay").getAsBoolean(), ConfigManager::setExpandItemDisplay, Default.expandItemDisplay);
-            parseConfigValue(loadedJson, j -> j.get("expandItemDisplayPrefix").getAsBoolean(), ConfigManager::setExpandItemDisplayPrefix, Default.expandItemDisplayPrefix);
             parseConfigValue(loadedJson, j -> j.get("pinnedShowEvenZero").getAsBoolean(), ConfigManager::setPinnedShowEvenZero, Default.pinnedShowEvenZero);
             parseConfigValue(loadedJson, j -> j.get("itemEntityColor").getAsInt(), ConfigManager::setItemEntityColor, Default.itemEntityColor);
             parseConfigValue(loadedJson, j -> j.get("scale").getAsFloat(), ConfigManager::setScale, Default.scale);
@@ -339,6 +351,7 @@ public class ConfigManager {
             parseConfigValue(loadedJson, j -> j.get("y").getAsFloat(), ConfigManager::setY, Default.y);
             parseConfigValue(loadedJson, j -> j.get("maxListLength").getAsInt(), ConfigManager::setMaxListLength, Default.maxListLength);
             parseConfigValue(loadedJson, j -> j.get("threshold").getAsInt(), ConfigManager::setThreshold, Default.threshold);
+            parseConfigValue(loadedJson, j -> j.get("countRange").getAsInt(), ConfigManager::setCountRange, Default.countRange);
         } catch (Exception e) {
             LOGGER.error("Failed to load config file", e);
         }

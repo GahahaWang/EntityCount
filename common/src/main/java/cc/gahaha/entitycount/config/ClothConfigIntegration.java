@@ -2,6 +2,7 @@ package cc.gahaha.entitycount.config;
 
 import cc.gahaha.entitycount.clothconfighook.Vec3dConsumerButtonBuilder;
 import cc.gahaha.entitycount.screen.EntityCountConfigScreen;
+import cc.gahaha.entitycount.utils.Enums;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -32,7 +33,6 @@ public class ClothConfigIntegration{
                         })
                         .setSaveConsumer(ConfigManager::setCoord)
                         .setDefaultValue(new Vec3(ConfigManager.Default.x, ConfigManager.Default.y, ConfigManager.Default.scale))
-                        //.setTooltip(Component.translatable("entitycount.config.set_coord_screen.tooltip"))
                         .setNameProvider(
                                 (vec3d) -> {
                                     DecimalFormat df = new DecimalFormat(".####");
@@ -44,20 +44,23 @@ public class ClothConfigIntegration{
                         .build()
                 )
                 .addEntry(builder.entryBuilder()
-                        .<String>startSelector(
-                                Component.translatable("entitycount.config.display_mode"),
-                                new String[]{"Living", "All"},
-                                ConfigManager.getEntityType()
-                        )
-                        .setDefaultValue(ConfigManager.Default.entityType)
-                        .setSaveConsumer(ConfigManager::setEntityType)
-                        .setTooltip(Component.translatable("entitycount.config.display_mode.tooltip"))
+                        .startBooleanToggle(Component.translatable("entitycount.config.count_living"), ConfigManager.isCountLivingEntity())
+                        .setDefaultValue(ConfigManager.Default.countLivingEntity)
+                        .setSaveConsumer(ConfigManager::setCountLivingEntity)
+                        .setTooltip(Component.translatable("entitycount.config.count_living.tooltip"))
+                        .build()
+                )
+                .addEntry(builder.entryBuilder()
+                        .startBooleanToggle(Component.translatable("entitycount.config.count_non_living"), ConfigManager.isCountNonLivingEntity())
+                        .setDefaultValue(ConfigManager.Default.countNonLivingEntity)
+                        .setSaveConsumer(ConfigManager::setCountNonLivingEntity)
+                        .setTooltip(Component.translatable("entitycount.config.count_non_living.tooltip"))
                         .build()
                 )
                 .addEntry(builder.entryBuilder()
                         .<String>startSelector(
                                 Component.translatable("entitycount.config.filter_mode"),
-                                new String[]{"Blacklist", "Whitelist"},
+                                Enums.FilterMode.strs,
                                 ConfigManager.getListMode()
                         )
                         .setDefaultValue(ConfigManager.Default.listMode)
@@ -87,13 +90,6 @@ public class ClothConfigIntegration{
                         .build()
                 )
                 .addEntry(builder.entryBuilder()
-                        .startBooleanToggle(Component.translatable("entitycount.config.expand_item_display_prefix"), ConfigManager.isExpandItemDisplayPrefix())
-                        .setDefaultValue(ConfigManager.Default.expandItemDisplayPrefix)
-                        .setSaveConsumer(ConfigManager::setExpandItemDisplayPrefix)
-                        .setTooltip(Component.translatable("entitycount.config.expand_item_display_prefix.tooltip"))
-                        .build()
-                )
-                .addEntry(builder.entryBuilder()
                         .startAlphaColorField(Component.translatable("entitycount.config.item_entity_color"), ConfigManager.getItemEntityColor())
                         .setDefaultValue(ConfigManager.Default.itemEntityColor)
                         .setSaveConsumer(ConfigManager::setItemEntityColor)
@@ -112,6 +108,13 @@ public class ClothConfigIntegration{
                         .setDefaultValue(ConfigManager.Default.threshold)
                         .setSaveConsumer(ConfigManager::setThreshold)
                         .setTooltip(Component.translatable("entitycount.config.threshold.tooltip"))
+                        .build()
+                )
+                .addEntry(builder.entryBuilder()
+                        .startIntSlider(Component.translatable("entitycount.config.count_range"), ConfigManager.getCountRange(), 0, ConfigManager.MAX_RENDER_DISTANCE)
+                        .setDefaultValue(ConfigManager.Default.countRange)
+                        .setSaveConsumer(ConfigManager::setCountRange)
+                        .setTooltip(Component.translatable("entitycount.config.count_range.tooltip"))
                         .build()
                 )
                 .addEntry(builder.entryBuilder()

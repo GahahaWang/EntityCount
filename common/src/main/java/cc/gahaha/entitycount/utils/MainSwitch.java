@@ -20,7 +20,7 @@ public class MainSwitch {
             if (shouldShowDebugHudFix()) {
                 return false;
             } else {
-                return client.isPaused() ? false : ConfigManager.isShowEntitiesCount();
+                return !client.isPaused() && ConfigManager.isShowEntitiesCount();
             }
         } else {
             return false;
