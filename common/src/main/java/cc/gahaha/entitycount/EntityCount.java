@@ -9,7 +9,6 @@ import lombok.NonNull;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.Identifier;
-import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,16 +24,16 @@ public abstract class EntityCount {
     public static final Logger LOGGER = LoggerFactory.getLogger("EntityCount");
     public static final KeyMapping openConfigScreenKey = new KeyMapping(
             "key.entitycount.openconfig",
-            InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_O,
+            InputConstants.Type.KEYBOARD,
+            InputConstants.KEY_O,
             category
-    );;
+    );
     public static final KeyMapping switchOnOff = new KeyMapping(
             "key.entitycount.switchonoff",
-            InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_I,
+            InputConstants.Type.KEYBOARD,
+            InputConstants.KEY_I,
             category
-    );;
+    );
 
     public void onClientTick(Minecraft client) {
         if (MainSwitch.canComputeAndRender())

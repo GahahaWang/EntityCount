@@ -1,6 +1,5 @@
 plugins {
     id 'base'
-    id 'io.freefair.lombok' version "${lombok_version}" apply false
     id 'com.gradleup.shadow' version "${shadow_version}" apply false
     id 'net.fabricmc.fabric-loom' version "${fabric_loom_version}" apply false
     id 'net.neoforged.moddev' version "${moddevgradle_version}" apply false
@@ -15,8 +14,8 @@ allprojects {
 
 subprojects {
     apply plugin: 'maven-publish'
-    apply plugin: 'io.freefair.lombok'
     repositories {
+        mavenCentral()
         maven { url = "https://maven.shedaniel.me/" }
         maven { url = "https://maven.terraformersmc.com/releases/" }
     }
