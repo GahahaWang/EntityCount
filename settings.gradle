@@ -1,20 +1,24 @@
 pluginManagement {
     repositories {
+        // FastMultiversion's Gradle plugin. To try a build of FastMultiversion installed with its
+        // publishToMavenLocal, use mavenLocal() and its version, e.g. 0.4.0-SNAPSHOT.
+        maven { url = 'https://gahahawang.github.io/FastMultiversion/maven' }
         maven { url = "https://maven.fabricmc.net/" }
-        maven { url = "https://maven.minecraftforge.net/" }
+        maven { url = "https://maven.neoforged.net/releases" }
         gradlePluginPortal()
         mavenCentral()
-        maven {
-            name = "Terraformers"
-            url = "https://maven.terraformersmc.com/"
-        }
-        maven { url = "https://maven.shedaniel.me/" }
     }
+}
+
+plugins {
+    id 'cc.gahaha.fastmultiversion' version '0.5.0'
 }
 
 rootProject.name = 'EntityCount'
 
-includeBuild('build-logic')
-include 'common'
-include 'fabric'
-include 'neoforge'
+// One project per Minecraft version and loader, e.g. :26.2:fabric in versions/26.2/fabric, running
+// gradle/fabric/fabric.gradle. Shared code is in src/main, loader code in src/fabric and src/neoforge.
+multiversion {
+    versions '26.1.2', '26.3'
+    loaders 'fabric', 'neoforge'
+}

@@ -1,5 +1,6 @@
 package cc.gahaha.entitycount.config;
 
+import cc.gahaha.entitycount.compat.Compat;
 import cc.gahaha.entitycount.clothconfighook.Vec3dConsumerButtonBuilder;
 import cc.gahaha.entitycount.screen.EntityCountConfigScreen;
 import cc.gahaha.entitycount.utils.Enums;
@@ -27,9 +28,9 @@ public class ClothConfigIntegration{
                 )
                 .addEntry(new Vec3dConsumerButtonBuilder(Component.translatable("text.cloth-config.reset_value"), Component.translatable("entitycount.config.set_coord_screen"), ConfigManager.getCoord())
                         .setButtonFunction((atomicValue)->{
-                            Screen thisScreen = Minecraft.getInstance().gui.screen();
+                            Screen thisScreen = Compat.screen(Minecraft.getInstance());
                             EntityCountConfigScreen configScreen = new EntityCountConfigScreen(thisScreen, atomicValue);
-                            Minecraft.getInstance().gui.setScreen(configScreen);
+                            Compat.setScreen(Minecraft.getInstance(), configScreen);
                         })
                         .setSaveConsumer(ConfigManager::setCoord)
                         .setDefaultValue(new Vec3(ConfigManager.Default.x, ConfigManager.Default.y, ConfigManager.Default.scale))

@@ -1,0 +1,66 @@
+// The build script of every :<version>:fabric project; multiversion.version is that project's Minecraft version.
+apply plugin: 'net.fabricmc.fabric-loom'
+apply plugin: 'io.freefair.lombok'
+
+def mc = multiversion.version
+def dep = { String key -> project.property("mc.${mc}.${key}") }
+
+group = maven_group
+version = "${mod_version}-${mc}"
+base {
+    archivesName = "${archives_name}-fabric"
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(java_version)
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = java_version as int
+}
+
+repositories {
+    maven { url = "https://maven.shedaniel.me/" }
+    maven { url = "https://maven.terraformersmc.com/releases/" }
+}
+
+loom {
+    runs {
+        client {
+            client()
+            setConfigName("Fabric Client ${mc}")
+            ideConfigGenerated(multiversion.active)
+            runDir('runs/client')
+        }
+        server {
+            server()
+            setConfigName("Fabric Server ${mc}")
+            ideConfigGenerated(multiversion.active)
+            runDir('runs/server')
+        }
+    }
+}
+
+dependencies {
+    minecraft "net.minecraft:minecraft:${mc}"
+    implementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${dep('fabric_api')}"
+    implementation "com.terraformersmc:modmenu:${dep('modmenu')}"
+    api("me.shedaniel.cloth:cloth-config-fabric:${dep('cloth_config')}") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
+}
+
+processResources {
+    def properties = [version: project.version, minecraft_version_range_fabric: dep('range_fabric')]
+    inputs.properties(properties)
+    filesMatching('fabric.mod.json') {
+        expand(properties)
+    }
+}
+
+jar {
+    from(rootProject.file('LICENSE.txt')) {
+        rename { "${it}_${archives_name}" }
+    }
+}

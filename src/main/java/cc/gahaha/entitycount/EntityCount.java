@@ -1,5 +1,6 @@
 package cc.gahaha.entitycount;
 
+import cc.gahaha.entitycount.compat.Compat;
 import cc.gahaha.entitycount.config.ClothConfigIntegration;
 import cc.gahaha.entitycount.config.ConfigManager;
 import cc.gahaha.entitycount.event.CountEntityEvent;
@@ -22,15 +23,15 @@ public abstract class EntityCount {
 
     public static final KeyMapping.Category category = new KeyMapping.Category(Identifier.fromNamespaceAndPath(MOD_ID, "keybind"));
     public static final Logger LOGGER = LoggerFactory.getLogger("EntityCount");
+    // KeyMapping(String, int, Category) and InputConstants.KEY_* exist in every supported version, while the
+    // GLFW constants and InputConstants.Type.KEYSYM are gone in 26.3, which moved to SDL.
     public static final KeyMapping openConfigScreenKey = new KeyMapping(
             "key.entitycount.openconfig",
-            InputConstants.Type.KEYBOARD,
             InputConstants.KEY_O,
             category
     );
     public static final KeyMapping switchOnOff = new KeyMapping(
             "key.entitycount.switchonoff",
-            InputConstants.Type.KEYBOARD,
             InputConstants.KEY_I,
             category
     );
@@ -50,7 +51,7 @@ public abstract class EntityCount {
 
     public void openConfigScreen () {
         var mc =  Minecraft.getInstance();
-        mc.gui.setScreen(ClothConfigIntegration.createConfigScreen(mc.gui.screen()));
+        Compat.setScreen(mc, ClothConfigIntegration.createConfigScreen(Compat.screen(mc)));
     }
 
     public void setSwitchOnOff () {

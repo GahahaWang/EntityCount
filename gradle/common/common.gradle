@@ -1,0 +1,35 @@
+// The build script of every :<version>:common project: the shared code in src/main, compiled against Minecraft
+// without a loader. In the IDE it owns src/main, so Fabric and NeoForge code see the shared code but not each other.
+apply plugin: 'net.fabricmc.fabric-loom'
+apply plugin: 'io.freefair.lombok'
+
+def mc = multiversion.version
+def dep = { String key -> project.property("mc.${mc}.${key}") }
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(java_version)
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = java_version as int
+}
+
+repositories {
+    maven { url = "https://maven.shedaniel.me/" }
+}
+
+loom {
+    runs {
+        configureEach {
+            ideConfigGenerated(false)
+        }
+    }
+}
+
+dependencies {
+    minecraft "net.minecraft:minecraft:${mc}"
+    compileOnly("me.shedaniel.cloth:cloth-config:${dep('cloth_config')}") {
+        exclude(group: "net.fabricmc.fabric-api")
+        exclude(group: "net.fabricmc", module: "fabric-loader")
+    }
+}

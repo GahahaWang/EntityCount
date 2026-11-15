@@ -1,5 +1,6 @@
 package cc.gahaha.entitycount.screen;
 
+import cc.gahaha.entitycount.compat.Compat;
 import cc.gahaha.entitycount.event.CountEntityEvent;
 import cc.gahaha.entitycount.render.HudRenderer;
 import cc.gahaha.entitycount.utils.AtomicVec3d;
@@ -91,6 +92,6 @@ public class EntityCountConfigScreen extends Screen {
     @Override
     public void onClose() {
         this.coord.set(this.getModify());
-        this.minecraft.gui.setScreen(this.parent);
+        Compat.setScreen(this.minecraft, this.parent);
     }
 }

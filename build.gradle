@@ -1,49 +1,27 @@
+// Loader plugins are declared once here, so that every version project shares one copy of them.
 plugins {
-    id 'base'
-    id 'com.gradleup.shadow' version "${shadow_version}" apply false
     id 'net.fabricmc.fabric-loom' version "${fabric_loom_version}" apply false
     id 'net.neoforged.moddev' version "${moddevgradle_version}" apply false
-    id 'multiloader-common' apply false
-    id 'multiloader-loader' apply false
+    id 'io.freefair.lombok' version "${lombok_version}" apply false
 }
 
-allprojects {
-    group = rootProject.maven_group
-    version = rootProject.mod_version+"-"+rootProject.minecraft_version
-}
-
-subprojects {
-    apply plugin: 'maven-publish'
-    repositories {
-        mavenCentral()
-        maven { url = "https://maven.shedaniel.me/" }
-        maven { url = "https://maven.terraformersmc.com/releases/" }
-    }
-
-    tasks.withType(JavaCompile).configureEach {
-        it.options.release = 25
+// One jar per Minecraft version for both loaders, made from its Fabric and NeoForge jars (the shared classes
+// come from the Fabric jar): build/libs/EntityCount-multiloader-<mod_version>-<Minecraft version>.jar.
+// :<version>:mergeLoaderJars builds one, buildAllVersions builds them all.
+def merges = childProjects.values().findAll { it.findProject('fabric') && it.findProject('neoforge') }.collect { versionProject ->
+    def mc = versionProject.name
+    def loaders = [versionProject.project('fabric'), versionProject.project('neoforge')]
+    versionProject.tasks.register('mergeLoaderJars', Jar) {
+        group = 'build'
+        description = "Merges the Fabric and NeoForge jars of Minecraft ${mc} into one jar for both loaders."
+        dependsOn loaders.collect { "${it.path}:jar" }
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        archiveFileName = "${archives_name}-multiloader-${mod_version}-${mc}.jar"
+        destinationDirectory = rootProject.layout.buildDirectory.dir('libs')
+        loaders.each { loader -> from { zipTree(loader.tasks.named('jar', Jar).get().archiveFile) } }
     }
 }
 
-tasks.register('mergeLoaderJars', Jar) {
-    group = 'build'
-    description = '將 Fabric 與 NeoForge 模組 jar 合併為單一 multiloader jar（共用類別重複時保留先加入者）。'
-
-    def fabricJar = project(':fabric').tasks.named('jar', Jar)
-    def neoforgeJar = project(':neoforge').tasks.named('jar', Jar)
-
-    dependsOn project(':fabric').tasks.named('build')
-    dependsOn project(':neoforge').tasks.named('build')
-
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-
-    archiveFileName = "${rootProject.archives_name}-multiloader-${rootProject.version}.jar"
-    destinationDirectory = layout.buildDirectory.dir('libs')
-
-    from { zipTree(fabricJar.get().archiveFile) }
-    from { zipTree(neoforgeJar.get().archiveFile) }
-}
-
-tasks.named('assemble') {
-    dependsOn tasks.named('mergeLoaderJars')
+tasks.named('buildAllVersions') {
+    dependsOn merges
 }

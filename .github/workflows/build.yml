@@ -22,19 +22,13 @@ jobs:
         uses: gradle/actions/setup-gradle@v6
       - name: Make gradlew executable
         run: chmod +x gradlew
-      - name: Build with Gradle
-        run: ./gradlew build
+      - name: Build every Minecraft version and loader
+        run: ./gradlew buildAllVersions
 
-      - name: Find built JAR
-        id: jar
-        run: |
-          JAR=$(ls build/libs/*.jar | grep -v sources | grep -v javadoc | head -n1)
-          echo "PATH=$JAR" >> $GITHUB_OUTPUT
-          echo "NAME=$(basename $JAR)" >> $GITHUB_OUTPUT
-
-      - name: Upload build artifact
+      # One jar for both loaders per Minecraft version (build.gradle, mergeLoaderJars).
+      - name: Upload the multiloader jars
         uses: actions/upload-artifact@v7
         with:
-          name: ${{ steps.jar.outputs.NAME }}
-          path: ${{ steps.jar.outputs.PATH }}
-          archive: false
+          name: EntityCount
+          path: build/libs/EntityCount-multiloader-*.jar
+          if-no-files-found: error

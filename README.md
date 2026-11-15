@@ -60,6 +60,19 @@ Both keys are customizable in Controls settings.
 - **Currently maintaining**:
     - `26.1.x` (Fabric ,NeoForge)
     - `26.2.x` (Fabric ,NeoForge)
+    - `26.3.x` (Fabric ,NeoForge)
+
+## Building
+
+One source tree builds every supported Minecraft version and loader with
+[FastMultiversion](https://github.com/GahahaWang/FastMultiversion):
+
+```shell
+./gradlew buildAllVersions
+```
+
+The jars are in `build/libs/EntityCount-multiloader-<version>-<Minecraft version>.jar` (Fabric and NeoForge in
+one jar) and in `versions/<Minecraft version>/<loader>/build/libs/`.
 
 ## If you face any issue, please don't hesitate to contact me 🤪
 

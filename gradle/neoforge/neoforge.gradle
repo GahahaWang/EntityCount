@@ -1,0 +1,73 @@
+// The build script of every :<version>:neoforge project; multiversion.version is that project's Minecraft version.
+apply plugin: 'net.neoforged.moddev'
+apply plugin: 'io.freefair.lombok'
+
+def mc = multiversion.version
+def dep = { String key -> project.property("mc.${mc}.${key}") }
+
+group = maven_group
+version = "${mod_version}-${mc}"
+base {
+    archivesName = "${archives_name}-neoforge"
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(java_version)
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = java_version as int
+}
+
+repositories {
+    maven { url = "https://maven.neoforged.net/releases" }
+    maven { url = "https://maven.shedaniel.me/" }
+}
+
+neoForge {
+    version = dep('neoforge')
+    runs {
+        configureEach {
+            systemProperty('neoforge.enabledGameTestNamespaces', mod_id)
+            ideName = "NeoForge ${it.name.capitalize()} ${mc}"
+            if (!multiversion.active) {
+                disableIdeRun()
+            }
+        }
+        client {
+            client()
+            gameDirectory = file('runs/client')
+        }
+        server {
+            server()
+            gameDirectory = file('runs/server')
+        }
+    }
+    mods {
+        "${mod_id}" {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+dependencies {
+    implementation "me.shedaniel.cloth:cloth-config-neoforge:${dep('cloth_config')}"
+}
+
+processResources {
+    def properties = [
+            version                         : project.version,
+            minecraft_version_range_neoforge: dep('range_neoforge'),
+            neoforge_version_range          : dep('range_neoforge'),
+    ]
+    inputs.properties(properties)
+    filesMatching('META-INF/neoforge.mods.toml') {
+        expand(properties)
+    }
+}
+
+jar {
+    from(rootProject.file('LICENSE.txt')) {
+        rename { "${it}_${archives_name}" }
+    }
+}
