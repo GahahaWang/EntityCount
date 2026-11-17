@@ -26,16 +26,19 @@ repositories {
 
 loom {
     runs {
+        // A run configuration per version, e.g. "Fabric Client 26.3".
+        configureEach {
+            ideConfigGenerated(true)
+            appendProjectPathToDisplayName = false
+        }
         client {
             client()
             setConfigName("Fabric Client ${mc}")
-            ideConfigGenerated(multiversion.active)
             runDir('runs/client')
         }
         server {
             server()
             setConfigName("Fabric Server ${mc}")
-            ideConfigGenerated(multiversion.active)
             runDir('runs/server')
         }
     }

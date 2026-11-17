@@ -1,6 +1,6 @@
 package cc.gahaha.entitycount.utils;
 
-import cc.gahaha.entitycount.compat.Compat;
+import cc.gahaha.entitycount.multiversion.Multiversion;
 import cc.gahaha.entitycount.config.ConfigManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.debug.DebugScreenEntryList;
@@ -13,7 +13,7 @@ public class MainSwitch {
 
     public static boolean shouldShowDebugHudFix() {
         DebugScreenEntryList profile = client.debugEntries;
-        return profile.isOverlayVisible() && (!Compat.isHudHidden(client) || Compat.screen(client) != null);
+        return profile.isOverlayVisible() && (!Multiversion.isHudHidden(client) || Multiversion.screen(client) != null);
     }
 
     public static boolean canComputeAndRender() {

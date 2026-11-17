@@ -1,6 +1,6 @@
 package cc.gahaha.entitycount.config;
 
-import cc.gahaha.entitycount.compat.Compat;
+import cc.gahaha.entitycount.multiversion.Multiversion;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
@@ -446,7 +446,7 @@ public class Command {
     }
 
     private static void addMessage(String text) {
-        Compat.chat(Minecraft.getInstance()).addClientSystemMessage(Component.nullToEmpty("EntityCount: "+text));
+        Multiversion.chat(Minecraft.getInstance()).addClientSystemMessage(Component.nullToEmpty("EntityCount: "+text));
     }
 
     @SuppressWarnings("unchecked")

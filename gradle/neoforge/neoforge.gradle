@@ -29,10 +29,7 @@ neoForge {
     runs {
         configureEach {
             systemProperty('neoforge.enabledGameTestNamespaces', mod_id)
-            ideName = "NeoForge ${it.name.capitalize()} ${mc}"
-            if (!multiversion.active) {
-                disableIdeRun()
-            }
+            ideName = "NeoForge ${it.name.capitalize()} ${mc}"   // a run configuration per version
         }
         client {
             client()

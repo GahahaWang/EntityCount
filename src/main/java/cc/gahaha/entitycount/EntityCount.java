@@ -1,6 +1,6 @@
 package cc.gahaha.entitycount;
 
-import cc.gahaha.entitycount.compat.Compat;
+import cc.gahaha.entitycount.multiversion.Multiversion;
 import cc.gahaha.entitycount.config.ClothConfigIntegration;
 import cc.gahaha.entitycount.config.ConfigManager;
 import cc.gahaha.entitycount.event.CountEntityEvent;
@@ -51,7 +51,7 @@ public abstract class EntityCount {
 
     public void openConfigScreen () {
         var mc =  Minecraft.getInstance();
-        Compat.setScreen(mc, ClothConfigIntegration.createConfigScreen(Compat.screen(mc)));
+        Multiversion.setScreen(mc, ClothConfigIntegration.createConfigScreen(Multiversion.screen(mc)));
     }
 
     public void setSwitchOnOff () {
